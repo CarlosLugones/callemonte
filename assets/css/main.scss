@@ -1,0 +1,28 @@
+$box-padding: 1rem;
+@import "~bulma/sass/utilities/_all.sass";
+
+@import "~bulma/bulma";
+
+*{
+	font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+.navbar { 
+	border-bottom: 1px solid #e0e0e0;
+}
+.product{
+	margin: 5px 0;	
+}
+.product-title{
+	margin-left: 5px;
+	padding: 5px 0;
+}
+.price{
+	text-align: right;
+}
+#main{
+	padding-top: 1rem;
+}
+ul li{
+	margin: 5px 0;
+}
+footer{ margin-top: 2rem;}

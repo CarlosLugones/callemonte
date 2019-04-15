@@ -1,0 +1,28 @@
+{
+  "name": "unclic",
+  "version": "1.0.0",
+  "description": "Buscador de clasifciados en revolico, porlalivre, bachecubano, 1cuc, timbirichi",
+  "author": "Jefe Grupo Redes Informáticas (Damian Soto Platero)",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "now-build": "nuxt build --spa --no-lock"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.4.1",
+    "@nuxtjs/bulma": "^1.2.1",
+    "axios": "^0.18.0",
+    "cross-env": "^5.2.0",
+    "lodash.uniq": "^4.5.0",
+    "lodash.uniqby": "^4.7.0",
+    "nuxt": "^2.6.1"
+  },
+  "devDependencies": {
+    "node-sass": "^4.11.0",
+    "nodemon": "^1.18.9",
+    "sass-loader": "^7.1.0"
+  }
+}
