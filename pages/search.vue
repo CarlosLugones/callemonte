@@ -3,7 +3,6 @@
       
     <nav class="navbar is-fixed-top is-white" role="navigation" aria-label="main navigation">
         <div class="container">
-          
         <div class="navbar-brand">
           <a class="navbar-item has-text-primary" href="/">
             <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
@@ -40,42 +39,49 @@
                 class="button  is-light" 
                 @click="download"
                 title="Descargar Listado de Productos">
-                &darr;
+                Descargar &darr;
               </a>
             </div>
+<!--             <a 
+              href="/about"
+              class="navbar-item" 
+              title="Descargar Listado de Productos">
+              &bull;&bull;&bull;
+            </a> -->
+            <!-- <Menu /> -->
           </div> 
         </div>
       </div>
     </nav>
     <div id="main"> 
       <div class="container">
-        <div class="box level "> 
-              <ul class="level-left is-small">
-                <li class="level-item is-small">
-                <label> 
-                  <input type="checkbox" name="" v-model="uniques" > Ocultar repetidos
-                </label>                
-                </li>
-                <li class="level-item">
-                  <label> 
-                    <input type="checkbox" id="in-title" v-model="inTitle" > Buscar en el título
-                  </label>                
-                </li>
-                <li class="level-item">
-                  <label> 
-                    <input type="checkbox" id="in-title" v-model="withPhone" > Con teléfono
-                  </label>                
-                </li>
-                <li class="level-item">
-                  <label> 
-                    <input type="checkbox" name="" v-model="withPhoto" > Con fotos
-                  </label>
-                </li>
-              </ul>
-        </div>
-        <div class="columns ">
-          <div class="column"> 
-            <table id="products" class="table is-hoverable">
+        <div class="columns is-centered">
+          <div class="column is-10"> 
+            <div class="level "> 
+                  <ul class="level-left is-size-7 is-uppercase">
+                    <li class="level-item ">
+                    <label> 
+                      <input type="checkbox" name="" v-model="uniques" > Ocultar repetidos
+                    </label>                
+                    </li>
+                    <li class="level-item">
+                      <label> 
+                        <input type="checkbox" id="in-title" v-model="inTitle" > Buscar en el título
+                      </label>                
+                    </li>
+                    <li class="level-item">
+                      <label> 
+                        <input type="checkbox" id="in-title" v-model="withPhone" > Con teléfono
+                      </label>                
+                    </li>
+                    <li class="level-item">
+                      <label> 
+                        <input type="checkbox" name="" v-model="withPhoto" > Con fotos
+                      </label>
+                    </li>
+                  </ul>
+            </div>
+            <table id="products" class="table is-hoverable is-fullwidth">
               <tbody>
               <tr v-for="product in filteredProducts"  class="product">
                 <td><b class="price">{{ product.price }}</b></td>
@@ -88,8 +94,9 @@
               </tr>
               </tbody>
             </table>
-            <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
-              <a class="pagination-next" @click="next">Más &rarr; </a>
+            <div > 
+              <a v-if="products.length" class="button is-medium is-fullwidth " @click="next">Más Anuncios &darr; </a>
+            </div>
             </nav>
           </div>
         </div>
@@ -99,9 +106,14 @@
 </template>
 
 <script>
+
 import uniqBy from 'lodash.uniqby';
+import Menu from '~/components/Menu';
 
 export default {
+    components: {
+    Menu,
+  },
   head () {
     return {
       htmlAttrs: {
@@ -125,6 +137,14 @@ export default {
     this.q = this.$route.query.q;
     this.search()
   },
+    watch: {
+      // whenever question changes, this function will run
+      q: function (newQ, oldQ) {
+        if (newQ != oldQ) {
+          this.products = [];
+        }
+      }
+  },
   computed: {
     filteredProducts: function() {
       var vm = this,
@@ -137,7 +157,7 @@ export default {
       }
 
       return products
-        .sort( (p1,p2) => p1.price > p2.price ) // ordenar por precio
+        // .sort( (p1,p2) => p1.price > p2.price ) // ordenar por precio
         .filter( function( p ) {
           let condition1 = vm.inTitle ? vm.reQuey.test(p.title) : true
           let condition2 = vm.priceGeaterOne ? p.price > 1 : p.price > 0
@@ -161,14 +181,20 @@ export default {
     search: async function() {
       this.$router.push({path: this.$route.path, query: { q: this.q }});
 
-      ['revolico','porlalivre','timbirichi','1cuc','bachecubano'].forEach( async (site) => {
+      const sites = [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc' ];
+
+      await Promise.all( sites.map( async (site) => {
+
         let res = await this.$axios.$get('https://unclic.now.sh/'+ site +'?q=' + this.q + '&p=' + this.p);
-        res.forEach( (p) => { 
+
+        for (let p of res ) {
           p.site = site;
           p.title = p.title.replace( this.reQuey, "<b>$&</b>" );
-        });
+        }
         this.products = this.products.concat( res );
-      })
+
+      }));
+
 
     },
 
