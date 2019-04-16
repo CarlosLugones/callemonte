@@ -4,7 +4,8 @@
       <div class="container">
         <div class="columns">
           <div class="column is-three-fifths is-offset-one-fifth has-text-centered">
-            <h1 class="title is-center has-text-primary">
+            <img src="/unclic.png" width="110px">
+            <h1 class="title is-center text-logo" >
               UNCLIC
             </h1>
             <h2 class="subtitle">
