@@ -1,7 +1,7 @@
 {
   "name": "unclic",
   "version": "1.0.0",
-  "description": "Buscador de clasifciados en revolico, porlalivre, bachecubano, 1cuc, timbirichi",
+  "description": "Buscador de clasificados en Cuba desde revolico, porlalivre, bachecubano, 1cuc, timbirichi",
   "author": "Jefe Grupo Redes Informáticas (Damian Soto Platero)",
   "private": true,
   "scripts": {
