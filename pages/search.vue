@@ -85,11 +85,11 @@
               <tr v-for="product in filteredProducts"  class="product">
                 <td><b class="price">{{ product.price }}</b></td>
                 <td>
-                  <a :href="product.url"  target="_blank" class="product-title" v-html="product.title" :title="product.original_title"></a>
+                  <a :href="product.url"  target="_blank" class="product-title" v-html="product.htmlTitle" :title="product.original_title"></a>
                   <span class="has-text-danger is-size-7" v-if="product.photo">Foto</span>
                   <span class="tag is-light">{{product.site}}</span>
                 </td>
-                <td class="has-text-right"><b>{{ product.phones ? product.phones.join(', ') : '' }}</b></td>
+                <td class="has-text-right"><b>{{ product.phones }}</b></td>
               </tr>
               </tbody>
             </table>
@@ -188,7 +188,7 @@ export default {
 
         for (let p of res ) {
           p.site = site;
-          p.title = p.title.replace( this.reQuey, "<b>$&</b>" );
+          p.htmlTitle = p.title.replace( this.reQuey, "<b>$&</b>" );
         }
         this.products = this.products.concat( res );
 
