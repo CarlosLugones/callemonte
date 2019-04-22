@@ -5,7 +5,6 @@
     { "src": "package.json", "use": "@now/static-build" }
   ],
 	"alias": ["unclic.pro"],
-	"regions": ["lhr1","gru1", "bru"],
 	"env": {
 	    "NODE_ENV": "production" 
 	}
