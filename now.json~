@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "unclic.pro",
+  "name": "unclic.pro buscador de clasificados",
   "builds": [
     { "src": "package.json", "use": "@now/static-build" }
   ],
