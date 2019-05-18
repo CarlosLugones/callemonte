@@ -55,7 +55,7 @@
     <div id="main"> 
       <div class="container">
         <div class="columns is-centered">
-          <div class="column is-10"> 
+          <div class="column"> 
             <div class="level "> 
                   <ul class="level-left is-size-7 is-uppercase">
                     <li class="level-item ">
