@@ -1,118 +1,126 @@
 <template>
   <div>
-      
-    <nav class="navbar is-fixed-top is-white" role="navigation" aria-label="main navigation">
-        <div class="container">
-        <div class="navbar-brand">
-          <a class="navbar-item text-logo" href="/">
-            <img src="/logo.png" title="UNCLIC">
-          </a>
-          <div class="navbar-item">
-            <div class="field has-addons">
-              <div class="control">
-                <input 
-                    autofocus
-                    class="input" 
-                    type="text" 
-                    placeholder="¿Que quieres comprar?" 
-                    v-model="q"  
-                    @keyup.enter="search">
-                <!-- <button class="button has-text-dark">Buscar</button> -->
-              </div>
-            </div>
-            
-          </div>
 
-          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-        <div class="navbar-menu">
-          <div class="navbar-start"></div>
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <a 
-                v-if="products.length" 
-                class="button  is-light" 
-                @click="download"
-                title="Descargar Listado de Productos">
-                Descargar &darr;
-              </a>
-            </div>
-<!--             <a 
-              href="/about"
-              class="navbar-item" 
-              title="Descargar Listado de Productos">
-              &bull;&bull;&bull;
-            </a> -->
-            <!-- <Menu /> -->
-          </div> 
-        </div>
-      </div>
-    </nav>
     <div id="main"> 
       <div class="container">
-        <div class="columns is-centered">
-          <div class="column"> 
-            <div class="level "> 
-                  <ul class="level-left is-size-7 is-uppercase">
-                    <li class="level-item ">
-                    <label> 
-                      <input type="checkbox" name="" v-model="uniques" > Ocultar repetidos
-                    </label>                
-                    </li>
-                    <li class="level-item">
-                      <label> 
-                        <input type="checkbox" id="in-title" v-model="inTitle" > Buscar en el título
-                      </label>                
-                    </li>
-                    <li class="level-item">
-                      <label> 
-                        <input type="checkbox" id="in-title" v-model="withPhone" > Con teléfono
-                      </label>                
-                    </li>
-                    <li class="level-item">
-                      <label> 
-                        <input type="checkbox" name="" v-model="withPhoto" > Con fotos
-                      </label>
-                    </li>
-                  </ul>
+        <div class="columns">
+            <div class="column is-2">
+                <div id="sidebar" class="is-pinned">
+                    <ul>
+                        <li v-if="products.length>0">
+                            <label class="radio">
+                                <input type="radio" v-model="show" value="all"> 
+                                <span :class="show ==='all' && 'has-text-weight-bold'">Todos</span> 
+                                <span class="tag" >{{products.length}}</span>
+                            </label>
+                        </li>
+                        <li v-if="favorites.length>0">
+                            <label class="radio">
+                                <input type="radio" v-model="show" value="favorites"> 
+                                <span :class="show==='hidden' && 'has-text-weight-bold'">Favoritos</span>
+                                <span class="tag" >{{favorites.length}}</span>
+                            </label>
+                        </li>
+                        <li v-if="hides.length>0">
+                            <label class="radio">
+                                <input type="radio" v-model="show" value="hidden"> <span>Ocultos</span>
+                                <span class="tag" >{{hides.length}}</span>
+                            </label>
+                        </li>
+                     </ul>                    
+                    <strong class="">Filtros</strong>
+                    <ul class="">
+                        <li class="">
+                            <label class="checkbox">
+                                <input type="checkbox" v-model="inTitle"> 
+                                <span :class="inTitle && 'has-text-weight-bold'">Solo en el titulo</span>
+                            </label>
+                        </li>
+                        <li class="">
+                            <label class="checkbox">
+                                <input type="checkbox" v-model="withPhone"> 
+                                <span :class="withPhone && 'has-text-weight-bold'">Con Telefono</span>
+                            </label>
+                        </li>
+                        <li class="">
+                            <label class="checkbox">
+                                <input type="checkbox" v-model="withPhoto"> 
+                                <span :class="withPhoto && 'has-text-weight-bold'">Con Fotos</span>
+                            </label>
+
+                        </li>
+                    </ul>               
+                    <strong class="">Filtrar por Precio</strong>
+                    <ul class="">
+                        <li class="" v-for="range in pricesRanges">
+                            <label class="radio">
+                                <input type="radio" name="range" v-model="filterPrice" :value="range" > <span>{{range}}</span>
+                            </label>
+                        </li>
+                    </ul>
+                    <a href="#">Eliminar los Filtros</a>
+                </div>
             </div>
-            <table id="products" class="table is-hoverable is-fullwidth">
-              <tbody>
-              <tr v-for="product in filteredProducts"  class="product">
-                <td><b class="price">{{ product.price }}</b></td>
-                <td>
-                  <a :href="product.url"  target="_blank" class="product-title" v-html="product.htmlTitle" :title="product.original_title"></a>
-                  <span class="has-text-danger is-size-7" v-if="product.photo">Foto</span>
-                  <span class="tag is-light">{{product.site}}</span>
-                </td>
-                <td class="has-text-right"><b>{{ product.phones }}</b></td>
-              </tr>
-              </tbody>
-            </table>
-            <div > 
-              <a v-if="products.length" class="button is-medium is-fullwidth " @click="next">Más Anuncios &darr; </a>
+            <div class="column">
+                <div class="notification is-warning" v-if="false">
+                    <span class="delete" @click="showInfo = false"> </span>
+                    Tienes <b>{{hides.length}}</b> productos ocultos
+                </div>  
+                <table id="products" class="table is-hoverable is-fullwidth">
+                  <tbody>
+                  <tr v-for="(product,index) in filteredProducts"  class="product">
+                    <td>
+<!--                         <a href="#" 
+                            @click="product.is_favorite = !product.is_favorite" 
+                            title="Marcar el producto como favorito" 
+                            :class="product.is_favorite ? 'has-text-warning' : 'has-text-grey-light' ">
+                            <span >&#9733;</span>
+                        </a> -->
+                      {{ product.price }}
+                    </td>
+                    <td>
+                      <a 
+                        target="_blank" 
+                        class="product-title" 
+                        v-html="product.htmlTitle" 
+                        :href="product.url"  
+                        :title="product.original_title"></a>
+                      <span class="has-text-weight-bold is-size-7" v-if="product.photo">Foto</span>
+                      <span class="tag">{{product.site}}</span>
+                    </td>
+                    <td class="has-text-right">
+                      <span class="is-phone">{{ product.phones }}</span>
+                    </td>
+                    <td>
+                        <a href="#" @click="toggleHide(product.id,index)" title="Oculta este producto del listado">
+                            <span :class="isHidden(product.id) ? 'has-text-success' : 'has-text-danger' ">&times;</span>
+                        </a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+
+                <div class="is-centered"> 
+                  <a v-if="products.length" class="button is-success is-outlined" @click="next">Más Anuncios</a>
+                </div>
             </div>
-            </nav>
-          </div>
         </div>
+
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
 import uniqBy from 'lodash.uniqby';
-import Menu from '~/components/Menu';
+import sotoCheck from '~/components/SotoCheck';
+var store = require('store');
 
 export default {
     components: {
-    Menu,
-  },
+        'soto-check': sotoCheck,
+    },
   head () {
     return {
       htmlAttrs: {
@@ -122,47 +130,64 @@ export default {
   },
   data(){
     return {
-      q: '',
+      // q: '',
       p: 1,
       products: [],
-      inTitle: true,
+      hides: [],
+      favorites: [],
+      pricesRanges : ['1-100','50-150','100-200','250-500','2000-5000' ],
+      filterPrice: '1-1000000000',
+      inTitle: false,
       withPhone: false,
       withPhoto: false,
-      priceGeaterOne: false,
+      show: 'all',
+      showInfo: false,
       uniques: true
     }
   },
   created() {
-    this.q = this.$route.query.q;
+    this.hides = store.get('hides',[]);
+    this.showInfo = (this.hides.length > 0);
     this.search()
   },
-    watch: {
-      // whenever question changes, this function will run
-      q: function (newQ, oldQ) {
-        if (newQ != oldQ) {
-          this.products = [];
-        }
+  watch: {
+    // whenever question changes, this function will run
+    q: function (newQ, oldQ) {
+      if (newQ != oldQ) {
+        this.products = [];
       }
+      this.search();
+    },
+    hides: function( newValue, oldValue ) {
+        store.set( 'hides', newValue );
+        if (newValue.length == 0) {
+            this.show = 'all';
+        }
+    }
   },
   computed: {
+    q: function() {
+      return this.$route.query.q;
+    },
     filteredProducts: function() {
       var vm = this,
-          products = vm.products;
+          products = vm.products,
+          [priceMin, priceMax] = vm.filterPrice.split('-');
 
       if (vm.uniques) {
         products = uniqBy(products, (p) => {
-          return p.price+ p.title.replace(/[^a-zA-Z0-9]/,'')+p.phones;
+          return p.price + p.title.replace(/[^a-zA-Z0-9]/,'') + p.phones;
         })
       }
 
       return products
-        // .sort( (p1,p2) => p1.price > p2.price ) // ordenar por precio
-        .filter( function( p ) {
-          let condition1 = vm.inTitle ? vm.reQuey.test(p.title) : true
-          let condition2 = vm.priceGeaterOne ? p.price > 1 : p.price > 0
-          let condition3 = vm.withPhoto ? p.photo : true
-          let condition4 = vm.withPhone ? p.phones : true
-          return condition1 && condition2 && condition3 && condition4;
+        .filter( p => {
+            let isHide = vm.hides.includes( p.id );
+            return (vm.inTitle ? vm.reQuey.test(p.title) : true) && 
+                ( p.price >= priceMin && p.price <= priceMax ) && 
+                ( vm.withPhoto ? p.photo : true ) && 
+                ( vm.withPhone ? p.phones : true ) && 
+                ( vm.show==='hidden' ? isHide : ! isHide ) ;
         });
     },
     reQuey: function(){
@@ -171,26 +196,51 @@ export default {
     }
   },
   methods: {
-
     next: function() {
       this.p ++;
       this.search();
     },
 
-    search: async function() {
-      this.$router.push({path: this.$route.path, query: { q: this.q }});
+    toggleHide(id,index) {
+        if ( ! this.hides.includes(id) ) {
+            this.hides.push(id);
+        } else {
+            this.hides.splice(index, 1);
+        }
+    },
 
-      const sites = [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc' ];
+    isHidden(id) { 
+        return this.hides.includes(id);
+    },
+    search: async function() {
+
+      this.$router.push({ 
+        path: this.$route.path, 
+        query: { q: this.q }
+      });
+
+      const sites = [  'revolico', 'timbirichi', '1cuc' ];
+      // const sites = [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc' ];
 
       await Promise.all( sites.map( async (site) => {
+        let vm = this;
+        this.$axios
+            // .$get('https://unclic.now.sh/'+ site +'?q=' + this.q + '&p=' + this.p)
+            .$get('https://localhost:3300/'+ site +'?q=' + vm.q + '&p=' + vm.p)
+            .then( response => { 
+              let products = response.map( el => {
 
-        let res = await this.$axios.$get('https://unclic.now.sh/'+ site +'?q=' + this.q + '&p=' + this.p);
+                return Object.assign( el, { 
+                  site: site, 
+                  htmlTitle: el.title.replace( vm.reQuey, "<b>$&</b>" ),
+                  phones: (el.phones !== null) ? el.phones.join(', ') : '',
+                  is_favorite: false        
+                }) 
+              });
 
-        for (let p of res ) {
-          p.site = site;
-          p.htmlTitle = p.title.replace( this.reQuey, "<b>$&</b>" );
-        }
-        this.products = this.products.concat( res );
+              vm.products = vm.products.concat( products );
+
+            });
 
       }));
 

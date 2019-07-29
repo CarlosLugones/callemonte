@@ -1,4 +1,5 @@
-$box-padding: 1rem;
+// $box-padding: 1rem;
+
 @import "~bulma/sass/utilities/_all.sass";
 
 @import "~bulma/bulma";
@@ -19,7 +20,7 @@ $box-padding: 1rem;
 	margin: 5px 0;	
 }
 .product-title{
-	margin-left: 5px;
+	// margin-left: 5px;
 	padding: 5px 0;
 }
 .price{
@@ -31,7 +32,22 @@ $box-padding: 1rem;
 ul li{
 	margin: 5px 0;
 }
-#disqus_thread {
-	margin-top: 3rem;
+.is-phone{font-size: 0.95rem; letter-spacing: 1px;}
+
+#sidebar.is-pinned {
+	position: fixed;
+	top: 4.25rem;
+	font-size: 0.9rem;
+	ul {
+		margin-bottom: 1.5rem;
+	}
 }
+
+label span { margin-left: 0.5rem;}
+
 footer{ margin-top: 2rem;}
+
+table#products tbody tr td:last-child, 
+table#products tbody tr td:first-child, {
+	padding-right: 0;
+}

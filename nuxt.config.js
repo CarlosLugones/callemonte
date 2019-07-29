@@ -3,6 +3,10 @@ import pkg from './package'
 export default {
   mode: 'spa',
 
+  router: {
+    linkActiveClass: 'is-active'
+  },
+  
   /*
   ** Headers of the page
   */
