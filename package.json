@@ -18,7 +18,8 @@
     "cross-env": "^5.2.0",
     "lodash.uniq": "^4.5.0",
     "lodash.uniqby": "^4.7.0",
-    "nuxt": "^2.6.1"
+    "nuxt": "^2.6.1",
+    "store": "^2.0.12"
   },
   "devDependencies": {
     "node-sass": "^4.11.0",
