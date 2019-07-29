@@ -2,6 +2,7 @@ var rp = require('request-promise');
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
 
+const reValid = /^\d+([\.,]\d+)?\s+cuc\s+\-/;
 const rePhone = /0?(((5|7)[\.\-\s]?([\dO][\.\-\s]?){7})|((47|45|42|33|32|24)\d{6}))/g;
 
 exports.handler =  async (event, context, callback) => {
@@ -9,8 +10,8 @@ exports.handler =  async (event, context, callback) => {
 
     let data = [];
 
-        let options = {
-        uri: 'https://www.revolico.com/search.html?min_price=1&q=' + q + '&p=' + p,
+    let options = {
+        uri: 'https://www.bachecubano.com/search/pattern,' + q.replace(/\s/,'+') + '/iPage,' + p,
         transform: (body) => {
             return cheerio.load(body);
         }
@@ -18,35 +19,30 @@ exports.handler =  async (event, context, callback) => {
 
     await rp(options).then( ($) =>  {
        
-        $('td.light, td.dark').each(  (i,el) => {
+        $('.simple-wrap').each(  (i,el) => {
             let $el = $(el), 
-                $a = $el.find('a'),
-                $price = $el.find('a span'),
-                url = 'https://www.revolico.com' + $a.attr('href');
+                $a = $el.find('a.title'),
+                $price = $el.find('.price span');
 
             let product = Object.assign({},{
 
-                id: 'R' + (url.match(/\d+\.html$/) || []).toString(),
+                // id: (url.match(/\d+\.html$/) $a.attr('href'),
 
                 price: parseFloat( $price.length ? $price.text() : 0 ),
 
-                photo: $el.find('span.formExtraDescB') ? true : false,
+                photo: $el.find('a.no-img') ? false : true,
 
                 original_title: $a.children().remove().end().text().trim(),
 
                 title: cleaner( $a.children().remove().end().text() ),
 
-                phones:  ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
+                phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
 
-                url: url,
-
-                date: ''
+                url: $a.attr('href')
 
             })
 
-            if ( product.price>0) {
-                data.push(product);
-            }
+            data.push(product);
 
         });
 
@@ -57,5 +53,4 @@ exports.handler =  async (event, context, callback) => {
         statusCode: 200,
         body: JSON.stringify(data)
     };
-
 } // revolico

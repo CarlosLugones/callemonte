@@ -2,6 +2,7 @@ var rp = require('request-promise');
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
 
+const reValid = /^\d+([\.,]\d+)?\s+cuc\s+\-/;
 const rePhone = /0?(((5|7)[\.\-\s]?([\dO][\.\-\s]?){7})|((47|45|42|33|32|24)\d{6}))/g;
 
 exports.handler =  async (event, context, callback) => {
@@ -9,8 +10,8 @@ exports.handler =  async (event, context, callback) => {
 
     let data = [];
 
-        let options = {
-        uri: 'https://www.revolico.com/search.html?min_price=1&q=' + q + '&p=' + p,
+    let options = {
+        uri: 'https://www.timbirichi.com/buscar/pagina/'+ p +'?q=' + q + '&min=1',
         transform: (body) => {
             return cheerio.load(body);
         }
@@ -18,33 +19,28 @@ exports.handler =  async (event, context, callback) => {
 
     await rp(options).then( ($) =>  {
        
-        $('td.light, td.dark').each(  (i,el) => {
+        $('.anuncio-list').each(  (i,el) => {
             let $el = $(el), 
-                $a = $el.find('a'),
-                $price = $el.find('a span'),
-                url = 'https://www.revolico.com' + $a.attr('href');
+                $a = $el.find('.anuncio-titulo'),
+                $price = $el.find('precio'),
+                pattNoImage = /default/g;
 
             let product = Object.assign({},{
 
-                id: 'R' + (url.match(/\d+\.html$/) || []).toString(),
+                price: parseFloat( $price.length ? $price.text().replace(/\$/,'') : 0 ),
 
-                price: parseFloat( $price.length ? $price.text() : 0 ),
-
-                photo: $el.find('span.formExtraDescB') ? true : false,
+                photo: !pattNoImage.test( $el.find('.media-object').attr('src') ),
 
                 original_title: $a.children().remove().end().text().trim(),
 
                 title: cleaner( $a.children().remove().end().text() ),
 
-                phones:  ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
+                phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
 
-                url: url,
-
-                date: ''
-
+                url: $el.attr('href')
             })
 
-            if ( product.price>0) {
+            if (product.title  && product.price>0) {
                 data.push(product);
             }
 
