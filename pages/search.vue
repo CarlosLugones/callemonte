@@ -233,7 +233,7 @@ export default {
                 return Object.assign( el, { 
                   site: site, 
                   htmlTitle: el.title.replace( vm.reQuey, "<b>$&</b>" ),
-                  phones: (el.phones !== null) ? el.phones.join(', ') : '',
+                  // phones: (el.phones !== null) ? el.phones.join(', ') : '',
                   is_favorite: false        
                 }) 
               });

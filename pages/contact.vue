@@ -5,7 +5,7 @@
         <div class="column is-6 is-size-5"> 
           <h1 class="title">Contacto</h1>
           <p class="subtitle">Escribeme si tienes alguna sugerecia, ecuentras algún error o solo para felicitarme que también me gusta. Te responde en cuanto me conecte. </p>
-          <form name="contact" netlify>
+          <form name="contact" method="POST" netlify-honeypot="bot-field" data-netlify="true">
             <div class="field">
               <label class="label">Correo Electronico</label>
               <div class="control">
