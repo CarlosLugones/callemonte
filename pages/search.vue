@@ -219,14 +219,14 @@ export default {
         query: { q: this.q }
       });
 
-      const sites = [  'revolico', 'timbirichi', '1cuc' ];
-      // const sites = [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc' ];
+      // const sites = [  'revolico', 'timbirichi', '1cuc' ];
+      const sites = [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc' ];
 
       await Promise.all( sites.map( async (site) => {
         let vm = this;
         this.$axios
-            // .$get('https://unclic.now.sh/'+ site +'?q=' + this.q + '&p=' + this.p)
-            .$get('https://localhost:3300/'+ site +'?q=' + vm.q + '&p=' + vm.p)
+            .$get('https://unclic.pro/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
+            // .$get('https://localhost:3300/'+ site +'?q=' + vm.q + '&p=' + vm.p)
             .then( response => { 
               let products = response.map( el => {
 
