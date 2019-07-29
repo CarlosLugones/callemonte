@@ -9,14 +9,14 @@
             <div class="field">
               <label class="label">Correo Electronico</label>
               <div class="control">
-                <input class="input" type="email" placeholder="Text input">
+                <input class="input" type="email" placeholder="Text input" name="email">
               </div>
             </div>
 
             <div class="field">
               <label class="label">Mensaje</label>
               <div class="control">
-                <textarea class="textarea" placeholder="Textarea"></textarea>
+                <textarea class="textarea" placeholder="Textarea" name="message"></textarea>
               </div>
             </div>
 
