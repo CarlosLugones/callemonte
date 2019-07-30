@@ -3,9 +3,9 @@
 
     <div id="main"> 
       <div class="container">
-        <div class="columns">
-            <div class="column is-2">
-                <div id="sidebar" class="is-pinned">
+        <div class="columns is-mobile">
+            <div class="column is-2 is-hidden-mobile">
+                <div id="sidebar" class="is-pinned ">
                     <ul>
                         <li v-if="products.length>0">
                             <label class="radio">
