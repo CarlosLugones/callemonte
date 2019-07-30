@@ -3,19 +3,19 @@
     <div class="hero-body">
       <div class="container">
         <div class="columns">
-          <div class="column is-three-fifths is-offset-one-fifth has-text-centered">
+          <div class="column is-6 is-offset-one-fifth has-text-centered">
             <img src="/unclic.png" width="110px">
             <h1 class="title is-center text-logo" >
               UNCLIC
             </h1>
-            <h2 class="subtitle">
-              Buscador de clasificados en <i>revolico, porlalivre, bachecubano, 1cuc, timbirichi</i>
+            <h2 class="title has-text-grey">
+              Buscador de clasificados en Cuba</i>
             </h2>
               <div class="field">
                 <div class="control">
                   <input 
                     autofocus
-                    class="input is-primary is-large " 
+                    class="input is-primary is-medium" 
                     type="text" 
                     placeholder="¿Que quieres comprar?" 
                     name="q"  
@@ -26,7 +26,7 @@
 
               <div class="field">
                 <div class="control has-text-centered">
-                  <button class="button is-large has-text-grey" @click="search">Buscar Anuncios </button>
+                  <button class="button is-medium has-text-grey" @click="search">Buscar Anuncios </button>
                 </div>
               </div>                    
             
