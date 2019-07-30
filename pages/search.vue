@@ -219,6 +219,7 @@ export default {
 
       // const sites = [  'revolico', 'timbirichi', '1cuc' ];
       const sites = [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc' ];
+      let urlFnPhone = 'https://unclic.pro/.netlify/functions/phone';
 
       sites.forEach( async (site) => {
 
@@ -234,7 +235,7 @@ export default {
                 let product = Object.assign( el, { 
                   site: site, 
                   htmlTitle: el.title.replace( vm.reQuey, "<b>$&</b>" ),
-                  phones: (el.phones === "" && site !== 'bachecubano') ? await vm.$axios.$get(el.url) : el.phones,
+                  phones: (el.phones === "" && site !== 'bachecubano') ? await vm.$axios.$get( urlFnPhone + '?url=' + el.url) : el.phones,
                   is_favorite: false        
                 }) 
 
