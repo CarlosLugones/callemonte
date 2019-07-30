@@ -226,17 +226,19 @@ export default {
             .$get('https://unclic.pro/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
             // .$get('https://localhost:3300/'+ site +'?q=' + vm.q + '&p=' + vm.p)
             .then( response => { 
-              let products = response.map( el => {
+              // let products = response.each( el => {
+              response.each( el => {
 
-                return Object.assign( el, { 
+                let product = Object.assign( el, { 
                   site: site, 
                   htmlTitle: el.title.replace( vm.reQuey, "<b>$&</b>" ),
                   // phones: (el.phones !== null) ? el.phones.join(', ') : '',
                   is_favorite: false        
                 }) 
-              });
 
-              vm.products = vm.products.concat( products );
+                vm.products = vm.products.push( product );
+
+              });
 
             });
 

@@ -21,6 +21,7 @@
     "lodash.uniq": "^4.5.0",
     "lodash.uniqby": "^4.7.0",
     "netlify-lambda": "^1.5.1",
+    "node-fetch": "^2.6.0",
     "nuxt": "^2.6.1",
     "request-promise": "^4.2.4",
     "store": "^2.0.12"

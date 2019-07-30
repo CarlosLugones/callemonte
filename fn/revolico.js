@@ -43,7 +43,7 @@ exports.handler =  async (event, context, callback) => {
 
                     url: url,
 
-                    date: ''
+                    date: $a.attr('title')
 
                 });
 
