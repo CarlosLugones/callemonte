@@ -220,19 +220,21 @@ export default {
       // const sites = [  'revolico', 'timbirichi', '1cuc' ];
       const sites = [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc' ];
 
-      await Promise.all( sites.map( async (site) => {
+      sites.forEach( async (site) => {
+
         let vm = this;
+
         this.$axios
             .$get('https://unclic.pro/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
             // .$get('https://localhost:3300/'+ site +'?q=' + vm.q + '&p=' + vm.p)
             .then( response => { 
               // let products = response.each( el => {
-              response.forEach( el => {
+              response.forEach( async el => {
 
                 let product = Object.assign( el, { 
                   site: site, 
                   htmlTitle: el.title.replace( vm.reQuey, "<b>$&</b>" ),
-                  // phones: (el.phones !== null) ? el.phones.join(', ') : '',
+                  phones: (el.phones === "" && site !== 'bachecubano') ? await vm.$axios.$get(el.url) : el.phones,
                   is_favorite: false        
                 }) 
 
@@ -244,12 +246,9 @@ export default {
 
               })
 
-
-
-
             });
 
-      }));
+      });
 
 
     },
