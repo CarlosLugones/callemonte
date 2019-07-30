@@ -243,10 +243,6 @@ export default {
 
               });
 
-              products.each( p => {
-
-              })
-
             });
 
       });
