@@ -14,7 +14,8 @@ exports.handler =  async (event, context, callback) => {
                             .next()
                             .text()
                             .replace(/[^0-9]/g,'')
-                            .match(/\d{8}/g);
+                            .match(/\d{8}/g) || 
+                            $('.showAdText').text().match(/\d{8}/g) || [];
         	}
 
             if ( /porlalivre/.test(url) ) {
@@ -22,17 +23,17 @@ exports.handler =  async (event, context, callback) => {
                             .parent()
                             .text()
                             .replace(/[^0-9]/g,'')
-                            .match(/\d{8}/g);
+                            .match(/\d{8}/g) || [];
             }
 
             if ( /1cuc/.test(url) ) {
-                phones = $('.adHead').text().match(/\d{8}/g);
+                phones = $('.adHead').text().match(/\d{8}/g) || [];
             }            
 
           
 
             if ( /timbirichi/.test(url) ) {
-                phones = $('a[href^="tel:"]').attr('href').match(/\d{8,}/g);
+                phones = $('a[href^="tel:"]').attr('href').match(/\d{8,}/g) || [];
             }
 
         })

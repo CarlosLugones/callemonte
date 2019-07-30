@@ -219,11 +219,11 @@ export default {
 
       // const sites = [  'revolico', 'timbirichi', '1cuc' ];
       const sites = [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc' ];
-      let urlFnPhone = 'https://unclic.pro/.netlify/functions/phone';
 
-      sites.forEach( async (site) => {
+      await Promise.all( sites.map( async (site) => {
 
         let vm = this;
+        let urlFnPhone = 'https://unclic.pro/.netlify/functions/phone';
 
         this.$axios
             .$get('https://unclic.pro/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
@@ -245,7 +245,7 @@ export default {
 
             });
 
-      });
+      }));
 
 
     },
