@@ -236,7 +236,7 @@ export default {
                   is_favorite: false        
                 }) 
 
-                vm.products = vm.products.push( product );
+                vm.products.push( product );
 
               });
 
