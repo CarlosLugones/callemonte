@@ -227,7 +227,7 @@ export default {
             // .$get('https://localhost:3300/'+ site +'?q=' + vm.q + '&p=' + vm.p)
             .then( response => { 
               // let products = response.each( el => {
-              response.each( el => {
+              response.forEach( el => {
 
                 let product = Object.assign( el, { 
                   site: site, 
@@ -239,6 +239,13 @@ export default {
                 vm.products = vm.products.push( product );
 
               });
+
+              products.each( p => {
+
+              })
+
+
+
 
             });
 
