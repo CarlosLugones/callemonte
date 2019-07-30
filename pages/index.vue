@@ -8,7 +8,7 @@
             <h1 class="title is-center text-logo" >
               UNCLIC
             </h1>
-            <h2 class="title has-text-grey">
+            <h2 class="subtitle has-text-grey">
               Buscador de clasificados en Cuba</i>
             </h2>
               <div class="field">

@@ -4,7 +4,7 @@
       <div class="columns is-centered ">
         <div class="column is-6 content"> 
           <h1 class="title">Nosotros</h1>
-          <p class="subtitle">Unclic busca clasificados de productos en sitios web de Cuba: <a href="#">revolico</a>, <a href="#">bachecubano</a>, <a href="#">1cuc</a>, </p>
+          <p class="subtitle">Unclic busca clasificados de productos en sitios web de Cuba: <a href="https://www.revolico.com" rel="nofollow">revolico</a>, <a href="https://www.bachecubano.com"  rel="nofollow">bachecubano</a>, <a href="https://1cuc.com" rel="nofollow">1cuc</a>, <a href="https://www.timbirichi.com" rel="nofollow">timbirichi</a> y <a href="https://porlalivre.com" rel="nofollow">porlalivre</a></p>
           <p>Unclic es rápido, sencillo y extremedamente útil si ha pasado el trabajo de buscar algo para comprar.</p>
           <ul>
             <li><strong>Anuncios con precio:</strong> Unclic es un buscador de productos y todo producto a la venta debe tener un precio.</li>
