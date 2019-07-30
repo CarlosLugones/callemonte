@@ -6,7 +6,7 @@
         <div class="columns is-mobile">
             <div class="column is-2 is-hidden-mobile">
                 <div id="sidebar" class="is-pinned ">
-                    <ul>
+                    <ul v-if="products.length>0 || favorites.length>0 || hides.length>0">
                         <li v-if="products.length>0">
                             <label class="radio">
                                 <input type="radio" v-model="show" value="all"> 
@@ -62,11 +62,7 @@
                 </div>
             </div>
             <div class="column">
-                <div class="notification is-warning" v-if="false">
-                    <span class="delete" @click="showInfo = false"> </span>
-                    Tienes <b>{{hides.length}}</b> productos ocultos
-                </div>  
-                <table id="products" class="table is-hoverable is-fullwidth">
+                <table id="products" class="table is-hoverable is-fullwidth" v-if="filteredProducts > 0">
                   <tbody>
                   <tr v-for="(product,index) in filteredProducts"  class="product">
                     <td>
@@ -99,9 +95,11 @@
                   </tr>
                   </tbody>
                 </table>
-
-                <div class="is-centered"> 
-                  <a v-if="products.length" class="button is-success is-outlined" @click="next">Más Anuncios</a>
+                <div class="notification has-text-centered is-size-5" v-else>
+                  No hay resultados para mostrar.
+                </div>
+                <div class="is-centered" v-if="products.length > 0 && show === 'all'"> 
+                  <a class="button is-success is-outlined" @click="next">Más Anuncios</a>
                 </div>
             </div>
         </div>
@@ -183,11 +181,11 @@ export default {
       return products
         .filter( p => {
             let isHide = vm.hides.includes( p.id );
-            return (vm.inTitle ? vm.reQuey.test(p.title) : true) && 
-                ( p.price >= priceMin && p.price <= priceMax ) && 
-                ( vm.withPhoto ? p.photo : true ) && 
-                ( vm.withPhone ? p.phones : true ) && 
-                ( vm.show==='hidden' ? isHide : ! isHide ) ;
+            return  (vm.inTitle ? vm.reQuey.test(p.title) : true) && 
+                    ( p.price >= priceMin && p.price <= priceMax ) && 
+                    ( vm.withPhoto ? p.photo : true ) && 
+                    ( vm.withPhone ? p.phones : true ) && 
+                    ( vm.show==='hidden' ? isHide : ! isHide );
         });
     },
     reQuey: function(){

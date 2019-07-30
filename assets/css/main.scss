@@ -47,7 +47,7 @@ label span { margin-left: 0.5rem;}
 
 footer{ margin-top: 2rem;}
 
-table#products tbody tr td:last-child, 
-table#products tbody tr td:first-child, {
-	padding-right: 0;
+table#products tbody tr {
+	td:first-child { padding-left: 0; }
+	td:last-child{ padding-right: 0; }
 }
