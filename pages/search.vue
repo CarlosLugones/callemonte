@@ -58,7 +58,7 @@
                             </label>
                         </li>
                     </ul>
-                    <a href="#">Eliminar los Filtros</a>
+                    <!-- <a href="#">Eliminar los Filtros</a> -->
                 </div>
             </div>
             <div class="column">

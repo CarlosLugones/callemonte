@@ -22,27 +22,26 @@ exports.handler =  async (event, context, callback) => {
         $('.simple-wrap').each(  (i,el) => {
             let $el = $(el), 
                 $a = $el.find('a.title'),
+                reId = /\d+$/,
                 $price = $el.find('.price span');
 
-            let product = Object.assign({},{
+            if ( reId.test( $a.attr('href') ) ) {
 
-                // id: (url.match(/\d+\.html$/) $a.attr('href'),
+                let product = Object.assign({},{
 
-                price: parseFloat( $price.length ? $price.text() : 0 ),
+                    id:     "B" + $a.attr('href').match(reId)[0],
+                    price:  parseFloat( $price.length ? $price.text() : 0 ),
+                    photo:  $el.find('a.no-img') ? false : true,
+                    original_title: $a.children().remove().end().text().trim(),
+                    title:  cleaner( $a.children().remove().end().text() ),
+                    phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
+                    url:    $a.attr('href')
 
-                photo: $el.find('a.no-img') ? false : true,
+                })
 
-                original_title: $a.children().remove().end().text().trim(),
+                data.push(product);
 
-                title: cleaner( $a.children().remove().end().text() ),
-
-                phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
-
-                url: $a.attr('href')
-
-            })
-
-            data.push(product);
+            }
 
         });
 

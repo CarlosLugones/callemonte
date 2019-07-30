@@ -23,26 +23,31 @@ exports.handler =  async (event, context, callback) => {
             let $el = $(el), 
                 $a = $el.find('h3 a'),
                 $price = $el.find('.v-price'),
+                reId = /(\d+)\.html$/,
                 pattNoImage = /def-1/g;
 
-            let product = Object.assign({},{
+            if ( reId.test( $a.attr('href') ) ) {
 
-                price: parseFloat( $price.length ? $price.text().replace(/\$/,'') : 0 ),
+                let product = Object.assign({},{
 
-                photo: !pattNoImage.test( $el.find('img').attr('src') ),
+                    id: 'C' + $a.attr('href').match(reId)[1] ,
 
-                original_title: $a.children().remove().end().text().trim(),
+                    price: parseFloat( $price.length ? $price.text().replace(/\$/,'') : 0 ),
 
-                title: cleaner( $a.children().remove().end().text() ),
+                    photo: !pattNoImage.test( $el.find('img').attr('src') ),
 
-                phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
+                    original_title: $a.children().remove().end().text().trim(),
 
-                url: $a.attr('href')
-            })
+                    title: cleaner( $a.children().remove().end().text() ),
 
-            if (product.title  && product.price>0) {
+                    phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
+
+                    url: $a.attr('href')
+                })
+
                 data.push(product);
             }
+
 
         });
 

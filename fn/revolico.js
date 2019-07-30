@@ -9,7 +9,7 @@ exports.handler =  async (event, context, callback) => {
 
     let data = [];
 
-        let options = {
+    let options = {
         uri: 'https://www.revolico.com/search.html?min_price=1&q=' + q + '&p=' + p,
         transform: (body) => {
             return cheerio.load(body);
@@ -22,31 +22,34 @@ exports.handler =  async (event, context, callback) => {
             let $el = $(el), 
                 $a = $el.find('a'),
                 $price = $el.find('a span'),
-                url = 'https://www.revolico.com' + $a.attr('href');
+                url = 'https://www.revolico.com' + $a.attr('href'),
+                reId = /(\d+)\.html$/;
 
-            let product = Object.assign({},{
+            if ( reId.test(url) ) {
 
-                id: 'R' + (url.match(/\d+\.html$/) || []).toString(),
+                let product = Object.assign({},{
 
-                price: parseFloat( $price.length ? $price.text() : 0 ),
+                    id: 'R' + url.match(reId)[1],
 
-                photo: $el.find('span.formExtraDescB') ? true : false,
+                    price: parseFloat( $price.length ? $price.text() : 0 ),
 
-                original_title: $a.children().remove().end().text().trim(),
+                    photo: $el.find('span.formExtraDescB') ? true : false,
 
-                title: cleaner( $a.children().remove().end().text() ),
+                    original_title: $a.children().remove().end().text().trim(),
 
-                phones:  ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
+                    title: cleaner( $a.children().remove().end().text() ),
 
-                url: url,
+                    phones:  ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
 
-                date: ''
+                    url: url,
 
-            })
+                    date: ''
 
-            if ( product.price>0) {
+                });
+
                 data.push(product);
             }
+
 
         });
 

@@ -23,25 +23,30 @@ exports.handler =  async (event, context, callback) => {
             let $el = $(el), 
                 $a = $el.find('.anuncio-titulo'),
                 $price = $el.find('precio'),
+                reId = /[a-zA-Z]+$/,
                 pattNoImage = /default/g;
 
-            let product = Object.assign({},{
+            if ( reId.test( $a.attr('href') ) ) {
+                
+                let product = Object.assign({},{
 
-                price: parseFloat( $price.length ? $price.text().replace(/\$/,'') : 0 ),
+                    id:     'T' + $a.attr('href').match(reId)[0],
 
-                photo: !pattNoImage.test( $el.find('.media-object').attr('src') ),
+                    price:  parseFloat( $price.length ? $price.text().replace(/\$/,'') : 0 ),
 
-                original_title: $a.children().remove().end().text().trim(),
+                    photo:  !pattNoImage.test( $el.find('.media-object').attr('src') ),
 
-                title: cleaner( $a.children().remove().end().text() ),
+                    original_title: $a.children().remove().end().text().trim(),
 
-                phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
+                    title:  cleaner( $a.children().remove().end().text() ),
 
-                url: $el.attr('href')
-            })
+                    phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
 
-            if (product.title  && product.price>0) {
+                    url:    $el.attr('href')
+                })
+
                 data.push(product);
+
             }
 
         });

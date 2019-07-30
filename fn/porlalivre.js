@@ -21,28 +21,31 @@ exports.handler =  async (event, context, callback) => {
        
         $('div.classified-wrapper').each(  (i,el) => {
             let $el = $(el), 
-                $a = $el.find('a'),
+                $a = $el.find('a.classified-link'),
+                reId = /([A-Z0-9]+)\/$/,
                 $price = $el.find('#price2');
 
-            let product = Object.assign({},{
+            if ( reId.test( $a.attr('href') ) ) {
 
-                id: 'P' + $el.find('a.classified-link').attr('href').match(/([A-Z0-9]{8})\/$/)[1].toString(),
+                let product = Object.assign({},{
 
-                price: parseFloat( $price.length ? $price.text().replace(/\$/,'') : 0 ),
+                    id:     'P' + $a.attr('href').match(reId)[1],
 
-                photo: !/no_image/g.test( $el.find('.media-object').attr('src') ),
+                    price:  parseFloat( $price.length ? $price.text().replace(/\$/,'') : 0 ),
 
-                original_title: $el.find('.media-heading').children().remove().end().text().trim(),
+                    photo:  !/no_image/g.test( $el.find('.media-object').attr('src') ),
 
-                title: cleaner( $el.find('.media-heading').children().remove().end().text() ),
+                    original_title: $el.find('.media-heading').children().remove().end().text().trim(),
 
-                phones: ($el.find('.media-heading').text().replace(/\s/g,'').match(rePhone) || []).join(', '),
+                    title:      cleaner( $el.find('.media-heading').children().remove().end().text() ),
 
-                url: 'https://porlalivre.com' + $el.find('a.classified-link').attr('href')
-            })
+                    phones:     ($el.find('.media-heading').text().replace(/\s/g,'').match(rePhone) || []).join(', '),
+                    
+                    url:        'https://porlalivre.com' + $el.find('a.classified-link').attr('href')
+                })
 
-            if (product.title  && product.price>0) {
                 data.push(product);
+
             }
 
         });
