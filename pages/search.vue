@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="column">
-                <table id="products" class="table is-hoverable is-fullwidth" v-if="filteredProducts > 0">
+                <table id="products" class="table is-hoverable is-fullwidth" v-if="filteredProducts.length > 0">
                   <tbody>
                   <tr v-for="(product,index) in filteredProducts"  class="product">
                     <td>
