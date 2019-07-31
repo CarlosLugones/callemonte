@@ -177,13 +177,13 @@ export default {
         let vm = this;
 
         this.$axios
-            .$get('/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
+            .$get('https://unclic.pro/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
             // .$get('http://localhost:9000/'+ site +'?q=' + vm.q + '&p=' + vm.p)
             .then( response => { 
               // let products = response.each( el => {
               response.forEach( async el => {
 
-                let urlFnPhone = '/.netlify/functions/phone' + '?url=' + el.url;
+                let urlFnPhone = 'https://unclic.pro/.netlify/functions/phone' + '?url=' + el.url;
                 // let urlFnPhone = 'http://localhost:9000/phone' + '?url=' + el.url;
 
                 let product = Object.assign( el, { 
