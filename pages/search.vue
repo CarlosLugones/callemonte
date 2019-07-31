@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar/>
+    <!-- <Navbar/> -->
     <div class="content">
         <div class="">
             <div v-if="filteredProducts.length > 0">
@@ -178,14 +178,14 @@ export default {
         let vm = this;
 
         this.$axios
-            // .$get('https://unclic.pro/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
-            .$get('/.netlify/functions/'+ site +'?q=' + vm.q + '&p=' + vm.p)
+            .$get('https://unclic.pro/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
+            // .$get('/.netlify/functions/'+ site +'?q=' + vm.q + '&p=' + vm.p)
             .then( response => { 
               // let products = response.each( el => {
               response.forEach( async el => {
 
-                // let urlFnPhone = 'https://unclic.pro/.netlify/functions/phone' + '?url=' + el.url;
-                let urlFnPhone = '/.netlify/functions/phone' + '?url=' + el.url;
+                let urlFnPhone = 'https://unclic.pro/.netlify/functions/phone' + '?url=' + el.url;
+                // let urlFnPhone = '/.netlify/functions/phone' + '?url=' + el.url;
 
                 let product = Object.assign( el, { 
                   site: site, 

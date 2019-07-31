@@ -12,7 +12,7 @@
 	            <div class="control">
 	                <input 
 	                    autofocus
-	                    class="input is-rounded" 
+	                    class="input is-rounded is-medium" 
 	                    type="text" 
 	                    placeholder="¿Que quieres comprar?" 
 	                    v-model="q"  
@@ -20,7 +20,7 @@
 	            </div>
             </div>
           </div>
-          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <a role="button" class="navbar-burger burger is-active" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
