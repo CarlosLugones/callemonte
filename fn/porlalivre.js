@@ -40,7 +40,7 @@ exports.handler =  async (event, context, callback) => {
                     title:      cleaner( $el.find('.media-heading').children().remove().end().text() ),
 
                     phones:     ($el.find('.media-heading').text().replace(/\s/g,'').match(rePhone) || []).join(', '),
-                    
+
                     url:        'https://porlalivre.com' + $el.find('a.classified-link').attr('href')
                 })
 
@@ -54,6 +54,7 @@ exports.handler =  async (event, context, callback) => {
     .catch( (err) => { console.log(err); });
 
     return {
+        headers: { 'Content-Type':'application/json' },
         statusCode: 200,
         body: JSON.stringify(data)
     };

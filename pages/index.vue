@@ -1,10 +1,10 @@
 <template>
-  <section class="is-fullheight">
+  <section class="hero is-fullheight">
     <div class="hero-body">
       <div class="container">
         <div class="columns">
           <div class="column is-6 is-offset-one-fifth has-text-centered">
-            <img src="/unclic.png" width="110px">
+            <img src="/unclic.png" width="90px">
             <h1 class="title is-center text-logo" >
               UNCLIC
             </h1>

@@ -27,7 +27,7 @@ exports.handler =  async (event, context, callback) => {
                 pattNoImage = /default/g;
 
             if ( reId.test( $a.attr('href') ) ) {
-                
+
                 let product = Object.assign({},{
 
                     id:     'T' + $a.attr('href').match(reId)[0],
@@ -55,6 +55,7 @@ exports.handler =  async (event, context, callback) => {
     .catch( (err) => { console.log(err); });
 
     return {
+        headers: { 'Content-Type':'application/json' },
         statusCode: 200,
         body: JSON.stringify(data)
     };
