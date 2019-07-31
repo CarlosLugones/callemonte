@@ -57,7 +57,10 @@ exports.handler =  async (event, context, callback) => {
     .catch( (err) => { console.log(err); });
 
     return {
-        headers: { 'Content-Type':'application/json' , 'Access-Control-Allow-Origin': '*'},
+        headers: { 
+            'Content-Type':'application/json' , 
+            'Access-Control-Allow-Origin': '*'
+        },
         statusCode: 200,
         body: JSON.stringify(data)
     };
