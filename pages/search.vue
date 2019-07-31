@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    <Navbar/>
     <div class="content">
         <div class="">
             <div v-if="filteredProducts.length > 0">
@@ -59,13 +59,14 @@
 import uniqBy from 'lodash.uniqby';
 import DropMenuFilter from '~/components/DropMenuFilter';
 import Download from '~/components/Download';
+import Navbar from '~/components/Navbar';
 var store = require('store');
-var slideout = require('slideout');
 
 export default {
     components: {
         'DropMenuFilter': DropMenuFilter,
         'Download': Download,
+        'Navbar': Navbar,
     },
   head () {
     return {
@@ -177,14 +178,14 @@ export default {
         let vm = this;
 
         this.$axios
-            .$get('https://unclic.pro/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
-            // .$get('http://localhost:9000/'+ site +'?q=' + vm.q + '&p=' + vm.p)
+            // .$get('https://unclic.pro/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
+            .$get('/.netlify/functions/'+ site +'?q=' + vm.q + '&p=' + vm.p)
             .then( response => { 
               // let products = response.each( el => {
               response.forEach( async el => {
 
-                let urlFnPhone = 'https://unclic.pro/.netlify/functions/phone' + '?url=' + el.url;
-                // let urlFnPhone = 'http://localhost:9000/phone' + '?url=' + el.url;
+                // let urlFnPhone = 'https://unclic.pro/.netlify/functions/phone' + '?url=' + el.url;
+                let urlFnPhone = '/.netlify/functions/phone' + '?url=' + el.url;
 
                 let product = Object.assign( el, { 
                   site: site, 

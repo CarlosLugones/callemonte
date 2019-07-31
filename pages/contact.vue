@@ -3,7 +3,10 @@
     <div class="container">
       <div class="columns is-centered ">
         <div class="column is-6 is-size-5"> 
-          <h1 class="title">Contacto</h1>
+          <h1 class="title">
+            <a href="#" @click="back"><</a>
+            Contacto
+          </h1>
           <p class="subtitle">Escribeme si tienes alguna sugerecia, ecuentras algún error o solo para felicitarme que también me gusta. Te responde en cuanto me conecte. </p>
           <form name="contact0" method="POST" netlify-honeypot="bot-field" data-netlify="true">
             <p class="is-hidden">
@@ -39,6 +42,11 @@
 
 export default {
   layout: 'default',
+  data() {
+    return {
+      back: this.$router.path
+    }
+  },
   head () {
     return {
       htmlAttrs: {
@@ -46,5 +54,10 @@ export default {
       }      
     }
   },
+  methods: {
+    back() {
+      return this.$router.go(-1);
+    }
+  }
 }
 </script>
