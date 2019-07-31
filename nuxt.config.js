@@ -53,6 +53,7 @@ export default {
     // Doc:https://github.com/nuxt-community/modules/tree/master/packages/bulma
     '@nuxtjs/bulma',
     '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
 
   /*
@@ -71,5 +72,12 @@ export default {
     */
     extend(config, ctx) {
     }
-  }
+  },
+
+  proxy: {
+    '/.netlify': {
+      target: 'http://localhost:9000',
+      pathRewrite: {'^/.netlify/functions': ''},
+    },
+  },  
 }

@@ -37,7 +37,11 @@
         </div>
       </div>
     </nav>
-    <nuxt />
+    <div id="main"> 
+      <div class="container">
+        <nuxt />
+      </div>
+    </div>
   </div>
 </template>
 <script>

@@ -40,6 +40,7 @@ exports.handler =  async (event, context, callback) => {
         .catch( err => console.error(err) );
 
     return {
+        headers,
         statusCode: 200,
         body: JSON.stringify( phones.join(', ') )
     };

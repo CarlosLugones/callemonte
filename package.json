@@ -24,6 +24,8 @@
     "node-fetch": "^2.6.0",
     "nuxt": "^2.6.1",
     "request-promise": "^4.2.4",
+    "simple-statistics": "^7.0.5",
+    "slideout": "^1.0.1",
     "store": "^2.0.12"
   },
   "devDependencies": {

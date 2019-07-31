@@ -22,7 +22,7 @@ exports.handler =  async (event, context, callback) => {
         $('.sr-page__list__item tr').each(  (i,el) => {
             let $el = $(el), 
                 $a = $el.find('h3 a'),
-                $price = $el.find('.v-price'),
+                $price = $el.find('.v-price strong'),
                 reId = /(\d+)\.html$/,
                 pattNoImage = /def-1/g;
 
@@ -32,7 +32,7 @@ exports.handler =  async (event, context, callback) => {
 
                     id: 'C' + $a.attr('href').match(reId)[1] ,
 
-                    price: parseFloat( $price.length ? $price.text().replace(/\$/,'') : 0 ),
+                    price: parseFloat( $price.length ? $price.text().replace(/\s/,'') : 0 ),
 
                     photo: !pattNoImage.test( $el.find('img').attr('src') ),
 
