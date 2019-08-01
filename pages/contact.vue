@@ -4,7 +4,7 @@
       <div class="columns is-centered ">
         <div class="column is-6 is-size-5"> 
           <h1 class="title">
-            <a href="#" @click="back"><</a>
+            <!-- <a href="#" @click="back"><</a> -->
             Contacto
           </h1>
           <p class="subtitle">Escribeme si tienes alguna sugerecia, ecuentras algún error o solo para felicitarme que también me gusta. Te responde en cuanto me conecte. </p>

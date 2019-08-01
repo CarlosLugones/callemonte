@@ -32,7 +32,7 @@
                     </td>
                     <td class="has-text-right">
                     </td>
-                    <td class="has-text-right">
+                    <td class="has-text-right is-hidden-mobile">
                         <a href="#" @click="toggleHide(product.id,index)" title="Oculta el producto del listado">
                             <span :class="isHidden(product.id) ? 'has-text-success' : 'has-text-danger' ">&times;</span>
                         </a>
@@ -42,7 +42,8 @@
                 </table>
                 
                 <div class="is-centered" v-if="show === 'all'"> 
-                  <a class="button is-success is-outlined" @click="next">Más Anuncios</a>
+                  <a class="button is-success is-outlined is-hidden-mobile" @click="next">Vamos por más</a>
+                  <a class="button is-success is-hidden-tablet is-fullwidth is-radiusless" @click="next">Vamos por más</a>
                 </div>
                 
             </div>
