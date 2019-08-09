@@ -1,39 +1,43 @@
 <template>
   <div> 
-    <Navbar :products="filteredProducts" :filters="filters"/>
+    <Navbar 
+      :products="filteredProducts" 
+      :filters="filters"
+      v-on:search="search"/>
+
     <div class="container">
-      <div v-if="filteredProducts.length > 0">
+      <div v-if="filteredProducts.length > 0" class="table-responsive">
+          <div class="">
+            {{filteredProducts.length}} Resultados
+          </div>
           <table id="products" class="table table-hover mt-3" >
             <tbody>
-            <tr v-for="(product,index) in filteredProducts"  class="product">
-              <td><span class="is-price">{{ product.price }}</span></td>
-              <td>
-                <a 
-                  target="_blank" 
-                  rel="nofollow" 
-                  v-html="product.htmlTitle" 
-                  :href="product.url" 
-                  :title="product.original_title"></a>
-                <span class="badge badge-light" v-if="product.photo">Foto</span>
-                <!-- <span class="tag">{{product.site}}</span> -->
-                <span class="is-phone">{{ product.phones }}</span>
-              </td>
-              <td class="d-none d-md-block text-right">
-                  <a href="#" @click="toggleHide(product.id,index)" title="Oculta el producto del listado">
-                      <span :class="isHidden(product.id) ? 'has-text-success' : 'has-text-danger' ">&times;</span>
-                  </a>
-              </td>
-            </tr>
+              <tr v-for="(product,index) in filteredProducts"  class="product">
+                <td><span class="is-price">{{ product.price }}</span></td>
+                <td>
+                  <a 
+                    target="_blank" 
+                    rel="nofollow" 
+                    v-html="product.htmlTitle" 
+                    :href="product.url" 
+                    :title="product.original_title"></a>
+                  <span class="badge badge-light" v-if="product.photo">Foto</span>
+                  <!-- <span class="tag">{{product.site}}</span> -->
+                  <span class="is-phone">{{ product.phones }}</span>
+                </td>
+                <td class="d-none d-md-block text-right">
+                    <a href="#" @click="toggleHide(product.id,index)" title="Oculta el producto del listado">
+                        <span :class="isHidden(product.id) ? 'has-text-success' : 'has-text-danger' ">&times;</span>
+                    </a>
+                </td>
+              </tr>
             </tbody>
           </table>
           
           <div class="is-centered mb-4" v-if="show === 'all'"> 
-            <button class="btn btn-outline-secondary btn-block" @click="next">Vamos por más</button>
+            <button class="btn btn-outline-success btn-block" @click="next">Vamos por más</button>
           </div>
           
-      </div>
-      <div class="notification has-text-centered is-size-5" v-if="filteredProducts.length && searching>0">
-        Buscando...
       </div>
 
     </div>
@@ -42,19 +46,21 @@
 
 <script>
 import uniqBy from 'lodash.uniqby';
-// import DropMenuFilter from '~/components/DropMenuFilter';
 import Navbar from '~/components/Navbar';
 var store = require('store');
 
 export default {
   components: { Navbar },
-  metaInfo: {
-    htmlAttrs: {
-      class: 'padding-top',
+  head() {
+    return {
+      htmlAttrs: {
+          class: 'padding-top',
+      }
     }
-  }  ,
+  },
   data(){
     return {
+      q: '',
       p: 1,
       products: [],
       hides: [],
@@ -71,7 +77,7 @@ export default {
   },
   created() {
     this.hides = store.get('hides',[]);
-    this.search()
+    this.q = this.$route.query.q;
   },
   watch: {
     // whenever question changes, this function will run
@@ -89,9 +95,9 @@ export default {
     },
   },
   computed: {
-    q: function() {
-      return this.$route.query.q;
-    },
+    // q: function() {
+    //   return this.$route.query.q;
+    // },
     filteredProducts: function() {
       var vm = this,
           products = vm.products,
@@ -143,10 +149,10 @@ export default {
     },
     search: async function() {
       let vm = this;
-      this.$router.push({ 
-        path: this.$route.path, 
-        query: { q: this.q }
-      });
+      // this.$router.push({ 
+      //   path: this.$route.path, 
+      //   query: { q: this.q }
+      // });
 
       vm.searching = vm.sites.length;
 

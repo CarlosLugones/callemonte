@@ -5,11 +5,15 @@
           <b-navbar-brand href="/">
               <img src="/logo.png" title="callemonte.com" width="38" height="38" >
           </b-navbar-brand>
-          <form class="navbar-form navbar-left d-inline w-100" role="search">
-            <b-form-input class="mr-sm-2" placeholder="¿Que quieres comprar?" v-model="q" @keyup.enter="search($event)"></b-form-input>
+          <form class="navbar-form navbar-left d-inline w-100" role="search" v-on:submit.prevent="search">
+            <b-form-input 
+              class="mr-sm-2" 
+              placeholder="¿Que quieres comprar?" 
+              v-model="q" 
+              ></b-form-input>
           </form>
           <b-navbar-nav>
-            <Download klass="nav-link" title="&#8595;" :products="products" v-if="products.length"/>
+            <Download klass="nav-link pl-3 pr-3" title="&#8595;" :products="products" v-if="products.length"/>
             <b-nav-item href="#" @click="$bvModal.show('modal-1')" title="Menu de Filtros y Páginas">&#9776;</b-nav-item>
           </b-navbar-nav>
 
@@ -19,7 +23,7 @@
       <b-modal centered  hide-footer hide-header id="modal-1" title="" size="sm" body-class="p-0" footer-class="mt-0 border-0" content-class="rounded-0">
         <b-list-group class="list-group-flush">
 
-          <b-list-group-item v-if="products.length>0">
+          <b-list-group-item >
             
             <div class="form-group d-flex">
               <span class="flex-grow-1">Con el texto en el Título</span> 
@@ -33,7 +37,7 @@
 
           </b-list-group-item>
 
-          <b-list-group-item v-if="products.length>0">
+          <b-list-group-item >
             <div class="form-group d-flex" v-for="(range, label ,index) in pricesRanges">
               <span class="flex-grow-1">{{label}}</span> 
               <b-form-radio
@@ -63,7 +67,7 @@ export default {
   props: ['filters','products'],
   data(){
     return {
-      q: null,
+      q: '',
       pricesRanges : {
           'Todos':'1-1000000000', 
           '2-100 CUC': '2-100',
@@ -72,15 +76,14 @@ export default {
           '250-500 CUC': '250-500',
           '2000-5000 CUC': '2000-5000' ,
       },
-      f: this.filters,  
+      f: this.filters, 
     }
   },
-	created() {
+  created() {
     this.q = this.$route.query.q;
   },
   methods: {
     search() {
-
         this.$router.push("/search?q="+this.q);
     }            
   }    

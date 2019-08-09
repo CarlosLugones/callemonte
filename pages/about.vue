@@ -35,19 +35,18 @@
             <p class="lead text-justify">Filtra los anuncios que están repetidos.</p>
           </div>
 
-          <div class="col-sm-6">      
+<!--           <div class="col-sm-6">      
             <h3>Sin publicidad.</h3>
             <p class="lead text-justify"> No se muestran ni se mostrará ninguna publicidad solo los anuncios de su interés. </p>
           </div>
-
-          <div class="col-sm-6">      
+ -->
+<!--           <div class="col-sm-6">      
             <h3>Búsquedas on-line.</h3>
             <p class="lead text-justify"> Todas las búsquedas se realizan directamente desde cada sitio. Callemonte no tiene base de datos para guardar los anuncios.</p>
-          </div>
+          </div> -->
           <div class="col-sm-6">      
-          
-          <h3>Ahorra datos.</h3>
-          <p class="lead"> Callemonte consume un mínimo de datos de su conexión porque las búsquedas se realizan desde sus propios servidores y devuelve solo los datos necesarios.</p>
+            <h3>Ahorra datos.</h3>
+            <p class="lead"> Callemonte consume un mínimo de datos de su conexión porque las búsquedas se realizan desde sus propios servidores y devuelve solo los datos necesarios.</p>
           </div>
         </div>
 
@@ -69,7 +68,6 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      console.log(from)
       vm.prevPath = from.fullPath
     })
   },
