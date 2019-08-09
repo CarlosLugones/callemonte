@@ -64,7 +64,6 @@ export default {
       p: 1,
       products: [],
       hides: [],
-      searching: 0,
       filters: { 
           byTitle: false,
           byPhone: false,
@@ -95,9 +94,6 @@ export default {
     },
   },
   computed: {
-    // q: function() {
-    //   return this.$route.query.q;
-    // },
     filteredProducts: function() {
       var vm = this,
           products = vm.products,
@@ -149,38 +145,18 @@ export default {
     },
     search: async function() {
       let vm = this;
-      // this.$router.push({ 
-      //   path: this.$route.path, 
-      //   query: { q: this.q }
-      // });
-
-      vm.searching = vm.sites.length;
 
       await Promise.all( vm.sites.map( async (site) => {
 
-
         this.$axios
             .$get('https://callemonte.com/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
-            // .$get('/.netlify/functions/'+ site +'?q=' + vm.q + '&p=' + vm.p)
             .then( response => { 
-              // let products = response.each( el => {
               response.forEach( async el => {
 
-                let urlFnPhone = 'https://callemonte.com/.netlify/functions/phone' + '?url=' + el.url;
-                // let urlFnPhone = '/.netlify/functions/phone' + '?url=' + el.url;
-
-                let product = Object.assign( el, { 
-                  site: site, 
-                  htmlTitle: el.title.replace( vm.reQuey, "<b>$&</b>" ),
-                  // phones: (el.phones === "" && site !== 'bachecubano') ? await vm.$axios.$get(urlFnPhone) : el.phones,
-                  is_favorite: false        
-                }) 
-
+                let product = Object.assign( el, { htmlTitle: el.title.replace( vm.reQuey, "<b>$&</b>" ) }) 
                 vm.products.push( product );
 
               });
-
-              --vm.searching
 
             });
 
