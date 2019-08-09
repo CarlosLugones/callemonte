@@ -1,7 +1,7 @@
 import pkg from './package'
 
 export default {
-  mode: 'unniversal',
+  // mode: 'universal',
 
   router: {
     linkActiveClass: 'is-active'
@@ -88,8 +88,20 @@ export default {
     },
   }, 
 
-  // boostrapVue: {
-  //   bootstrapCSS: false,
-  //   bootstrapVueCSS: false,
-  // } 
+  boostrapVue: {
+    // bootstrapCSS: false,
+    // bootstrapVueCSS: false,
+    componentPlugins: [
+      'LayoutPlugin',
+      'TablePlugin',
+      'NavbarPlugin',
+      'ListGroupPlugin',
+      'FormPlugin',
+      'FormCheckboxPlugin',
+      'FormInputPlugin',
+      'FormRadioPlugin',
+      'ModalPlugin'
+    ],
+    directivePlugins: []  
+  } 
 }

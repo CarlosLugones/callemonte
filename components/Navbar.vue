@@ -5,7 +5,9 @@
           <b-navbar-brand href="/">
               <img src="/logo.png" title="callemonte.com" width="38" height="38" >
           </b-navbar-brand>
-          <b-form-input class="mr-sm-2" placeholder="¿Que quieres comprar?" v-model="q" @keyup.enter="search($event)"></b-form-input>
+          <form class="navbar-form navbar-left d-inline w-100" role="search">
+            <b-form-input class="mr-sm-2" placeholder="¿Que quieres comprar?" v-model="q" @keyup.enter="search($event)"></b-form-input>
+          </form>
           <b-navbar-nav>
             <Download klass="nav-link" title="&#8595;" :products="products" v-if="products.length"/>
             <b-nav-item href="#" @click="$bvModal.show('modal-1')" title="Menu de Filtros y Páginas">&#9776;</b-nav-item>
@@ -78,6 +80,7 @@ export default {
   },
   methods: {
     search() {
+
         this.$router.push("/search?q="+this.q);
     }            
   }    
