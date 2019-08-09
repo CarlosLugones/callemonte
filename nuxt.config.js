@@ -1,7 +1,7 @@
 import pkg from './package'
 
 export default {
-  mode: 'spa',
+  mode: 'unniversal',
 
   router: {
     linkActiveClass: 'is-active'

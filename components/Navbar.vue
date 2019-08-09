@@ -14,10 +14,10 @@
         </div>
       </b-navbar>
 
-      <b-modal centered  hide-footer hide-header id="modal-1" title="BootstrapVue" size="sm" body-class="p-0" footer-class="mt-0 border-0" content-class="rounded-0">
+      <b-modal centered  hide-footer hide-header id="modal-1" title="" size="sm" body-class="p-0" footer-class="mt-0 border-0" content-class="rounded-0">
         <b-list-group class="list-group-flush">
 
-          <b-list-group-item>
+          <b-list-group-item v-if="products.length>0">
             
             <div class="form-group d-flex">
               <span class="flex-grow-1">Con el texto en el Título</span> 
@@ -31,7 +31,7 @@
 
           </b-list-group-item>
 
-          <b-list-group-item >
+          <b-list-group-item v-if="products.length>0">
             <div class="form-group d-flex" v-for="(range, label ,index) in pricesRanges">
               <span class="flex-grow-1">{{label}}</span> 
               <b-form-radio
@@ -42,13 +42,13 @@
               />              
             </div>
           </b-list-group-item>
+          <b-list-group-item class="text-center"> 
+            <nuxt-link to="/about">Nosotros</nuxt-link>
+          </b-list-group-item>
+          <b-list-group-item class="text-center"> 
+            <nuxt-link to="/contact">Contacto</nuxt-link>
+          </b-list-group-item>
         </b-list-group>
-        <b-list-group-item class="text-center"> 
-          <nuxt-link to="/about">Nosotros</nuxt-link>
-        </b-list-group-item>
-        <b-list-group-item class="text-center"> 
-          <nuxt-link to="/contact">Contacto</nuxt-link>
-        </b-list-group-item>
        
       </b-modal>      
   </div>
