@@ -1,33 +1,28 @@
 <template>
-  <div id="main"> 
     <div class="container">
-      <div class="columns is-centered ">
-        <div class="column is-6 is-size-5"> 
-          <h1 class="title">
-            <!-- <a href="#" @click="back"><</a> -->
+      <div class="row justify-content-center">
+        <div class="col-md-8 "> 
+          <h1 class="title mt-5">
+            <a :href="prevPath" title="Regresar a la búsqueda">&#8249;</a>
             Contacto
           </h1>
-          <p class="subtitle">Escribeme si tienes alguna sugerecia, ecuentras algún error o solo para felicitarme que también me gusta. Te responde en cuanto me conecte. </p>
+          <p class="lead">Escribeme si tienes alguna sugerecia, ecuentras algún error o solo para felicitarme que también me gusta. Te responde en cuanto me conecte. </p>
           <form name="contact0" method="POST" netlify-honeypot="bot-field" data-netlify="true">
-            <p class="is-hidden">
+            <p class="d-none">
               <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
             </p>            
-            <div class="field">
+            <div class="form-group">
               <label class="label">Correo Electronico</label>
-              <div class="control">
-                <input class="input" type="email" placeholder="Text input" name="email">
-              </div>
+              <input class="form-control" type="email" placeholder="Text input" name="email">
             </div>
 
-            <div class="field">
+            <div class="form-group">
               <label class="label">Mensaje</label>
-              <div class="control">
-                <textarea class="textarea" placeholder="Textarea" name="message"></textarea>
-              </div>
+              <textarea class="form-control" placeholder="Textarea" name="message" rows="5"></textarea>
             </div>
 
             <div class="control">
-              <button class="button is-primary" type="submit">Enviar &rarr;</button>
+              <button class="btn btn-success" type="submit">Enviar &rarr;</button>
             </div>
             
           </form>
@@ -35,29 +30,20 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
-
 export default {
-  layout: 'default',
-  data() {
+  data(){
     return {
-      back: this.$router.path
+      prevPath: '',
     }
   },
-  head () {
-    return {
-      htmlAttrs: {
-        class: 'has-navbar-fixed-top',
-      }      
-    }
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      console.log(from)
+      vm.prevPath = from.fullPath
+    })
   },
-  methods: {
-    back() {
-      return this.$router.go(-1);
-    }
-  }
 }
 </script>

@@ -1,102 +1,76 @@
 <template>
-  <div>
-    <!-- <Navbar/> -->
-    <div class="content">
-        <div class="">
-            <div v-if="filteredProducts.length > 0">
+  <div> 
+    <Navbar :products="filteredProducts" :filters="filters"/>
+    <div class="container">
+      <div v-if="filteredProducts.length > 0">
+          <table id="products" class="table table-hover mt-3" >
+            <tbody>
+            <tr v-for="(product,index) in filteredProducts"  class="product">
+              <td><span class="is-price">{{ product.price }}</span></td>
+              <td>
+                <a 
+                  target="_blank" 
+                  rel="nofollow" 
+                  v-html="product.htmlTitle" 
+                  :href="product.url" 
+                  :title="product.original_title"></a>
+                <span class="badge badge-light" v-if="product.photo">Foto</span>
+                <!-- <span class="tag">{{product.site}}</span> -->
+                <span class="is-phone">{{ product.phones }}</span>
+              </td>
+              <td class="d-none d-md-block text-right">
+                  <a href="#" @click="toggleHide(product.id,index)" title="Oculta el producto del listado">
+                      <span :class="isHidden(product.id) ? 'has-text-success' : 'has-text-danger' ">&times;</span>
+                  </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          
+          <div class="is-centered mb-4" v-if="show === 'all'"> 
+            <button class="btn btn-outline-secondary btn-block" @click="next">Vamos por más</button>
+          </div>
+          
+      </div>
+      <div class="notification has-text-centered is-size-5" v-if="filteredProducts.length && searching>0">
+        Buscando...
+      </div>
 
-                <div class="level is-mobile" id="toolbar">
-                    <div class="level-left">
-                        <span>{{filteredProducts.length}} Productos</span>
-                    </div>
-                    <div class="level-right"> 
-                        <Download :products="filteredProducts" title="Descargar" klass="level-item"/>
-                        <DropMenuFilter @filter="filter" :defaults="filters" klass="level-item"/>
-                    </div>
-                </div>
-
-                <table id="products" class="table is-hoverable is-fullwidth" >
-                  <tbody>
-                  <tr v-for="(product,index) in filteredProducts"  class="product">
-                    <td>{{ product.price }}</td>
-                    <td>
-                      <a 
-                        target="_blank" 
-                        rel="nofollow" 
-                        v-html="product.htmlTitle" 
-                        :href="product.url" 
-                        :title="product.original_title"></a>
-                      <span class="has-text-weight-bold is-size-7" v-if="product.photo">Foto</span>
-                      <!-- <span class="tag">{{product.site}}</span> -->
-                      <span class="is-phone">{{ product.phones }}</span>
-                    </td>
-                    <td class="has-text-right">
-                    </td>
-                    <td class="has-text-right is-hidden-mobile">
-                        <a href="#" @click="toggleHide(product.id,index)" title="Oculta el producto del listado">
-                            <span :class="isHidden(product.id) ? 'has-text-success' : 'has-text-danger' ">&times;</span>
-                        </a>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-                
-                <div class="is-centered" v-if="show === 'all'"> 
-                  <a class="button is-success is-outlined is-hidden-mobile" @click="next">Vamos por más</a>
-                  <a class="button is-success is-hidden-tablet is-fullwidth is-radiusless" @click="next">Vamos por más</a>
-                </div>
-                
-            </div>
-            <div class="notification has-text-centered is-size-5" v-else>
-              No hay resultados para mostrar.
-            </div>
-        </div>
     </div>
-
   </div>
 </template>
 
 <script>
 import uniqBy from 'lodash.uniqby';
-import DropMenuFilter from '~/components/DropMenuFilter';
-import Download from '~/components/Download';
+// import DropMenuFilter from '~/components/DropMenuFilter';
 import Navbar from '~/components/Navbar';
 var store = require('store');
 
 export default {
-    components: {
-        'DropMenuFilter': DropMenuFilter,
-        'Download': Download,
-        'Navbar': Navbar,
-    },
-  head () {
-    return {
-      htmlAttrs: {
-        class: 'has-navbar-fixed-top',
-      }      
+  components: { Navbar },
+  metaInfo: {
+    htmlAttrs: {
+      class: 'padding-top',
     }
-  },
+  }  ,
   data(){
     return {
-      // q: '',
       p: 1,
       products: [],
       hides: [],
-      favorites: [],
+      searching: 0,
       filters: { 
           byTitle: false,
           byPhone: false,
           byPhoto: false,
           byPrice: '1-1000000000'
       },
+      sites: [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc', 'merolico', 'ricurancia' ],
       show: 'all',
-      showInfo: false,
-      uniques: true
     }
   },
   created() {
     this.hides = store.get('hides',[]);
-    this.showInfo = (this.hides.length > 0);
     this.search()
   },
   watch: {
@@ -112,7 +86,7 @@ export default {
         if (newValue.length == 0) {
             this.show = 'all';
         }
-    }
+    },
   },
   computed: {
     q: function() {
@@ -123,11 +97,9 @@ export default {
           products = vm.products,
           [priceMin, priceMax] = vm.filters.byPrice.split('-');
 
-      if (vm.uniques) {
-        products = uniqBy(products, (p) => {
-          return p.price + p.title.replace(/[^a-zA-Z0-9]/,'') + p.phones;
-        })
-      }
+      products = uniqBy(products, (p) => {
+        return p.price + p.title.replace(/[^a-zA-Z0-9]/,'') + p.phones;
+      })
 
       return products
         .filter( p => {
@@ -140,7 +112,12 @@ export default {
         });
     },
     reQuey: function(){
-        let words = this.q.trim().replace(/\s+/,'|').trim();
+        let words = this.q
+                      .trim() 
+                      .split('\s')
+                      .filter(el=>el.length>2)
+                      .map(el=>'\\s'+el)
+                      .join('|');
         return new RegExp(words,"ig");      
     }
   },
@@ -165,18 +142,16 @@ export default {
         this.filters = filters;
     },
     search: async function() {
-
+      let vm = this;
       this.$router.push({ 
         path: this.$route.path, 
         query: { q: this.q }
       });
 
-      // const sites = [  'revolico', 'timbirichi', '1cuc' ];
-      const sites = [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc' ];
+      vm.searching = vm.sites.length;
 
-      await Promise.all( sites.map( async (site) => {
+      await Promise.all( vm.sites.map( async (site) => {
 
-        let vm = this;
 
         this.$axios
             .$get('https://unclic.pro/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
@@ -191,13 +166,15 @@ export default {
                 let product = Object.assign( el, { 
                   site: site, 
                   htmlTitle: el.title.replace( vm.reQuey, "<b>$&</b>" ),
-                  phones: (el.phones === "" && site !== 'bachecubano') ? await vm.$axios.$get(urlFnPhone) : el.phones,
+                  // phones: (el.phones === "" && site !== 'bachecubano') ? await vm.$axios.$get(urlFnPhone) : el.phones,
                   is_favorite: false        
                 }) 
 
                 vm.products.push( product );
 
               });
+
+              --vm.searching
 
             });
 

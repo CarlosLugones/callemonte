@@ -1,6 +1,7 @@
 var rp = require('request-promise');
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
+var getPhone = require('./libs/phone');
 
 const rePhone = /0?(((5|7)[\.\-\s]?([\dO][\.\-\s]?){7})|((47|45|42|33|32|24)\d{6}))/g;
 
@@ -18,35 +19,28 @@ exports.handler =  async (event, context, callback) => {
 
     await rp(options).then( ($) =>  {
        
-        $('td.light, td.dark').each(  (i,el) => {
+        $('td.light, td.dark').each( async (i,el) => { 
             let $el = $(el), 
                 $a = $el.find('a'),
                 $price = $el.find('a span'),
                 url = 'https://www.revolico.com' + $a.attr('href'),
+                phones = ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
                 reId = /(\d+)\.html$/;
 
             if ( reId.test(url) ) {
 
-                let product = Object.assign({},{
+                let product = {
 
                     id: 'R' + url.match(reId)[1],
-
                     price: parseFloat( $price.length ? $price.text() : 0 ),
-
                     photo: $el.find('span.formExtraDescB') ? true : false,
-
                     original_title: $a.children().remove().end().text().trim(),
-
                     title: cleaner( $a.children().remove().end().text() ),
-
-                    phones:  ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
-
+                    phones:  (phones === '') ? await getPhone(url) : phones,
                     url: url,
-
                     date: $a.attr('title')
 
-                });
-
+                };
                 data.push(product);
             }
 

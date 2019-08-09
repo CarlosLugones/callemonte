@@ -1,39 +1,35 @@
 <template>
-  <section class="hero is-fullheight">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-6 is-offset-one-fifth has-text-centered">
+  <section class="jumbotron vertical-center m-0 bg-white">
+      <div class="container d-flex justify-content-center text-center">
+        <div class="">
+          <div class="">
             <img src="/unclic.png" width="90px">
-            <h1 class="title is-center text-logo" >
-              UNCLIC
+            <h1 class="display-3" >
+              CALLEMONTE
             </h1>
-            <h2 class="subtitle has-text-grey">
-              Buscador de clasificados en Cuba</i>
-            </h2>
+              <h2 class="mb-3">Buscador de clasificados en Cuba</h2>
               <div class="field">
-                <div class="control">
+                <div class="form-group">
                   <input 
                     autofocus
-                    class="input is-primary is-medium" 
+                    class="form-control form-control-lg" 
                     type="text" 
                     placeholder="¿Que quieres comprar?" 
                     name="q"  
                     v-model="q" 
-                    @keyup.enter="search" >
+                    @keyup.enter="search()" >
                 </div>
               </div>                    
 
               <div class="field">
                 <div class="control has-text-centered">
-                  <button class="button is-medium has-text-grey" @click="search">Buscar Anuncios </button>
+                  <button class="btn btn-outline-success btn-lg" @click="search">Buscar Anuncios </button>
                 </div>
               </div>                    
             
           </div>
         </div>
       </div>
-    </div>
   </section>
 </template>
 

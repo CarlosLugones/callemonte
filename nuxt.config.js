@@ -24,26 +24,32 @@ export default {
       { rel: 'icon', type: 'image/png', sizes: "32x32", href: '/favicon-32x32.png' },
       { rel: 'icon', type: 'image/png', sizes: "16x16", href: '/favicon-16x16.png' },
       { rel: 'manifest',  href: '/site.webmanifest' }
-    ]
+    ],
+
   },
+
 
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { 
+    // color: '#fff' 
+  },
 
   /*
   ** Global CSS
   */
 
   css: [
-    { src: '~/assets/css/main.scss', lang: 'scss' },
+    '~/assets/css/main.scss'
+    // { src: '~/assets/css/main.scss', lang: 'scss' },
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    // '~/plugins/axios',
   ],
 
   /*
@@ -51,9 +57,10 @@ export default {
   */
   modules: [
     // Doc:https://github.com/nuxt-community/modules/tree/master/packages/bulma
-    '@nuxtjs/bulma',
+    // '@nuxtjs/bulma',
+    'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
   ],
 
   /*
@@ -79,5 +86,10 @@ export default {
       target: 'http://localhost:9000',
       pathRewrite: {'^/.netlify/functions': ''},
     },
-  },  
+  }, 
+
+  // boostrapVue: {
+  //   bootstrapCSS: false,
+  //   bootstrapVueCSS: false,
+  // } 
 }

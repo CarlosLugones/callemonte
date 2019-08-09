@@ -1,5 +1,5 @@
 <template>
-	<a href="#" @click="download" :class="klass">{{title}}</a>
+	<a href="#" @click="download" :class="klass" v-html="title" title="Descargar los resultados (TXT)"></a>
 </template>
 
 <script>
@@ -7,16 +7,18 @@
 export default {
 	props: ['products','title','klass'],
 	data() {
-		return {label: ''}
+		return { label: ''}
 	},
 	methods: {
 	    download: function() {
-	      let element = document.createElement('a'),
-	          filename = 'unclic.txt',
-		      text = this.products
-	                .filter( (p) => { return p.phones})
-	                .map( p => p.price + ' ' + p.title  + ' ' + p.phones )
-	                .join("\r\n");
+			let element = document.createElement('a'),
+			d = new Date(),
+			formatted_date = `${d.getFullYear()}-${(d.getMonth()+1)}-${d.getDate()} ${d.getHours()}H${d.getMinutes()}m`,
+			filename = `callemonte.com ${formatted_date}.txt`,
+			text = this.products
+			    .filter( (p) => { return p.phones})
+			    .map( p => `${p.url}\n${p.price}\t${p.title}\n\t${p.phones}`)
+			    .join("\n\n");
 
 	      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
 	      element.setAttribute('download', filename);
