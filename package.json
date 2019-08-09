@@ -26,7 +26,6 @@
     "nuxt": "^2.8.1",
     "request-promise": "^4.2.4",
     "simple-statistics": "^7.0.5",
-    "slideout": "^1.0.1",
     "store": "^2.0.12"
   },
   "devDependencies": {
