@@ -1,9 +1,11 @@
 <template>
   <section class="jumbotron vertical-center m-0 bg-white">
-      <div class="container justify-content-center text-center">
+      <div class="container ">
+        <div class="row justify-content-center text-center">
+          <div class="col-md-6">
             <img src="/unclic.png" width="90px">
             <h1 >CALLEMONTE</h1>
-              <h2 class="mb-3">Buscador de clasificados en Cuba</h2>
+              <p class="`lead mb-3">Buscador de clasificados en Cuba</p>
               <div class="form-group">
                 <input 
                   autofocus
@@ -16,8 +18,11 @@
               </div>
 
               <div class="form-group">
-                  <button class="btn btn-outline-success btn-lg" @click="search">Buscar Anuncios </button>
+                  <button class="btn btn-outline-success btn-md" @click="search">Buscar Anuncios </button>
               </div>                    
+            
+          </div>
+        </div>
             
       </div>
   </section>
