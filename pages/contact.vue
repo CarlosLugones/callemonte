@@ -7,7 +7,7 @@
             Contacto
           </h1>
           <p class="lead">Escribeme si tienes alguna sugerecia, ecuentras algún error o solo para felicitarme que también me gusta. Te responde en cuanto me conecte. </p>
-          <form name="contact0" method="POST" netlify-honeypot="bot-field" data-netlify="true" >
+          <form name="contact0" method="POST" action="success" netlify-honeypot="bot-field" data-netlify="true" >
             <p class="d-none">
               <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
             </p>            
