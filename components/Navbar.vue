@@ -13,32 +13,35 @@
               ></b-form-input>
           </form>
           <b-navbar-nav>
-            <Download klass="nav-link pl-3 pr-3" title="&#8595;" :products="products" v-if="products.length"/>
-            <b-nav-item href="#" @click="$bvModal.show('modal-1')" title="Menu de Filtros y Páginas">&#9776;</b-nav-item>
+<!--             <span class="nav-link">
+              <b-button variant="outline-secondary" class="my-2 my-sm-0" type="button">&darr;</b-button>
+            </span> -->
+            <Download klass="nav-link pl-3 pr-3" title="&#8659;" :products="products" v-if="products.length"/>
+            <b-nav-item href="#"  @click="$bvModal.show('modal-1')" title="Menu de Filtros y Páginas">&#9776;</b-nav-item>
           </b-navbar-nav>
 
         </div>
       </b-navbar>
 
-      <b-modal centered  hide-footer hide-header id="modal-1" title="" size="sm" body-class="p-0" footer-class="mt-0 border-0" content-class="rounded-0">
+      <b-modal centered  hide-footer id="modal-1" title="Opciones" size="sm" body-class="p-0" footer-class="mt-0 border-0" content-class="rounded-0">
         <b-list-group class="list-group-flush">
 
           <b-list-group-item >
             
-            <div class="form-group d-flex">
+            <label class="form-group d-flex">
               <span class="flex-grow-1">Con el texto en el Título</span> 
               <b-form-checkbox id="chk1" v-model="filters.byTitle" name="title" value="accepted" @change="$emit('filter',f)" switch/>        
-            </div>
+            </label>
 
-            <div class="d-flex">
+            <label class="d-flex">
               <span class="flex-grow-1">Solo con Fotos</span> 
               <b-form-checkbox id="chk2" v-model="filters.byPhoto" name="photos" value="accepted" switch />
-            </div>
+            </label>
 
           </b-list-group-item>
 
           <b-list-group-item >
-            <div class="form-group d-flex" v-for="(range, label ,index) in pricesRanges">
+            <label class="form-group d-flex" v-for="(range, label ,index) in pricesRanges">
               <span class="flex-grow-1">{{label}}</span> 
               <b-form-radio
                 :id="'pricerange'+index"
@@ -46,7 +49,7 @@
                 name="price-range"
                 :value="range"
               />              
-            </div>
+            </label>
           </b-list-group-item>
           <b-list-group-item class="text-center"> 
             <nuxt-link to="/about">Nosotros</nuxt-link>
@@ -69,12 +72,12 @@ export default {
     return {
       q: '',
       pricesRanges : {
-          'Todos':'1-1000000000', 
           '2-100 CUC': '2-100',
           '50-150 CUC': '50-150',
           '100-200 CUC': '100-200',
           '250-500 CUC': '250-500',
           '2000-5000 CUC': '2000-5000' ,
+          'Todos':'1-1000000000', 
       },
       f: this.filters, 
     }
