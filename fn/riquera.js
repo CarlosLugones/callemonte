@@ -3,7 +3,7 @@ import fetch from "node-fetch"
 exports.handler =  async (event, context, callback) => {
     const { q, p = 0 } = event.queryStringParameters;
 
-    const response = await fetch(`http://api.riquera.com/api/posting?priceRangeStart=1&term=${q}&page=${p}&take=25`);
+    const response = await fetch('http://api.riquera.com/api/posting?priceRangeStart=1&term='+q+'&page='+p+'&take=25');
     const resJson = await response.json();
 
     let data = resJson.ads.map( (ad) =>{

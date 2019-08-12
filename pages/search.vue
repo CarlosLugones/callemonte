@@ -30,7 +30,7 @@
                       <a 
                         href="#" 
                         @click="toggleHide(product.id,index)" 
-                        class="d-none d-md-block text-secondary" 
+                        class="d-none d-md-block close" 
                         title="Oculta el producto del listado">
                           <span :class="isHidden(product.id) ? 'has-text-success' : 'has-text-danger' ">&times;</span>
                       </a>
@@ -156,10 +156,11 @@ export default {
       let vm = this;
       this.q = this.$route.query.q;
 
-      Promise.all( vm.sites.map( (site) => {
+      vm.sites.forEach( (site) => {
 
         this.$axios
-            .$get('https://callemonte.com/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
+            .$get('/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
+            // .$get('https://callemonte.com/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
             .then( response => { 
               response.forEach( async el => {
 
@@ -170,7 +171,7 @@ export default {
 
             });
 
-      }));
+      });
 
 
     },

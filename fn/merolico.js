@@ -7,7 +7,7 @@ const rePhone = /(\+?53)?\s?(\d[\s-]?){8}/g;
 exports.handler =  async (event, context, callback) => {
     const { q, p = 1 } = event.queryStringParameters;
 
-    const response = await fetch(`https://merolico.app/search/page/${p}?q=${q}&minPrice=1`);
+    const response = await fetch('https://merolico.app/search/page/'+p+'?q='+q+'&minPrice=1');
     const body = await response.text();
     const $ = cheerio.load( body );
 
@@ -15,6 +15,7 @@ exports.handler =  async (event, context, callback) => {
         let $el = $(el), 
             $a = $el.find('h5.add-title a');
 
+        console.log($a.attr('href'))
         return {
             id: $a.attr('href'),
             price: $el.find('h2.item-price').text().replace(/\D/g,'') || 0 ,

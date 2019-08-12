@@ -1,6 +1,7 @@
 import fetch from "node-fetch"
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
+var moment = require('moment');
 
 const rePhone = /(\+?53)?\s?(\d[\s-]?){8}/g;
 
@@ -25,7 +26,8 @@ exports.handler =  async (event, context, callback) => {
             title: cleaner( $a.children().remove().end().text() ),
             phones: ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
             url: 'https://www.revolico.com' + $a.attr('href'),
-            date: $a.attr('title')
+            date0: $a.attr('title'),
+            date: moment( $a.attr('title'),"dddd, D de MMMM del YYYY", 'es' )
 
         };
 
