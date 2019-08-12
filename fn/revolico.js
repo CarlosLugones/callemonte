@@ -11,27 +11,26 @@ exports.handler =  async (event, context, callback) => {
     const response = await fetch('https://www.revolico.com/search.html?min_price=1&q=' + q + '&p=' + p);
     const body = await response.text();
     const $ = cheerio.load( body );
+    let data = $('td.light, td.dark').filter( (i,el) => /(\d+)\.html$/.test( $(el).find('a[title]').attr('href') ) )
+        .map( (i,el) => { 
 
-    let data = $('td.light, td.dark').filter( (i,el) => /(\d+)\.html$/.test( $(el).find('a').attr('href') ) ).map( (i,el) => { 
-        let $el = $(el), 
-            $a = $el.find('a'),
-            $price = $el.find('a span'),
-            reId = /(\d+)\.html$/;
+            let $el = $(el), 
+                $a = $el.find('a[title]'),
+                $price = $el.find('a span'),
+                reId = /(\d+)\.html$/;
 
-        return {
+            return {
+                id: 'R' + $a.attr('href').match(reId)[1],
+                price: parseFloat( $price.length ? $price.text() : 0 ),
+                photo: $el.find('span.formExtraDescB') ? true : false,
+                title: cleaner( $a.children().remove().end().text() ),
+                phones: ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
+                url: 'https://www.revolico.com' + $a.attr('href'),
+                date0: $a.attr('title'),
+                date: moment( $a.attr('title'),"dddd, D de MMMM del YYYY", 'es' )
+            };
 
-            id: 'R' + $a.attr('href').match(reId)[1],
-            price: parseFloat( $price.length ? $price.text() : 0 ),
-            photo: $el.find('span.formExtraDescB') ? true : false,
-            title: cleaner( $a.children().remove().end().text() ),
-            phones: ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
-            url: 'https://www.revolico.com' + $a.attr('href'),
-            date0: $a.attr('title'),
-            date: moment( $a.attr('title'),"dddd, D de MMMM del YYYY", 'es' )
-
-        };
-
-    }).get();
+        }).get();
 
     return {
         headers: { 
