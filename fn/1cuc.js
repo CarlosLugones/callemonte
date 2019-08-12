@@ -1,5 +1,4 @@
 import fetch from "node-fetch";
-var rp = require('request-promise');
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
 
