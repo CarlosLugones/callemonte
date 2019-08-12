@@ -21,8 +21,7 @@
                       rel="nofollow" 
                       class=""
                       v-html="product.htmlTitle" 
-                      :href="product.url" 
-                      :title="product.original_title"></a>
+                      :href="product.url"></a>
                     <span class="badge badge-light" v-if="product.photo">Foto</span>
                     <!-- <span class="tag">{{product.site}}</span> -->
                     <span class="is-phone">{{ product.phones }}</span>

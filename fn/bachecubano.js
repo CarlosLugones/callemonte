@@ -1,4 +1,4 @@
-var rp = require('request-promise');
+import fetch from "node-fetch"
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
 var getPhone = require('./libs/phone');
@@ -9,50 +9,31 @@ const rePhone = /0?(((5|7)[\.\-\s]?([\dO][\.\-\s]?){7})|((47|45|42|33|32|24)\d{6
 exports.handler =  async (event, context, callback) => {
     const { q, p = 1 } = event.queryStringParameters;
 
-    let data = [];
+    const response = await fetch('https://www.bachecubano.com/search/pattern,' + q.replace(/\s/,'+') + '/iPage,' + p);
+    const body = await response.text();
+    const $ = cheerio.load( body );
 
-    let options = {
-        uri: 'https://www.bachecubano.com/search/pattern,' + q.replace(/\s/,'+') + '/iPage,' + p,
-        transform: (body) => {
-            return cheerio.load(body);
+    let data = $('.simple-wrap').map( (i,el) => {
+        let $el = $(el), 
+            $a = $el.find('a.title');
+
+        return {
+            id:     "B" + $a.attr('href').match(/\d+$/)[0],
+            price:  ($el.find('.price span').text() || 0).replace(/\D/g,''),
+            photo:  $el.find('a.img-link').hasClass('no-img'),
+            title:  cleaner( $a.children().remove().end().text() ),
+            phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
+            url:    $a.attr('href'),
+            date: ''
         }
-    };
 
-    await rp(options).then( ($) =>  {
-       
-        $('.simple-wrap').each(  async (i,el) => {
-            let $el = $(el), 
-                $a = $el.find('a.title'),
-                reId = /\d+$/,
-                $price = $el.find('.price span'),
-                url = $a.attr('href'),
-                phones =  ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', ');
-
-            if ( reId.test( $a.attr('href') ) ) {
-
-                let product = Object.assign({},{
-
-                    id:     "B" + $a.attr('href').match(reId)[0],
-                    price:  parseFloat( $price.length ? $price.text() : 0 ),
-                    photo:  $el.find('a.no-img') ? false : true,
-                    original_title: $a.children().remove().end().text().trim(),
-                    title:  cleaner( $a.children().remove().end().text() ),
-                    phones: (phones === '') ? await getPhone(url) : phones,
-                    url:    url
-
-                }) 
-
-                data.push(product);
-
-            }
-
-        });
-
-    })
-    .catch( (err) => { console.log(err); });
+    }).get();
 
     return {
-        headers: { 'Content-Type':'application/json', 'Access-Control-Allow-Origin': '*' },
+        headers: { 
+            'Content-Type':'application/json', 
+            'Access-Control-Allow-Origin': '*' 
+        },
         statusCode: 200,
         body: JSON.stringify(data)
     };

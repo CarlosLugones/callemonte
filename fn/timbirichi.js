@@ -1,4 +1,3 @@
-// var rp = require('request-promise');
 import fetch from "node-fetch"
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
@@ -21,7 +20,6 @@ exports.handler =  async (event, context, callback) => {
             id:     'T' + $el.attr('href').match(reId)[0],
             price:  $el.find('precio').first().text().replace(/\D/g,''),
             photo:  !reNoImage.test( $el.find('.media-object').attr('src') ),
-            original_title: $el.find('h5.anuncio-titulo').text(),
             title:  cleaner( $el.find('h5.anuncio-titulo').text() ),
             phones: ($el.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
             url: $el.attr('href'),
@@ -39,4 +37,4 @@ exports.handler =  async (event, context, callback) => {
         body: JSON.stringify(data)
     };
 
-} // revolico
+} 
