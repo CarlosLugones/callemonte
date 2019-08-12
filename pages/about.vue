@@ -7,13 +7,18 @@
           Nosotros
         </h1>
         <div class="mb-5">
-          <p class="lead text-justify">Callemonte <i>(Anteriormente unclic.pro)</i> busca clasificados de productos en sitios web de Cuba: <a href="https://www.revolico.com" rel="nofollow">revolico</a>, <a href="https://www.bachecubano.com"  rel="nofollow">bachecubano</a>, <a href="https://1cuc.com" rel="nofollow">1cuc</a>, <a href="https://www.timbirichi.com" rel="nofollow">timbirichi</a> y <a href="https://porlalivre.com" rel="nofollow">porlalivre</a> y seguiremos incrementando la lista. Si tienes algún sitio que agregar <a href="">contactenos</a></p>
+          <p class="lead text-justify">Callemonte <i>(Anteriormente unclic.pro)</i> busca clasificados de productos en sitios web de Cuba: <a href="https://www.revolico.com" rel="nofollow">revolico</a>, <a href="https://www.bachecubano.com"  rel="nofollow">bachecubano</a>, <a href="https://1cuc.com" rel="nofollow">1cuc</a>, <a href="https://www.timbirichi.com" rel="nofollow">timbirichi</a> y <a href="https://porlalivre.com" rel="nofollow">porlalivre</a>,  <a href="https://merolico.app" rel="nofollow">merolico</a>, <a href="https://riquera.com" rel="nofollow">riquera</a> y seguiremos incrementando la lista. Si tienes algún sitio que agregar <a href="">contactenos</a></p>
           
         </div>
         <div class="row">
           <div class="col-sm-6">      
+            <h3 class="">Gratis.</h3> 
+            <p class="lead text-justify">No tiene que pagar nada por buscar lo quiere comprar.</p>
+          </div>          
+
+          <div class="col-sm-6">      
             <h3 class="">Rápido.</h3> 
-            <p class="lead text-justify">Callemonte esté pensado desde el inicio para que sea rápido no usa imagenes, solo el texto necesario solo se centra en encontrar lo que quieres comprar.</p>
+            <p class="lead text-justify">Callemonte esté pensado para que sea rápido no usa imagenes, solo el texto necesario solo se centra en encontrar lo que quieres comprar.</p>
           </div>
 
           <div class="col-sm-6">      
@@ -32,7 +37,7 @@
 
           <div class="col-sm-6">      
             <h3>Elimina Duplicados.</h3> 
-            <p class="lead text-justify">Filtra los anuncios que están repetidos.</p>
+            <p class="lead text-justify">Filtra los anuncios que están repetidos incluso si se repiten n avarios sitios.</p>
           </div>
 
 <!--           <div class="col-sm-6">      
@@ -49,7 +54,7 @@
             <p class="lead"> Callemonte consume un mínimo de datos de su conexión porque las búsquedas se realizan desde sus propios servidores y devuelve solo los datos necesarios.</p>
           </div>
         </div>
-
+        <p>Callemonte está en desarrollo y puede que tenga algún problema no dudes en <a href="/contact">escribirme</a> para hacerlo mejor.</p>
 
 
       </div>

@@ -18,9 +18,9 @@ exports.handler =  async (event, context, callback) => {
         }
     };
 
-    await rp(options).then( ($) =>  {
+    rp(options).then( ($) =>  {
        
-        $('a.anuncio-list').each( async (i,el) => {
+        data = $('a.anuncio-list').map( async (i,el) => {
             let $el = $(el), 
                 $a = $el,
                 $price = $el.find('precio'),
@@ -29,9 +29,11 @@ exports.handler =  async (event, context, callback) => {
                 url =    $el.attr('href'),
                 pattNoImage = /default/g;
 
-            if ( reId.test( $a.attr('href') ) ) {
+            console.log( $el.text() );
 
-                let product = Object.assign({},{
+            // if ( reId.test( $el.attr('href') ) ) {
+
+                let product = {
 
                     id:     'T' + $a.attr('href').match(reId)[0],
                     price:  parseFloat( $price.length ? $price.text().replace(/\$/,'') : 0 ),
@@ -40,21 +42,26 @@ exports.handler =  async (event, context, callback) => {
                     title:  cleaner( $el.find('h5.anuncio-titulo').text() ),
                     phones: (phones === '') ? await getPhone(url) : phones,
                     url: url
-                })
+                };
+                return product;
+                // data.push(product);
 
-                data.push(product);
+            // }
 
-            }
+        }).get();
 
-        });
-
+        return {
+            headers: { 
+                'Content-Type':'application/json',
+                'Access-Control-Allow-Origin': '*' 
+            },
+            statusCode: 200,
+            body: JSON.stringify(data)
+        };
     })
     .catch( (err) => { console.log(err); });
 
-    return {
-        headers: { 'Content-Type':'application/json','Access-Control-Allow-Origin': '*' },
-        statusCode: 200,
-        body: JSON.stringify(data)
-    };
+    console.log(data)
+    
 
 } // revolico

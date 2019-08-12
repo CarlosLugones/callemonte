@@ -7,6 +7,7 @@
           </b-navbar-brand>
           <form class="navbar-form navbar-left d-inline w-100" role="search" v-on:submit.prevent="search">
             <b-form-input 
+              id="searchInput"
               class="mr-sm-2" 
               placeholder="¿Que quieres comprar?" 
               v-model="q" 
@@ -16,15 +17,29 @@
 <!--             <span class="nav-link">
               <b-button variant="outline-secondary" class="my-2 my-sm-0" type="button">&darr;</b-button>
             </span> -->
-            <Download klass="nav-link pl-3 pr-3" title="&#8659;" :products="products" v-if="products.length"/>
-            <b-nav-item href="#"  @click="$bvModal.show('modal-1')" title="Menu de Filtros y Páginas">&#9776;</b-nav-item>
+            <Download klass="nav-link pl-3 pr-3 icon" title="&darr;" :products="products" v-if="products.length"/>
+            <b-nav-item href="#"  
+              
+              @click="$bvModal.show('modal-1')" 
+              title="Menu de Filtros y Páginas" 
+              class="icon">≡</b-nav-item>
           </b-navbar-nav>
 
         </div>
       </b-navbar>
 
-      <b-modal centered  hide-footer id="modal-1" title="Opciones" size="sm" body-class="p-0" footer-class="mt-0 border-0" content-class="rounded-0">
+      <b-modal 
+        centered  
+        hide-footer 
+        return-focus="#searchInput"
+        id="modal-1" 
+        title="Opciones" 
+        size="sm" 
+        body-class="p-0" 
+        footer-class="mt-0 border-0" 
+        content-class="rounded-0">
         <b-list-group class="list-group-flush">
+
 
           <b-list-group-item >
             
@@ -51,12 +66,15 @@
               />              
             </label>
           </b-list-group-item>
+
           <b-list-group-item class="text-center"> 
             <nuxt-link to="/about">Nosotros</nuxt-link>
           </b-list-group-item>
+
           <b-list-group-item class="text-center"> 
             <nuxt-link to="/contact">Contacto</nuxt-link>
           </b-list-group-item>
+
         </b-list-group>
        
       </b-modal>      
@@ -72,12 +90,13 @@ export default {
     return {
       q: '',
       pricesRanges : {
+          'Mayor de 1 CUC': '2',
           '2-100 CUC': '2-100',
           '50-150 CUC': '50-150',
           '100-200 CUC': '100-200',
           '250-500 CUC': '250-500',
           '2000-5000 CUC': '2000-5000' ,
-          'Todos':'1-1000000000', 
+          'Todos':'1', 
       },
       f: this.filters, 
     }
@@ -88,6 +107,7 @@ export default {
   methods: {
     search() {
         this.$router.push("/search?q="+this.q);
+        this.$emit('search');
     }            
   }    
 }
