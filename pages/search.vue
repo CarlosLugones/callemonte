@@ -3,6 +3,7 @@
     <Navbar 
       :products="filteredProducts" 
       :filters="filters"
+      :page="p"
       v-on:search="search"/>
 
     <div class="container">
@@ -73,7 +74,7 @@ export default {
           byTitle: false,
           byPhone: false,
           byPhoto: false,
-          byPrice: '1-1000000000'
+          byPrice: '1'
       },
       sites: [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc', 'merolico', 'riquera' ],
       show: 'all',
@@ -96,6 +97,7 @@ export default {
     q: function (newQ, oldQ) {
       if (newQ != oldQ) {
         this.products = [];
+        this.p = 1;
       }
       this.search();
     },
@@ -139,9 +141,8 @@ export default {
   methods: {
     next() {
       this.p ++;
-      this.search();
+      console.log(this.p)
     },
-
     toggleHide(id,index) {
         if ( ! this.hides.includes(id) ) {
             this.hides.push(id);
@@ -158,18 +159,14 @@ export default {
 
       vm.sites.forEach( (site) => {
 
-        this.$axios
-            // .$get('/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
-            .$get('https://callemonte.com/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
-            .then( response => { 
-              response.forEach( async el => {
+        let url = 'https://callemonte.com/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p
 
-                let product = Object.assign( el, { htmlTitle: el.title.replace( vm.reQuery, "<b>$&</b>" ) }) 
-                vm.products.push( product );
+        this.$axios.$get(url).then( response => { 
 
-              });
+          let products = response.map( el => Object.assign( el, { htmlTitle: el.title.replace( vm.reQuery, "<b>$&</b>" )} ));
+          vm.products = vm.products.concat( products );
 
-            });
+        });
 
       });
 

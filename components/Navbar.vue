@@ -48,7 +48,7 @@
               <b-form-checkbox id="chk1" v-model="filters.byTitle" name="title" value="accepted" @change="$emit('filter',f)" switch/>        
             </label>
 
-            <label class="d-flex">
+            <label class="d-flex mb-0">
               <span class="flex-grow-1">Solo con Fotos</span> 
               <b-form-checkbox id="chk2" v-model="filters.byPhoto" name="photos" value="accepted" switch />
             </label>
@@ -85,7 +85,7 @@ import Download from './Download';
 
 export default {
   components: { 'Download': Download },
-  props: ['filters','products'],
+  props: ['filters','products', 'page'],
   data(){
     return {
       q: '',
@@ -101,13 +101,23 @@ export default {
       f: this.filters, 
     }
   },
-  created() {
+  mounted() {
     this.q = this.$route.query.q;
+  },
+  computed: {
+    p: function(){
+      return this.page
+    }
+  },
+  watch: {
+    p: function() {
+      this.search();
+    }
   },
   methods: {
     search() {
-        this.$router.push("/search?q="+this.q);
         this.$emit('search');
+        this.$router.push({ path: 'search', query: { q: this.q, p: this.p } })
     }            
   }    
 }

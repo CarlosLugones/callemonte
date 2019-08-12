@@ -21,8 +21,8 @@ exports.handler =  async (event, context, callback) => {
 
             return {
                 id: 'R' + $a.attr('href').match(reId)[1],
-                price: parseFloat( $price.length ? $price.text() : 0 ),
-                photo: $el.find('span.formExtraDescB') ? true : false,
+                price: parseFloat( $price.length ? $price.text().replace(/\D/g,'') : 0 ),
+                photo: $el.find('span.formExtraDescB') ? true : false,  
                 title: cleaner( $a.children().remove().end().text() ),
                 phones: ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
                 url: 'https://www.revolico.com' + $a.attr('href'),
