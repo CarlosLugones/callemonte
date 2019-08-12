@@ -23,7 +23,7 @@
                       v-html="product.htmlTitle" 
                       :href="product.url"></a>
                     <span class="badge badge-light" v-if="product.photo">Foto</span>
-                    <span class="tag">{{ product.url.match(/revolico|merolico|bachecubano|porlalivre|1cuc|timbirichi|riquera/)}}</span>
+                    <!-- <span class="tag">{{ product.url.match(/revolico|merolico|bachecubano|porlalivre|1cuc|timbirichi|riquera/)}}</span> -->
                     <span class="is-phone">{{ product.phones }}</span>
                   </td>
                   <td class="text-right">
@@ -159,8 +159,8 @@ export default {
       vm.sites.forEach( (site) => {
 
         this.$axios
-            .$get('/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
-            // .$get('https://callemonte.com/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
+            // .$get('/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
+            .$get('https://callemonte.com/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p)
             .then( response => { 
               response.forEach( async el => {
 
