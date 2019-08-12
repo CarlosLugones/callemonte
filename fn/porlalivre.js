@@ -20,7 +20,7 @@ exports.handler =  async (event, context, callback) => {
         return {
 
             id:     'P' + $a.attr('href').match(reId)[1],
-            price:  parseFloat( $price.length ? $price.text().replace(/\$/,'') : 0 ),
+            price:  $el.find('#price2').text().replace(/\D/g,''),
             photo:  !/no_image/g.test( $el.find('.media-object').attr('src') ),
             title:  cleaner( $el.find('.media-heading').children().remove().end().text() ),
             phones:  ($el.find('.media-heading').text().replace(/\s/g,'').match(rePhone) || []).join(', '),
