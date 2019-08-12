@@ -1,47 +1,31 @@
-var rp = require('request-promise');
+import fetch from "node-fetch"
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
-var getPhone = require('./libs/phone');
 
-const rePhone = /0?(((5|7)[\.\-\s]?([\dO][\.\-\s]?){7})|((47|45|42|33|32|24)\d{6}))/g;
+const rePhone = /(\+?53)?\s?(\d[\s-]?){8}/g;
 
 exports.handler =  async (event, context, callback) => {
     const { q, p = 1 } = event.queryStringParameters;
 
-    let data = [];
+    const response = await fetch(`https://merolico.app/search/page/${p}?q=${q}&minPrice=1`);
+    const body = await response.text();
+    const $ = cheerio.load( body );
 
-    let options = {
-        uri: `https://merolico.app/search/page/${p}?q=${q}&minPrice=1`,
-        transform: (body) => {
-            return cheerio.load(body);
-        }
-    };
+    let data = $('.adds-wrapper .item-list').map( (i,el) => { 
+        let $el = $(el), 
+            $a = $el.find('h5.add-title a');
 
-    await rp(options).then( ($) =>  {
+        return {
+            id: $a.attr('href'),
+            price: $el.find('h2.item-price').text().replace(/\D/g,'') || 0 ,
+            photo: !/default\.jpg$/.test( $el.find('div.add-image img').attr('src') ),
+            title: cleaner( $a.text() ),
+            phones: ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
+            url: $a.attr('href'),
+            date: $el.find('li.date').text().trim()
+        };
 
-        $('.adds-wrapper .item-list').each( async (i,el) => { 
-            let $el = $(el), 
-                $a = $el.find('h5.add-title a'),
-                url = $a.attr('href'),
-                phones = ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', ');
-
-            let ad = {
-                id: url,
-                price: $el.find('h2.item-price').text().replace(/\D/g,'') || 0 ,
-                photo: !/default\.jpg$/.test( $el.find('div.add-image img').attr('src') ),
-                original_title: $a.text(),
-                title: cleaner( $a.text() ),
-                // phones:  (phones === '') ? await getPhone(url) : phones,
-                phones: phones,
-                url: url,
-            };
-
-            data.push(ad);
-        });
-    })
-    .catch( (err) => { console.log(err); });
-
-    // console.log(data)
+    }).get();
 
     return {
         headers: { 

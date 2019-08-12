@@ -1,7 +1,6 @@
 import fetch from "node-fetch"
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
-var getPhone = require('./libs/phone');
 
 const reValid = /^\d+([\.,]\d+)?\s+cuc\s+\-/;
 const rePhone = /0?(((5|7)[\.\-\s]?([\dO][\.\-\s]?){7})|((47|45|42|33|32|24)\d{6}))/g;

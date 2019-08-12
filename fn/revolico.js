@@ -1,54 +1,35 @@
-var rp = require('request-promise');
+import fetch from "node-fetch"
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
-var getPhone = require('./libs/phone');
 
-const rePhone = /0?(((5|7)[\.\-\s]?([\dO][\.\-\s]?){7})|((47|45|42|33|32|24)\d{6}))/g;
+const rePhone = /(\+?53)?\s?(\d[\s-]?){8}/g;
 
 exports.handler =  async (event, context, callback) => {
     const { q, p = 1 } = event.queryStringParameters;
 
-    let data = [];
+    const response = await fetch('https://www.revolico.com/search.html?min_price=1&q=' + q + '&p=' + p);
+    const body = await response.text();
+    const $ = cheerio.load( body );
 
-    let options = {
-        uri: 'https://www.revolico.com/search.html?min_price=1&q=' + q + '&p=' + p,
-        transform: (body) => {
-            return cheerio.load(body);
-        }
-    };
+    let data = $('td.light, td.dark').filter( (i,el) => /(\d+)\.html$/.test( $(el).find('a').attr('href') ) ).map( (i,el) => { 
+        let $el = $(el), 
+            $a = $el.find('a'),
+            $price = $el.find('a span'),
+            reId = /(\d+)\.html$/;
 
-    await rp(options).then( ($) =>  {
-       
-        $('td.light, td.dark').each( async (i,el) => { 
-            let $el = $(el), 
-                $a = $el.find('a'),
-                $price = $el.find('a span'),
-                url = 'https://www.revolico.com' + $a.attr('href'),
-                phones = ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
-                reId = /(\d+)\.html$/;
+        return {
 
-            if ( reId.test(url) ) {
+            id: 'R' + $a.attr('href').match(reId)[1],
+            price: parseFloat( $price.length ? $price.text() : 0 ),
+            photo: $el.find('span.formExtraDescB') ? true : false,
+            title: cleaner( $a.children().remove().end().text() ),
+            phones: ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
+            url: 'https://www.revolico.com' + $a.attr('href'),
+            date: $a.attr('title')
 
-                let product = {
+        };
 
-                    id: 'R' + url.match(reId)[1],
-                    price: parseFloat( $price.length ? $price.text() : 0 ),
-                    photo: $el.find('span.formExtraDescB') ? true : false,
-                    original_title: $a.children().remove().end().text().trim(),
-                    title: cleaner( $a.children().remove().end().text() ),
-                    phones:  (phones === '') ? await getPhone(url) : phones,
-                    url: url,
-                    date: $a.attr('title')
-
-                };
-                data.push(product);
-            }
-
-
-        });
-
-    })
-    .catch( (err) => { console.log(err); });
+    }).get();
 
     return {
         headers: { 

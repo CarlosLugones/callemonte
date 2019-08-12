@@ -1,7 +1,6 @@
-var rp = require('request-promise');
+import fetch from "node-fetch"
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
-var getPhone = require('./libs/phone');
 
 const reValid = /^\d+([\.,]\d+)?\s+cuc\s+\-/;
 const rePhone = /0?(((5|7)[\.\-\s]?([\dO][\.\-\s]?){7})|((47|45|42|33|32|24)\d{6}))/g;
@@ -9,46 +8,28 @@ const rePhone = /0?(((5|7)[\.\-\s]?([\dO][\.\-\s]?){7})|((47|45|42|33|32|24)\d{6
 exports.handler =  async (event, context, callback) => {
     const { q, p = 1 } = event.queryStringParameters;
 
-    let data = [];
+    const response = await fetch(`https://porlalivre.com/search/?q=${q}&page=${p}&price_min=1`);
+    const body = await response.text();
+    const $ = cheerio.load( body );
 
-    let options = {
-        uri: 'https://porlalivre.com/search/?price_min=1&q=' + q + '&page=' + p ,
-        transform: (body) => {
-            return cheerio.load(body);
-        }
-    };
+    let data = $('div.classified-wrapper').map( (i,el) => {
+        let $el = $(el), 
+            $a = $el.find('a.classified-link'),
+            reId = /([A-Z0-9]+)\/$/,
+            $price = $el.find('#price2');
 
-    await rp(options).then( ($) =>  {
-       
-        $('div.classified-wrapper').each(  async (i,el) => {
-            let $el = $(el), 
-                $a = $el.find('a.classified-link'),
-                reId = /([A-Z0-9]+)\/$/,
-                url = 'https://porlalivre.com' + $el.find('a.classified-link').attr('href'),
-                phones = ($el.find('.media-heading').text().replace(/\s/g,'').match(rePhone) || []).join(', '),
-                $price = $el.find('#price2');
+        return {
 
-            if ( reId.test( $a.attr('href') ) ) {
+            id:     'P' + $a.attr('href').match(reId)[1],
+            price:  parseFloat( $price.length ? $price.text().replace(/\$/,'') : 0 ),
+            photo:  !/no_image/g.test( $el.find('.media-object').attr('src') ),
+            title:  cleaner( $el.find('.media-heading').children().remove().end().text() ),
+            phones:  ($el.find('.media-heading').text().replace(/\s/g,'').match(rePhone) || []).join(', '),
+            url: 'https://porlalivre.com' + $el.find('a.classified-link').attr('href'),
+            date: $el.find('ul.media-bottom li').first().text().trim(),
+        };
 
-                let product = Object.assign({},{
-
-                    id:     'P' + $a.attr('href').match(reId)[1],
-                    price:  parseFloat( $price.length ? $price.text().replace(/\$/,'') : 0 ),
-                    photo:  !/no_image/g.test( $el.find('.media-object').attr('src') ),
-                    original_title: $el.find('.media-heading').children().remove().end().text().trim(),
-                    title:      cleaner( $el.find('.media-heading').children().remove().end().text() ),
-                    phones:  (phones === '') ? await getPhone(url) : phones,
-                    url: url
-                })
-
-                data.push(product);
-
-            }
-
-        });
-
-    })
-    .catch( (err) => { console.log(err); });
+    }).get();
 
     return {
         headers: { 'Content-Type':'application/json', 'Access-Control-Allow-Origin': '*' },

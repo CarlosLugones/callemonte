@@ -27,7 +27,11 @@
                     <span class="is-phone">{{ product.phones }}</span>
                   </td>
                   <td class="text-right">
-                      <a href="#" @click="toggleHide(product.id,index)" class="d-none d-md-block " title="Oculta el producto del listado">
+                      <a 
+                        href="#" 
+                        @click="toggleHide(product.id,index)" 
+                        class="d-none d-md-block text-secondary" 
+                        title="Oculta el producto del listado">
                           <span :class="isHidden(product.id) ? 'has-text-success' : 'has-text-danger' ">&times;</span>
                       </a>
                   </td>
@@ -71,7 +75,7 @@ export default {
           byPhoto: false,
           byPrice: '1-1000000000'
       },
-      sites: [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc', 'merolico', 'ricurancia' ],
+      sites: [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc', 'merolico', 'riquera' ],
       show: 'all',
     }
   },
