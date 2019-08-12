@@ -29,32 +29,26 @@
             <h3>Anuncios con precio.</h3>
             <p class="lead text-justify"> Callemonte es un buscador de productos y todo producto a la venta debe tener un precio.</p>
           </div>
-
-          <div class="col-sm-6">      
-            <h3>Formatea el anuncio.</h3>
-            <p class="lead text-justify"> Unifica el formato de los anunciós y separa cada campo.</p>
-          </div>
-
           <div class="col-sm-6">      
             <h3>Elimina Duplicados.</h3> 
             <p class="lead text-justify">Filtra los anuncios que están repetidos incluso si se repiten n avarios sitios.</p>
           </div>
 
-<!--           <div class="col-sm-6">      
+          <div class="col-sm-6">      
             <h3>Sin publicidad.</h3>
-            <p class="lead text-justify"> No se muestran ni se mostrará ninguna publicidad solo los anuncios de su interés. </p>
+            <p class="lead text-justify">No se muestra ninguna publicidad solo los anuncios de su interés. </p>
           </div>
- -->
+
 <!--           <div class="col-sm-6">      
             <h3>Búsquedas on-line.</h3>
             <p class="lead text-justify"> Todas las búsquedas se realizan directamente desde cada sitio. Callemonte no tiene base de datos para guardar los anuncios.</p>
           </div> -->
-          <div class="col-sm-6">      
+ <!--          <div class="col-sm-6">      
             <h3>Ahorra datos.</h3>
             <p class="lead"> Callemonte consume un mínimo de datos de su conexión porque las búsquedas se realizan desde sus propios servidores y devuelve solo los datos necesarios.</p>
-          </div>
+          </div> -->
         </div>
-        <p>Callemonte está en desarrollo y puede que tenga algún problema no dudes en <a href="/contact">escribirme</a> para hacerlo mejor.</p>
+        <p clas="lead">Callemonte está en desarrollo y puede que tenga algún problema no dudes en <a href="/contact">escribirme</a> para hacerlo mejor.</p>
 
 
       </div>
