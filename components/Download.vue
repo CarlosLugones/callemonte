@@ -1,5 +1,5 @@
 <template>
-	<a href="#" @click="download" :class="klass" v-html="title" title="Descargar los resultados (TXT)"></a>
+	<a href="#" @click="download" :class="klass" v-html="title" title="Descargar Listado (TXT)"></a>
 </template>
 
 <script>

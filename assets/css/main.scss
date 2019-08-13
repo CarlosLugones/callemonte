@@ -41,7 +41,7 @@ html {
   align-items: center;
 }
 tr .is-phone, tr .is-price { font-weight: 500; }
-html.padding-top{padding-top: 66px;}
+html.padding-top{padding-top: 64px;}
 
 .custom-switch .custom-control-label::after {background-color: #fff;}
 .custom-control-label::before{ background-color: #adb5bd;}
@@ -57,4 +57,6 @@ table tr td.title{
 	word-wrap: anywhere; 
 	overflow-wrap: anywhere; 
 }
+td .x { visibility: hidden; font-size: 1.3rem; line-height: 1}
+tr:hover td .x { visibility: visible;}
 

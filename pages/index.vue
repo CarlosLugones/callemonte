@@ -3,8 +3,10 @@
       <div class="container ">
         <div class="row justify-content-center text-center">
           <div class="col-md-6">
-            <img src="/unclic.png" width="90px">
-            <h1 >CALLEMONTE</h1>
+            <img src="/logo.png" width="60">
+            <h1 >
+              CALLEMONTE
+            </h1>
               <p class="`lead mb-3">Buscador de clasificados en Cuba</p>
               <div class="form-group">
                 <input 

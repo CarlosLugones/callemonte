@@ -21,7 +21,7 @@
             <b-nav-item href="#"  
               
               @click="$bvModal.show('modal-1')" 
-              title="Menu de Filtros y Páginas" 
+              title="Opciones" 
               class="icon">≡</b-nav-item>
           </b-navbar-nav>
 
@@ -103,6 +103,7 @@ export default {
   },
   mounted() {
     this.q = this.$route.query.q;
+    this.search();
   },
   computed: {
     p: function(){
@@ -116,8 +117,7 @@ export default {
   },
   methods: {
     search() {
-        this.$emit('search');
-        this.$router.push({ path: 'search', query: { q: this.q, p: this.p } })
+        this.$emit('search',this.q);
     }            
   }    
 }

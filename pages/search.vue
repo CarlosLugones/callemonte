@@ -8,14 +8,14 @@
 
     <div class="container">
       <div v-if="filteredProducts.length > 0" class="content-result">
-        <div class="">
+        <div class="tool m-3">
           {{filteredProducts.length}} Resultados
         </div>
         <div class="table-responsive">
-            <table id="products" class="table table-hover mt-3" >
+            <table id="products" class="table table-hover" >
               <tbody>
                 <tr v-for="(product,index) in filteredProducts" >
-                  <td><span class="is-price">{{ product.price }}</span></td>
+                  <td><span class="font-weight-bold">{{ product.price }}</span></td>
                   <td class="title">
                     <a 
                       target="_blank" 
@@ -25,16 +25,19 @@
                       :href="product.url"></a>
                     <span class="badge badge-light" v-if="product.photo">Foto</span>
                     <!-- <span class="tag">{{ product.url.match(/revolico|merolico|bachecubano|porlalivre|1cuc|timbirichi|riquera/)}}</span> -->
-                    <span class="is-phone">{{ product.phones }}</span>
+                    <span class="font-weight-bold">{{ product.phones }}</span>
                   </td>
                   <td class="text-right">
+                    <span class="d-none d-md-block ">
                       <a 
                         href="#" 
-                        @click="toggleHide(product.id,index)" 
-                        class="d-none d-md-block close" 
-                        title="Oculta el producto del listado">
-                          <span :class="isHidden(product.id) ? 'has-text-success' : 'has-text-danger' ">&times;</span>
+                        v-on:click.prevent="toggleHide(product.id,index)" 
+                        class="text-secondary text-decoration-none x" 
+                        title="Ocultar este resultado">
+                          <span class="">&times;</span>
                       </a>
+                      
+                    </span>
                   </td>
                 </tr>
               </tbody>
@@ -99,7 +102,7 @@ export default {
         this.products = [];
         this.p = 1;
       }
-      this.search();
+      // this.search();
     },
     hides: function( newValue, oldValue ) {
         store.set( 'hides', newValue );
@@ -153,9 +156,11 @@ export default {
     isHidden(id) { 
         return this.hides.includes(id);
     },
-    search: function() {
+    search: function(q) {
       let vm = this;
-      this.q = this.$route.query.q;
+
+      vm.q = q;
+      vm.$router.push({ path: 'search', query: { q: this.q, p: this.p } })
 
       vm.sites.forEach( (site) => {
 
