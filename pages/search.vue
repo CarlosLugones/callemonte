@@ -160,7 +160,7 @@ export default {
       let vm = this;
 
       vm.q = q;
-      vm.$router.push({ path: 'search', query: { q: this.q, p: this.p } })
+      vm.$router.push({ path: '/search', query: { q: this.q, p: this.p } })
 
       vm.sites.forEach( (site) => {
 
