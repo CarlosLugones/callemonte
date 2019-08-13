@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
 
-const rePhone = /0?(((5|7)[\.\-\s]?([\dO][\.\-\s]?){7})|((47|45|42|33|32|24)\d{6}))/g;
+const rePhone = /(\+?53)?\s?([1-9][\s-]?){1}(\d[\s-]?){7}/g;
 
 exports.handler =  async (event, context, callback) => {
     const { q, p = 1 } = event.queryStringParameters;
