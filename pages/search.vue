@@ -93,7 +93,7 @@ export default {
         'timbirichi', 
         '1cuc', 
         'merolico', 
-        'riquera' ],
+      ],
       show: 'all',
     }
   },
