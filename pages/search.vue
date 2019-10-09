@@ -136,8 +136,8 @@ export default {
       })
 
       return products.filter( p => {
-            let isHide = vm.hides.includes( p.id );
-            let price = parseFloat(p.price);
+            let isHide = vm.hides.includes( p.id ),
+                price = parseFloat(p.price);
 
       console.log( p.price + '->' + ( parseFloat(p.price) >= priceMin && p.price <= priceMax ))
             return  (vm.filters.byTitle ? vm.reQuery.test(p.title) : true) && 

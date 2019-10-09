@@ -1,15 +1,15 @@
 <template>
   <div>
-      <b-navbar fixed="top" variant="light">
+      <b-navbar fixed="top"  class="shadow-sm bg-white">
         <div class="container"> 
           <b-navbar-brand href="/">
-              <img src="/logo.png" title="callemonte.com" width="38" height="38" >
+              <img src="/logo.png" title="callemonte.com" width="32" height="32" >
           </b-navbar-brand>
 
           <form class="navbar-form navbar-left d-inline w-100" role="search" v-on:submit.prevent="onSearch">
             <b-form-input 
               id="searchInput"
-              class="mr-sm-2 border-0" 
+              class="mr-sm-2 border-0 bg-light" 
               placeholder="¿Que quieres comprar?" 
               v-model="q" 
               ></b-form-input>
