@@ -1,5 +1,5 @@
 <template>
-  <section class="jumbotron vertical-center m-0 bg-white">
+  <section class="jumbotron jumbotron-fluid vertical-center m-0 bg-white">
       <div class="container ">
         <div class="row justify-content-center text-center">
           <div class="col-md-6">
@@ -16,7 +16,7 @@
                   placeholder="¿Que quieres comprar?" 
                   name="q"  
                   v-model="q" 
-                  @keyup.enter="search()" >
+                  @keyup.enter="search" >
               </div>
 
               <div class="form-group">
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-
 export default {
   layout: 'home',
   data(){

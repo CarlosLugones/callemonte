@@ -7,7 +7,7 @@
       v-on:search="search"/>
 
     <div class="container">
-      <div v-if="filteredProducts.length > 0" class="content-result">
+      <div v-if="filteredProducts.length > 0" class="content-result row">
         <div class="tool m-3">
           {{filteredProducts.length}} Resultados
         </div>
@@ -23,9 +23,14 @@
                       class=""
                       v-html="product.htmlTitle" 
                       :href="product.url"></a>
-                    <span class="badge badge-light" v-if="product.photo">Foto</span>
-                    <!-- <span class="tag">{{ product.url.match(/revolico|merolico|bachecubano|porlalivre|1cuc|timbirichi|riquera/)}}</span> -->
-                    <span class="font-weight-bold">{{ product.phones }}</span>
+
+                    <span class="text-muted ml-1" v-if="product.photo">
+                      <camera-icon size="1x"></camera-icon>
+                    </span>
+
+                    <span class="font-weight-bold ml-1">{{ product.phones }}</span>
+
+                    <span class="product-site ml-1">{{ product.site }}</span>
                   </td>
                   <td class="text-right">
                     <span class="d-none d-md-block ">
@@ -55,10 +60,12 @@
 <script>
 import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
+import { CameraIcon } from 'vue-feather-icons'
+
 var store = require('store');
 
 export default {
-  components: { Navbar },
+  components: { Navbar, CameraIcon },
   head() {
     return {
       htmlAttrs: {
@@ -79,7 +86,14 @@ export default {
           byPhoto: false,
           byPrice: '1'
       },
-      sites: [  'bachecubano', 'revolico', 'porlalivre', 'timbirichi', '1cuc', 'merolico', 'riquera' ],
+      sites: [  
+        'bachecubano', 
+        'revolico', 
+        'porlalivre', 
+        'timbirichi', 
+        '1cuc', 
+        'merolico', 
+        'riquera' ],
       show: 'all',
     }
   },
@@ -123,9 +137,11 @@ export default {
 
       return products.filter( p => {
             let isHide = vm.hides.includes( p.id );
+            let price = parseFloat(p.price);
 
+      console.log( p.price + '->' + ( parseFloat(p.price) >= priceMin && p.price <= priceMax ))
             return  (vm.filters.byTitle ? vm.reQuery.test(p.title) : true) && 
-                    ( p.price >= priceMin && p.price <= priceMax ) && 
+                    ( price >= priceMin && price <= priceMax ) && 
                     ( vm.filters.byPhoto ? p.photo : true ) && 
                     ( vm.filters.byPhone ? p.phones : true ) && 
                     ( vm.show==='hidden' ? isHide : ! isHide );
@@ -134,8 +150,8 @@ export default {
     reQuery: function(){
       let re = this.q
                   .split(' ')
-                  .filter(el=>el.length>2)
-                  .map(el=>'((^|\\s)'+el+')')
+                  .filter( el => el.length > 2 )
+                  .map( el => '((^|\\s)'+el+')' )
                   .join('|');
 
       return new RegExp(re,"ig");      
@@ -144,7 +160,6 @@ export default {
   methods: {
     next() {
       this.p ++;
-      console.log(this.p)
     },
     toggleHide(id,index) {
         if ( ! this.hides.includes(id) ) {
@@ -162,13 +177,17 @@ export default {
       vm.q = q;
       vm.$router.push({ path: '/search', query: { q: this.q, p: this.p } })
 
-      vm.sites.forEach( (site) => {
+      vm.sites.forEach( site => {
 
         let url = 'https://callemonte.com/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p
 
         this.$axios.$get(url).then( response => { 
 
-          let products = response.map( el => Object.assign( el, { htmlTitle: el.title.replace( vm.reQuery, "<b>$&</b>" )} ));
+          let products = response.map( el => Object.assign( el, { 
+            htmlTitle: el.title.replace( vm.reQuery, "<b>$&</b>" ),
+            site: site
+          } ));
+
           vm.products = vm.products.concat( products );
 
         });

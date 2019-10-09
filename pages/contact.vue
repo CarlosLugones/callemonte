@@ -2,10 +2,16 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-8 "> 
-          <h1 class="title mt-5">
+        <div class="text-center mt-5">
+          <a href="/" class="">
+          <img src="/logo.png" width="60">
+          <h1>CALLEMONTE</h1>        
+          </a>
+        </div>          
+          <h2 class="title mt-5">
             <a :href="prevPath" title="Regresar a la búsqueda">&#8249;</a>
             Contacto
-          </h1>
+          </h2>
           <p class="lead">Escribeme si tienes alguna sugerecia, ecuentras algún error o solo para felicitarme que también me gusta. Te responde en cuanto me conecte. </p>
           <form name="contact0" method="POST" action="success" netlify-honeypot="bot-field" data-netlify="true" >
             <p class="d-none">
@@ -13,7 +19,7 @@
             </p>            
             <div class="form-group">
               <label class="label">Correo Electronico</label>
-              <input class="form-control" type="email" placeholder="Text input" 
+              <input class="form-control" type="email" placeholder="" 
                 name="email" 
                 v-model="email" required>              
             </div>
@@ -22,7 +28,7 @@
               <label class="label">Mensaje</label>
               <textarea 
                 class="form-control" 
-                placeholder="Textarea" 
+                placeholder="" 
                 name="message" 
                 rows="5" 
                 v-model="msg"

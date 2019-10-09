@@ -1,5 +1,7 @@
 <template>
-	<a href="#" @click="download" :class="klass" v-html="title" title="Descargar Listado (TXT)"></a>
+	<a href="#" @click="download" :class="klass" title="Descargar Listado (TXT)">
+		<slot></slot>
+	</a>
 </template>
 
 <script>
@@ -17,7 +19,7 @@ export default {
 			filename = `callemonte.com ${formatted_date}.txt`,
 			text = this.products
 			    .filter( (p) => { return p.phones})
-			    .map( p => `${p.url}\n${p.price}\t${p.title}\n\t${p.phones}`)
+			    .map( p => `${p.price}\t${p.title}\n\t${p.phones}`)
 			    .join("\n\n");
 
 	      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));

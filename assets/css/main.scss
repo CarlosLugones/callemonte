@@ -6,13 +6,14 @@
 // $dropdown-content-radius: 0;
 @import 'bootstrap/scss/bootstrap.scss';
 @import 'bootstrap-vue/src/index.scss';
+
 html {
   font-size: 0.9rem;
 }
 
 @include media-breakpoint-up(sm) {
   html {
-    font-size: 1rem;
+    font-size: 1.15rem;
   }
 }
 
@@ -29,7 +30,7 @@ html {
 }
 
 
-*{
+* {
 	font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
@@ -40,8 +41,9 @@ html {
   display: flex;
   align-items: center;
 }
-tr .is-phone, tr .is-price { font-weight: 500; }
-html.padding-top{padding-top: 64px;}
+// tr .is-phone, tr .is-price { font-weight: 500; }
+.product-site { font-size: 0.9rem; }
+html.padding-top{ padding-top: 64px;}
 
 .custom-switch .custom-control-label::after {background-color: #fff;}
 .custom-control-label::before{ background-color: #adb5bd;}
@@ -59,4 +61,5 @@ table tr td.title{
 }
 td .x { visibility: hidden; font-size: 1.3rem; line-height: 1}
 tr:hover td .x { visibility: visible;}
+
 
