@@ -15,7 +15,7 @@
             <table id="products" class="table table-hover" >
               <tbody>
                 <tr v-for="(product,index) in filteredProducts" >
-                  <td><span class="font-weight-bold">{{ product.price }}</span></td>
+                  <td><span class="font-weight-bold">${{ product.price }}</span></td>
                   <td class="title">
                     <a 
                       target="_blank" 
