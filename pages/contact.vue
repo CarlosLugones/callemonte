@@ -19,7 +19,7 @@
             </p>            
             <div class="form-group">
               <label class="label">Correo Electronico</label>
-              <input class="form-control" type="email" placeholder="" 
+              <input class="form-control" type="email" 
                 name="email" 
                 v-model="email" required>              
             </div>
@@ -28,7 +28,6 @@
               <label class="label">Mensaje</label>
               <textarea 
                 class="form-control" 
-                placeholder="" 
                 name="message" 
                 rows="5" 
                 v-model="msg"
