@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
 
-const rePhone = /(\+?53)?\s?([1-9][\s-]?){1}(\d[\s-]?){7}/g;
+const rePhone = /((5|7)\d{7})|((24|32|33|45)\d{6})/g;
 
 exports.handler =  async (event, context, callback) => {
     const { q, p = 1 } = event.queryStringParameters;
@@ -20,7 +20,7 @@ exports.handler =  async (event, context, callback) => {
                 price: ($el.find('.v-price strong').text() || '').replace(/\D/g,''),
                 photo: !/def-1/g.test( $el.find('img').attr('src') ),
                 title: cleaner( $a.children().remove().end().text() ),
-                phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
+                phones: ($a.text().replace(/[^a-ZA-Z1-9]/g,'').match(rePhone) || []).join(', '),
                 url: $a.attr('href'),
                 date: $el.find('.publicated-date').text().trim(),
             }
