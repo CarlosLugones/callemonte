@@ -44,7 +44,9 @@ export default {
   },  
   methods: {
     search() {
+      if ( this.q.length > 0 ) {
         this.$router.push("/search?q="+this.q);
+      }
     }            
   }  
 }

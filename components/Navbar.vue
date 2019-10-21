@@ -147,7 +147,11 @@ export default {
   },
   methods: {
     onSearch() {
+      if (this.q.length > 0) {
         this.$emit('search',this.q);
+      } else {
+        this.$bvModal.msgBoxOk('Escriba que quiere comprar', options)
+      }
     }            
   }    
 }
