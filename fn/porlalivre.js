@@ -23,7 +23,7 @@ exports.handler =  async (event, context, callback) => {
             price:  $el.find('#price2').text().replace(/\D/g,''),
             photo:  !/no_image/g.test( $el.find('.media-object').attr('src') ),
             title:  cleaner( $el.find('.media-heading').children().remove().end().text() ),
-            phones:  ($el.find('.media-heading').text().replace(/\s/g,'').match(rePhone) || []).join(', '),
+            phones:  ($el.find('.media-heading').text().replace(/[^a-zA-Z1-9]/g,'').match(rePhone) || []).join(', '),
             url: 'https://porlalivre.com' + $el.find('a.classified-link').attr('href'),
             date: $el.find('ul.media-bottom li').first().text().trim(),
         };
