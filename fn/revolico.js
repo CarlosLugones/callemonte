@@ -1,7 +1,6 @@
 import fetch from "node-fetch"
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
-var moment = require('moment');
 
 const rePhone = /(\+?53)?\s?([1-9][\s-]?){1}(\d[\s-]?){7}/g;
 
@@ -15,11 +14,11 @@ exports.handler =  async (event, context, callback) => {
     let json = JSON.parse( $('script[type="application/json"]').get()[0].children[0].data );
 
     // retorna el listado 
-    let data = Object.keys( json.props.apolloState ).filter( (k) => { return /^AdType/.test(k)  } ).map( k => {
-        let ad = json.props.apolloState[k]
-        console.log(ad)
+    let rootObj = json.props.apolloState;
+    let data = Object.keys( rootObj  ).filter( (k) => { return /^AdType/.test(k)  } ).map( k => {
+        let ad = rootObj[k]
         return {
-            id: ad.id,
+            id: 'R' + ad.id,
             title: cleaner(ad.title),
             phones: (ad.title.replace(/[^a-zA-Z0-9]/g,'').match(rePhone) || []).join(),
             price: ad.price,
