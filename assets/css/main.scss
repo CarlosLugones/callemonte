@@ -10,6 +10,9 @@
 html {
   font-size: 0.9rem;
 }
+a:visited{
+  color: #343a40;
+}
 
 @include media-breakpoint-up(sm) {
   html {
