@@ -20,7 +20,7 @@ exports.handler =  async (event, context, callback) => {
                 price: ($el.find('.v-price strong').text() || '').replace(/\D/g,''),
                 photo: !/def-1/g.test( $el.find('img').attr('src') ),
                 title: cleaner( $a.children().remove().end().text() ),
-                phones: ($a.text().replace(/[^a-zA-Z1-9]/g,'').match(rePhone) || []).join(', '),
+                phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
                 url: $a.attr('href'),
                 date: $el.find('.publicated-date').text().trim(),
             }

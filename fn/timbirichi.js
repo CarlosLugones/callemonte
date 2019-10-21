@@ -15,13 +15,13 @@ exports.handler =  async (event, context, callback) => {
         let $el = $(el), 
             reId = /[a-zA-Z]+$/,
             reNoImage = /default/g;
-
+        console.log($el.find('h5.anuncio-titulo').text().replace(/[^a-zA-Z1-9]/g,'') +  ' - ' + $el.find('h5.anuncio-titulo').text().replace(/[^a-zA-Z1-9]/g,'').match(rePhone));
         return {
             id:     'T' + $el.attr('href').match(reId)[0],
             price:  $el.find('precio').first().text().replace(/\D/g,''),
             photo:  !reNoImage.test( $el.find('.media-object').attr('src') ),
             title:  cleaner( $el.find('h5.anuncio-titulo').text() ),
-            phones: ($el.find('h5.anuncio-titulo').text().replace(/[^a-zA-Z1-9]/g,'').match(rePhone) || []).join(),
+            phones: ($el.find('h5.anuncio-titulo').text().replace(/\s/g,'').match(rePhone) || []).join(),
             url: $el.attr('href'),
             date: $el.find('li .icon-clock').parent().text().trim()
         };

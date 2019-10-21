@@ -16,7 +16,7 @@
           </form>
 
           <b-navbar-nav>
-            <li class="nav-item">
+            <li class="nav-item" v-if="products.length > 0">
               <Download klass="nav-link" title="&darr;" :products="products" >
                 <download-icon></download-icon>
               </Download>
@@ -24,7 +24,8 @@
             <b-nav-item href="#"  
               @click="$bvModal.show('modal-filter')" 
               title="Opciones" 
-              class="icon">
+              class="icon"
+              v-if="products.length > 0">
               <filter-icon></filter-icon>
             </b-nav-item>
             <b-nav-item href="#"  

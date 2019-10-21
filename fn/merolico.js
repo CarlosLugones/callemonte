@@ -21,7 +21,7 @@ exports.handler =  async (event, context, callback) => {
             price: $el.find('h2.item-price').text().replace(/\D/g,'') || 0 ,    
             photo: !/default\.jpg$/.test( $el.find('div.add-image img').attr('src') ),
             title: cleaner( $a.text() ),
-            phones: ($a.text().replace(/[^a-zA-Z0-9]/g,'').match(/\d{8}/g) || []).join(', '),
+            phones: ($a.text().replace(/\s/g,'').match(/\d{8}/g) || []).join(', '),
             url: $a.attr('href'),
             date: $el.find('li.date').text().trim()
         };
