@@ -11,7 +11,6 @@ exports.handler =  async (event, context, callback) => {
     const body = await response.text();
     const $ = cheerio.load( body );
 
-        console.log(body)
     let data = $('.adds-wrapper .item-list').map( (i,el) => { 
         let $el = $(el), 
             $a = $el.find('h5.add-title a');
