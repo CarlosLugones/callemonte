@@ -25,6 +25,7 @@
               <div class="form-group">
                 <nuxt-link to="/about" class="btn btn-link text-secondary">Nosotros</nuxt-link>
                 <nuxt-link to="/contact" class="btn btn-link text-secondary">Contacto</nuxt-link>
+                <a href="https://medium.com/callemonte" target="_blank" class="btn btn-link text-secondary">Blog</a>
               </div>                    
             
           </div>
