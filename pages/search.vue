@@ -48,7 +48,7 @@
               </tbody>
             </table>
         </div>
-        <div class="is-centered mb-4" v-if="show === 'all'"> 
+        <div class="col-12 is-centered mb-4" v-if="show === 'all'"> 
           <button class="btn btn-outline-success btn-block" @click="next">Vamos por más</button>
         </div>
       </div>

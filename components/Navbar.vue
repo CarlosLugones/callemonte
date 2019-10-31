@@ -1,6 +1,6 @@
 <template>
-  <div>
-      <b-navbar fixed="top"  class="shadow-sm bg-white">
+  <div >
+      <nav class="navbar navbar-expand navbar-light bg-light fixed-top"> 
         <div class="container"> 
           <b-navbar-brand href="/">
               <img src="/logo.png" title="callemonte.com" width="32" height="32" >
@@ -9,7 +9,7 @@
           <form class="navbar-form navbar-left d-inline w-100" role="search" v-on:submit.prevent="onSearch">
             <b-form-input 
               id="searchInput"
-              class="mr-sm-2 border-0 bg-light" 
+              class="mr-sm-2 border-0" 
               placeholder="¿Que quieres comprar?" 
               v-model="q" 
               ></b-form-input>
@@ -21,6 +21,7 @@
                 <download-icon></download-icon>
               </Download>
             </li>
+
             <b-nav-item href="#"  
               @click="$bvModal.show('modal-filter')" 
               title="Opciones" 
@@ -37,7 +38,7 @@
           </b-navbar-nav>
 
         </div>
-      </b-navbar>
+      </nav>
 
       <b-modal 
         centered  
