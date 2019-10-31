@@ -5,7 +5,8 @@
           <div class="col-md-4">
             <div class="alert alert-success" role="alert">
               <h4 class="alert-heading">Gracias por el contacto.</h4>
-              En cuanto me conecte te respondo ahora puedes <a href="/" class="alert-link">seguir buscando</a>. 
+              <p>En cuanto me conecte te respondo.</p> 
+              <p>Ahora puedes <a href="/" class="alert-link">seguir buscando</a>.</p> 
             </div>            
           </div>
         </div>
