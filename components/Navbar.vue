@@ -48,11 +48,8 @@
         title="Opciones" 
         size="sm" 
         body-class="p-0" 
-        footer-class="mt-0 border-0 bg-light" 
-        content-class="rounded-0">
+        footer-class="mt-0 border-0 bg-light" >
         <b-list-group class="list-group-flush">
-
-
           <b-list-group-item >
             
             <label class="form-group d-flex">
@@ -91,8 +88,7 @@
         id="modal-menu" 
         size="sm" 
         body-class="p-0" 
-        footer-class="mt-0 border-0" 
-        content-class="rounded-0">
+        footer-class="mt-0 border-0">
 
         <b-list-group class="list-group-flush">
 
