@@ -98,6 +98,10 @@
 
           <b-list-group-item class="text-center"> 
             <nuxt-link to="/contact">Contacto</nuxt-link>
+          </b-list-group-item>            
+
+          <b-list-group-item class="text-center"> 
+            <a href="https://medium.com/callemonte" target="_blank">Blog</a>
           </b-list-group-item>          
 
         </b-list-group>
