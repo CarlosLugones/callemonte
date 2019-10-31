@@ -9,7 +9,7 @@
           <form class="navbar-form navbar-left d-inline w-100" role="search" v-on:submit.prevent="onSearch">
             <b-form-input 
               id="searchInput"
-              class="mr-sm-2 border-0" 
+              class="mr-sm-2" 
               placeholder="¿Que quieres comprar?" 
               v-model="q" 
               ></b-form-input>

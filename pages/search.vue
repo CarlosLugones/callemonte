@@ -28,9 +28,9 @@
                       <camera-icon size="1x"></camera-icon>
                     </span>
 
-                    <span class="font-weight-bold ml-1">{{ product.phones }}</span>
+                    <span class="bg-gray px-2 py-1 ml-1 rounded" v-if="product.phones">{{ product.phones }}</span>
 
-                    <span class="product-site ml-1">{{ product.site }}</span>
+                    <span class="product-site ml-1 text-secondary">{{ product.site }}</span>
                   </td>
                   <td class="text-right">
                     <span class="d-none d-md-block ">
