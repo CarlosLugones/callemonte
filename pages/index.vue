@@ -20,7 +20,7 @@
               </div>
 
               <div class="form-group">
-                  <button class="btn btn-outline-success btn-md" @click="search">Buscar Anuncios </button>
+                  <button class="btn btn-outline-success btn-md border-2" @click="search">Buscar Anuncios </button>
               </div>                    
               <div class="form-group">
                 <nuxt-link to="/about" class="btn btn-link text-secondary">Nosotros</nuxt-link>
