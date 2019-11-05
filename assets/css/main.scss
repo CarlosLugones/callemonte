@@ -14,9 +14,9 @@ a:visited{
   color: #343a40;
 }
 
-@include media-breakpoint-up(sm) {
+@include media-breakpoint-up(xs) {
   html {
-    font-size: 1.15rem;
+    font-size: 1.07rem;
   }
 }
 
@@ -26,11 +26,11 @@ a:visited{
   }
 }
 
-@include media-breakpoint-up(lg) {
-  html {
-    font-size: 1rem;
-  }
-}
+// @include media-breakpoint-up(lg) {
+//   html {
+//     font-size: 1rem;
+//   }
+// }
 
 
 * {
@@ -45,7 +45,6 @@ a:visited{
   align-items: center;
 }
 // tr .is-phone, tr .is-price { font-weight: 500; }
-.product-site { font-size: 0.9rem; }
 html.padding-top{ padding-top: 64px;}
 
 .custom-switch .custom-control-label::after {background-color: #fff;}
@@ -56,13 +55,16 @@ html.padding-top{ padding-top: 64px;}
 	font-weight: 700;
 }
 
-table tr td:first-child { padding-right: 0; }
-table tr td:last-child { padding-left: 0; }
-table tr td.title{ 
-	word-wrap: anywhere; 
-	overflow-wrap: anywhere; 
-}
-td .x { visibility: hidden; font-size: 1.3rem; line-height: 1}
-tr:hover td .x { visibility: visible;}
-.bg-gray{ background-color: #e2e8f0; }
+// table tr td:first-child { padding-right: 0; }
+// table tr td:last-child { padding-left: 0; }
+// table tr td.title{ 
+// 	word-wrap: anywhere; 
+// 	overflow-wrap: anywhere; 
+// }
+// td .x { visibility: hidden; font-size: 1.3rem; line-height: 1}
+// tr:hover td .x { visibility: visible;}
+.bg-gray{ background-color: #EEF1F4; }
+.text-gray{ color: #C7CACD; }
+a.x:hover{ color: red; }
+body { background-color: #EEF1F4;  }
 

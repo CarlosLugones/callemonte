@@ -1,41 +1,36 @@
 <template>
-  <div >
-      <nav class="navbar navbar-expand navbar-light bg-light fixed-top"> 
-        <div class="container"> 
-          <b-navbar-brand href="/">
-              <img src="/logo.png" title="callemonte.com" width="32" height="32" >
-          </b-navbar-brand>
+  <div>
+      <nav class="bg-gray fixed-top py-3"> 
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-sm-10">
+              <div class="d-flex">
+                <div class="form-group w-100 m-0" >
+                  <input class="form-control form-control-lg mr-sm-2 border-0"
+                    id="searchInput"
+                    placeholder="¿Que quieres comprar?" 
+                    v-model="q"
+                    v-on:keypress.enter="onSearch" 
+                    ></input>
+                </div>
 
-          <form class="navbar-form navbar-left d-inline w-100" role="search" v-on:submit.prevent="onSearch">
-            <b-form-input 
-              id="searchInput"
-              class="mr-sm-2" 
-              placeholder="¿Que quieres comprar?" 
-              v-model="q" 
-              ></b-form-input>
-          </form>
-
-          <b-navbar-nav>
-            <li class="nav-item" v-if="products.length > 0">
-              <Download klass="nav-link" title="&darr;" :products="products" >
-                <download-icon></download-icon>
-              </Download>
-            </li>
-
-            <b-nav-item href="#"  
-              @click="$bvModal.show('modal-filter')" 
-              title="Opciones" 
-              class="icon"
-              v-if="products.length > 0">
-              <filter-icon></filter-icon>
-            </b-nav-item>
-            <b-nav-item href="#"  
-              @click="$bvModal.show('modal-menu')" 
-              title="Opciones" 
-              class="icon">
-              <menu-icon></menu-icon>
-            </b-nav-item>
-          </b-navbar-nav>
+                <Download klass="btn btn-link btn-lg px-2 border-0 text-dark" title="&darr;" :products="products" v-if="products.length > 0">
+                  <download-icon></download-icon>
+                </Download>
+                <a class="btn btn-link btn-lg px-2 text-dark border-0" href="#"  
+                  @click="$bvModal.show('modal-filter')" 
+                  title="Filtros" 
+                  v-if="products.length > 0">
+                  <filter-icon></filter-icon>
+                </a>
+                <a class="btn btn-link btn-lg pl-2 pr-0" href="#" @click="$bvModal.show('modal-menu')" title="callemonte.com - Opciones">
+                    <img src="/logo.png" width="32" height="32">
+                </a>
+                
+              </div> 
+              
+            </div>
+          </div>
 
         </div>
       </nav>
@@ -44,7 +39,6 @@
         centered  
         hide-header 
         hide-footer 
-        return-focus="#searchInput"
         id="modal-filter" 
         title="Opciones" 
         size="sm" 
@@ -85,13 +79,16 @@
         centered  
         hide-footer 
         hide-header 
-        return-focus="#searchInput"
         id="modal-menu" 
         size="sm" 
         body-class="p-0" 
         footer-class="mt-0 border-0">
 
         <b-list-group class="list-group-flush">
+
+          <b-list-group-item class="text-center"> 
+            <nuxt-link to="/">Inicio</nuxt-link>
+          </b-list-group-item>          
 
           <b-list-group-item class="text-center"> 
             <nuxt-link to="/about">Nosotros</nuxt-link>

@@ -93,9 +93,9 @@ export default {
     // bootstrapCSS: false,
     // bootstrapVueCSS: false,
     componentPlugins: [
-      'LayoutPlugin',
-      'TablePlugin',
-      'NavbarPlugin',
+      // 'LayoutPlugin',
+      // 'TablePlugin',
+      // 'NavbarPlugin',
       'ListGroupPlugin',
       'FormPlugin',
       'FormCheckboxPlugin',

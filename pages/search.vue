@@ -7,15 +7,52 @@
       v-on:search="search"/>
 
     <div class="container">
-      <div v-if="filteredProducts.length > 0" class="content-result row">
-        <div class="tool m-3">
+      <div class="row justify-content-center">
+        <div class="col-sm-10">    
+          
+      <div v-if="filteredProducts.length > 0" class="content-result">
+
+        <div class="tool my-3">
           {{filteredProducts.length}} Resultados
         </div>
-        <div class="table-responsive">
-            <table id="products" class="table table-hover" >
+
+        <!-- <div class="table-responsive"> -->
+            <ul class="list-group list-group-flush shadow-sm">
+              <li class="list-group-item px-2 d-flex" v-for="(product,index) in filteredProducts">
+                <div class="ads w-100">
+                  <span class="text-secondary small">$</span><span class="font-weight-bold">{{ product.price }}</span>
+                  <span>-</span>
+                  <a 
+                    target="_blank" 
+                    rel="nofollow" 
+                    class=""
+                    v-html="product.htmlTitle" 
+                    :href="product.url"></a>
+                  <span class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones">{{ product.phones }}</span>
+                  <span class="text-muted ml-1" v-if="product.photo">
+                    <camera-icon size="1x"></camera-icon>
+                  </span>
+                  <span class="product-site ml-1 text-secondary">{{ product.site }}</span>
+                  
+                </div>        
+                <div class="actions ml-2">
+                    <a 
+                      href="#" 
+                      v-on:click.prevent="toggleHide(product.id,index)" 
+                      class="text-gray text-decoration-none x" 
+                      title="Ocultar este resultado">
+                        <eye-off-icon size="1x"></eye-off-icon>
+                    </a>                    
+                </div>
+            
+              </li>
+            </ul>
+<!--             <table id="products" class="table table-hover" >
               <tbody>
                 <tr v-for="(product,index) in filteredProducts" >
-                  <td><span class="text-secondary small">$</span><span class="font-weight-bold">{{ product.price }}</span></td>
+                  <td>
+                    <span class="text-secondary small">$</span><span class="font-weight-bold">{{ product.price }}</span>
+                  </td>
                   <td class="title">
                     <a 
                       target="_blank" 
@@ -46,13 +83,18 @@
                   </td>
                 </tr>
               </tbody>
-            </table>
-        </div>
-        <div class="col-12 is-centered mb-4" v-if="show === 'all'"> 
-          <button class="btn btn-outline-success btn-block" @click="next">Vamos por más</button>
+            </table> -->
+        <!-- </div> -->
+        <div class="row mt-3">
+          <div class="col-12 is-centered mb-4" v-if="show === 'all'"> 
+            <button class="btn btn-link btn-block bg-light text-dark py-3 border-0" @click="next">Vamos por más</button>
+          </div>
+          
         </div>
       </div>
 
+    </div>
+    </div>
     </div>
   </div>
 </template>
@@ -60,12 +102,12 @@
 <script>
 import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
-import { CameraIcon } from 'vue-feather-icons'
+import { CameraIcon, EyeOffIcon  } from 'vue-feather-icons'
 
 var store = require('store');
 
 export default {
-  components: { Navbar, CameraIcon },
+  components: { Navbar, CameraIcon, EyeOffIcon  },
   head() {
     return {
       htmlAttrs: {
@@ -139,7 +181,7 @@ export default {
             let isHide = vm.hides.includes( p.id ),
                 price = parseFloat(p.price);
 
-      console.log( p.price + '->' + ( parseFloat(p.price) >= priceMin && p.price <= priceMax ))
+      // console.log( p.price + '->' + ( parseFloat(p.price) >= priceMin && p.price <= priceMax ))
             return  (vm.filters.byTitle ? vm.reQuery.test(p.title) : true) && 
                     ( price >= priceMin && price <= priceMax ) && 
                     ( vm.filters.byPhoto ? p.photo : true ) && 
