@@ -25,7 +25,7 @@
                   <a 
                     target="_blank" 
                     rel="nofollow" 
-                    class=""
+                    class="title"
                     v-html="product.htmlTitle" 
                     :href="product.url"></a>
                   <span class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones">{{ product.phones }}</span>

@@ -54,6 +54,10 @@ html.padding-top{ padding-top: 64px;}
 	line-height: 1;
 	font-weight: 700;
 }
+.title{ 
+ word-wrap: anywhere; 
+ overflow-wrap: anywhere; 
+}
 
 // table tr td:first-child { padding-right: 0; }
 // table tr td:last-child { padding-left: 0; }
