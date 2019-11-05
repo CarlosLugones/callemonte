@@ -13,20 +13,25 @@
                     v-on:keypress.enter="onSearch" 
                     ></input>
                 </div>
+                <span>
+                  <Download klass="btn btn-link px-2 border-0 text-dark" title="&darr;" :products="products" v-if="products.length > 0">
+                    <download-icon></download-icon>
+                  </Download>
+                </span>
+                <span>
+                  <a class="btn btn-link px-2 text-dark border-0" href="#"  
+                    @click="$bvModal.show('modal-filter')" 
+                    title="Filtros" 
+                    v-if="products.length > 0">
+                    <filter-icon></filter-icon>
+                  </a>
+                </span>
+                <span>
+                  <a class="btn btn-link pl-2 pr-0" href="#" @click="$bvModal.show('modal-menu')" title="callemonte.com - Opciones">
+                      <img src="/logo.png" width="25" height="25">
+                  </a>
+                </span>
 
-                <Download klass="btn btn-link px-2 border-0 text-dark" title="&darr;" :products="products" v-if="products.length > 0">
-                  <download-icon></download-icon>
-                </Download>
-                <a class="btn btn-link px-2 text-dark border-0" href="#"  
-                  @click="$bvModal.show('modal-filter')" 
-                  title="Filtros" 
-                  v-if="products.length > 0">
-                  <filter-icon></filter-icon>
-                </a>
-                <a class="btn btn-link pl-2 pr-0" href="#" @click="$bvModal.show('modal-menu')" title="callemonte.com - Opciones">
-                    <img src="/logo.png" width="32" height="32">
-                </a>
-                
               </div> 
               
             </div>
