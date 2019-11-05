@@ -6,7 +6,7 @@
             <div class="col-sm-10">
               <div class="d-flex">
                 <div class="form-group w-100 m-0" >
-                  <input class="form-control form-control-lg mr-sm-2 border-0"
+                  <input class="form-control mr-sm-2 border-0"
                     id="searchInput"
                     placeholder="¿Que quieres comprar?" 
                     v-model="q"
@@ -14,16 +14,16 @@
                     ></input>
                 </div>
 
-                <Download klass="btn btn-link btn-lg px-2 border-0 text-dark" title="&darr;" :products="products" v-if="products.length > 0">
+                <Download klass="btn btn-link px-2 border-0 text-dark" title="&darr;" :products="products" v-if="products.length > 0">
                   <download-icon></download-icon>
                 </Download>
-                <a class="btn btn-link btn-lg px-2 text-dark border-0" href="#"  
+                <a class="btn btn-link px-2 text-dark border-0" href="#"  
                   @click="$bvModal.show('modal-filter')" 
                   title="Filtros" 
                   v-if="products.length > 0">
                   <filter-icon></filter-icon>
                 </a>
-                <a class="btn btn-link btn-lg pl-2 pr-0" href="#" @click="$bvModal.show('modal-menu')" title="callemonte.com - Opciones">
+                <a class="btn btn-link pl-2 pr-0" href="#" @click="$bvModal.show('modal-menu')" title="callemonte.com - Opciones">
                     <img src="/logo.png" width="32" height="32">
                 </a>
                 
