@@ -210,8 +210,8 @@ export default {
 
       });
     },
-    loadPhoto: async function(product) {
-      let photos = await this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`);
+    loadPhoto:  function(product) {
+      this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`).then( res => console.log(res.data));
     }
   }
 
