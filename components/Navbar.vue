@@ -27,7 +27,7 @@
                   </a>
                 </span>
                 <span>
-                  <a class="btn btn-link pl-2 pr-0" href="#" @click="$bvModal.show('modal-menu')" title="callemonte.com - Opciones">
+                  <a class="btn btn-link px-2 pl-2 pr-0" href="#" @click="$bvModal.show('modal-menu')" title="callemonte.com - Opciones">
                       <img src="/logo.png" width="25" height="25">
                   </a>
                 </span>

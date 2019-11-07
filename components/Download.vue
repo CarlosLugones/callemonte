@@ -19,7 +19,7 @@ export default {
 			filename = `callemonte.com ${formatted_date}.txt`,
 			text = this.products
 			    .filter( (p) => { return p.phones})
-			    .map( p => `${p.price}\t${p.title}\n\t${p.phones}`)
+			    .map( p => `${p.price}\t${p.title}\n\t${p.phones}\n\t${p.url}`)
 			    .join("\n\n");
 
 	      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));

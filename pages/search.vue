@@ -16,12 +16,11 @@
           {{filteredProducts.length}} Resultados
         </div>
 
-        <!-- <div class="table-responsive"> -->
             <ul class="list-group list-group-flush shadow-sm">
-              <li class="list-group-item px-2 d-flex" v-for="(product,index) in filteredProducts">
+              <li class="list-group-item d-flex" v-for="(product,index) in filteredProducts">
                 <div class="ads w-100">
                   <span class="text-secondary small">$</span><span class="font-weight-bold">{{ product.price }}</span>
-                  <span>-</span>
+                  <span>&rarr;</span>
                   <a 
                     target="_blank" 
                     rel="nofollow" 
@@ -32,7 +31,7 @@
                   <span class="text-muted ml-1" v-if="product.photo">
                     <camera-icon size="1x"></camera-icon>
                   </span>
-                  <span class="product-site ml-1 text-secondary">{{ product.site }}</span>
+                  <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
                   
                 </div>        
                 <div class="actions ml-2">
@@ -47,44 +46,7 @@
             
               </li>
             </ul>
-<!--             <table id="products" class="table table-hover" >
-              <tbody>
-                <tr v-for="(product,index) in filteredProducts" >
-                  <td>
-                    <span class="text-secondary small">$</span><span class="font-weight-bold">{{ product.price }}</span>
-                  </td>
-                  <td class="title">
-                    <a 
-                      target="_blank" 
-                      rel="nofollow" 
-                      class=""
-                      v-html="product.htmlTitle" 
-                      :href="product.url"></a>
 
-                    <span class="text-muted ml-1" v-if="product.photo">
-                      <camera-icon size="1x"></camera-icon>
-                    </span>
-
-                    <span class="bg-gray px-2 py-1 ml-1 rounded" v-if="product.phones">{{ product.phones }}</span>
-
-                    <span class="product-site ml-1 text-secondary">{{ product.site }}</span>
-                  </td>
-                  <td class="text-right">
-                    <span class="d-none d-md-block ">
-                      <a 
-                        href="#" 
-                        v-on:click.prevent="toggleHide(product.id,index)" 
-                        class="text-secondary text-decoration-none x" 
-                        title="Ocultar este resultado">
-                          <span class="">&times;</span>
-                      </a>
-                      
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table> -->
-        <!-- </div> -->
         <div class="row mt-3">
           <div class="col-12 is-centered mb-4" v-if="show === 'all'"> 
             <button class="btn btn-link btn-block bg-light text-dark py-3 border-0" @click="next">Vamos por más</button>
@@ -115,6 +77,7 @@ export default {
       }
     }
   },
+  loading: false,
   data(){
     return {
       q: '',
@@ -136,6 +99,7 @@ export default {
         '1cuc', 
         'merolico', 
       ],
+      completed: 0,
       show: 'all',
     }
   },
@@ -165,6 +129,17 @@ export default {
         if (newValue.length == 0) {
             this.show = 'all';
         }
+    },
+    completed: function(newValue, oldValue) {
+      console.log(newValue)
+      // if (newValue === 1 ) {
+      //     this.$nuxt.$loading.start()
+      // }
+      let inc = (newValue /this.sites.length) * 100
+      this.$nuxt.$loading.increase(inc)
+      if (newValue === this.sites.length ) {
+          this.$nuxt.$loading.finish()
+      }
     },
   },
   computed: {
@@ -219,20 +194,25 @@ export default {
       vm.q = q;
       vm.$router.push({ path: '/search', query: { q: this.q, p: this.p } })
 
+      this.completed = 0;
       vm.sites.forEach( site => {
 
         let url = 'https://callemonte.com/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p
 
-        this.$axios.$get(url).then( response => { 
+        this.$axios.$get(url)
+          .then( response => { 
 
-          let products = response.map( el => Object.assign( el, { 
-            htmlTitle: el.title.replace( vm.reQuery, "<b>$&</b>" ),
-            site: site
-          } ));
+            let products = response.map( el => Object.assign( el, { 
+              htmlTitle: el.title.replace( vm.reQuery, "<b>$&</b>" ),
+              site: site
+            } ));
+            this.completed ++;
+            vm.products = vm.products.concat( products );
 
-          vm.products = vm.products.concat( products );
-
-        });
+          })
+          .catch( error => {
+            this.completed ++;
+          });
 
       });
 
