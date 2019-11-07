@@ -210,7 +210,7 @@ export default {
 
       });
     },
-    loadPhoto: await function(product) {
+    loadPhoto: async function(product) {
       let photos = await this.$axios.$get(url);
     }
   }
