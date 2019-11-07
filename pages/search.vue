@@ -8,7 +8,7 @@
 
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-sm-10">    
+        <div class="col-xs-10 col-12">      
           
       <div v-if="filteredProducts.length > 0" class="content-result">
 
@@ -17,8 +17,9 @@
         </div>
 
             <ul class="list-group list-group-flush shadow-sm">
-              <li class="list-group-item d-flex" v-for="(product,index) in filteredProducts">
-                <div class="ads w-100">
+              <li 
+                class="list-group-item d-flex"  v-for="(product,index) in filteredProducts" >
+                <div class="ads w-100" v-touch:swipe.left="toggleHide(product.id,index)" v-touch:swipe.right="toggleHide(product.id,index)">
                   <span class="text-secondary small">$</span><span class="font-weight-bold">{{ product.price }}</span>
                   <span>&rarr;</span>
                   <a 
@@ -28,9 +29,9 @@
                     v-html="product.htmlTitle" 
                     :href="product.url"></a>
                   <span class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones">{{ product.phones }}</span>
-                  <span class="text-muted ml-1" v-if="product.photo">
+                  <a href="#" @click.prevent="loadPhoto(product)" class="text-muted ml-1" v-if="product.photo">
                     <camera-icon size="1x"></camera-icon>
-                  </span>
+                  </a>
                   <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
                   
                 </div>        
@@ -65,6 +66,10 @@
 import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
 import { CameraIcon, EyeOffIcon  } from 'vue-feather-icons'
+import Vue from 'vue'
+import Vue2TouchEvents from 'vue2-touch-events'
+
+Vue.use(Vue2TouchEvents)
 
 var store = require('store');
 
@@ -129,17 +134,6 @@ export default {
         if (newValue.length == 0) {
             this.show = 'all';
         }
-    },
-    completed: function(newValue, oldValue) {
-      console.log(newValue)
-      // if (newValue === 1 ) {
-      //     this.$nuxt.$loading.start()
-      // }
-      let inc = (newValue /this.sites.length) * 100
-      this.$nuxt.$loading.increase(inc)
-      if (newValue === this.sites.length ) {
-          this.$nuxt.$loading.finish()
-      }
     },
   },
   computed: {
@@ -215,14 +209,11 @@ export default {
           });
 
       });
-
-
     },
-
-    
-
+    loadPhoto: await function(product) {
+      let photos = await this.$axios.$get(url);
+    }
   }
-  // and more functionality to discover
 
 }
 </script>
