@@ -8,56 +8,59 @@
 
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-sm-10">    
+         <div class="col-xs-12 col-10">      
           
-      <div v-if="filteredProducts.length > 0" class="content-result">
+            <div v-if="filteredProducts.length > 0" class="content-result">
 
-        <div class="tool my-3">
-          {{filteredProducts.length}} Resultados
-        </div>
+              <div class="tool my-3">
+                {{filteredProducts.length}} Resultados
+              </div>
 
-            <ul class="list-group list-group-flush shadow-sm">
-              <li class="list-group-item d-flex" v-for="(product,index) in filteredProducts">
-                <div class="ads w-100">
-                  <span class="text-secondary small">$</span><span class="font-weight-bold">{{ product.price }}</span>
-                  <span>&rarr;</span>
-                  <a 
-                    target="_blank" 
-                    rel="nofollow" 
-                    class="title"
-                    v-html="product.htmlTitle" 
-                    :href="product.url"></a>
-                  <span class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones">{{ product.phones }}</span>
-                  <span class="text-muted ml-1" v-if="product.photo">
-                    <camera-icon size="1x"></camera-icon>
-                  </span>
-                  <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
+                  <ul class="list-group list-group-flush shadow-sm">
+                    <li 
+                      class="list-group-item d-flex"  
+                      v-for="(product,index) in filteredProducts" >
+
+                      <div class="ads w-100" >
+                        <span class="text-secondary small">$</span><span class="font-weight-bold">{{ product.price }}</span>
+                        <span>&rarr;</span>
+                        <a 
+                          target="_blank" 
+                          rel="nofollow" 
+                          class="title"
+                          v-html="product.htmlTitle" 
+                          :href="product.url"></a>
+                        <span class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones">{{ product.phones }}</span>
+                        <a href="#" @click.prevent="loadPhoto(product)" class="text-muted ml-1" v-if="product.photo">
+                          <camera-icon size="1.2x"></camera-icon>
+                        </a>
+                        <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
+                        
+                      </div>        
+                      <div class="actions ml-2">
+                          <a 
+                            href="#" 
+                            v-on:click.prevent="toggleHide(product.id,index)" 
+                            class="text-gray text-decoration-none x" 
+                            title="Ocultar este resultado">
+                              <eye-off-icon size="1x"></eye-off-icon>
+                          </a>                    
+                      </div>
                   
-                </div>        
-                <div class="actions ml-2">
-                    <a 
-                      href="#" 
-                      v-on:click.prevent="toggleHide(product.id,index)" 
-                      class="text-gray text-decoration-none x" 
-                      title="Ocultar este resultado">
-                        <eye-off-icon size="1x"></eye-off-icon>
-                    </a>                    
+                    </li>
+                  </ul>
+
+              <div class="row mt-3">
+                <div class="col-12 is-centered mb-4" v-if="show === 'all'"> 
+                  <button class="btn btn-link btn-block bg-light text-dark py-3 border-0" @click="next">Vamos por más</button>
                 </div>
-            
-              </li>
-            </ul>
+                
+              </div>
+            </div>
 
-        <div class="row mt-3">
-          <div class="col-12 is-centered mb-4" v-if="show === 'all'"> 
-            <button class="btn btn-link btn-block bg-light text-dark py-3 border-0" @click="next">Vamos por más</button>
-          </div>
-          
-        </div>
+         </div>
       </div>
-
-    </div>
-    </div>
-    </div>
+   </div>
   </div>
 </template>
 
@@ -129,9 +132,6 @@ export default {
         if (newValue.length == 0) {
             this.show = 'all';
         }
-    },
-    completed: function(newValue, oldValue) {
-
     },
   },
   computed: {
@@ -207,14 +207,11 @@ export default {
           });
 
       });
-
-
     },
-
-    
-
+    loadPhoto:  function(product) {
+      this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`).then( res => console.log(res.data));
+    }
   }
-  // and more functionality to discover
 
 }
 </script>
