@@ -14,6 +14,8 @@
 
               <div class="tool my-3">
                 {{filteredProducts.length}} Resultados
+                <span>Promedio {{stats.mean}}</span>
+                <span>Mas repetido {{stats.mode}}</span>
               </div>
 
                   <ul class="list-group list-group-flush shadow-sm">
@@ -68,12 +70,12 @@
 import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
 import { CameraIcon, EyeOffIcon  } from 'vue-feather-icons'
-import VuePureLightbox from 'vue-pure-lightbox'
+import {mean,mode} from 'simple-statistics'
 
 var store = require('store');
 
 export default {
-  components: { Navbar, CameraIcon, EyeOffIcon, VuePureLightbox  },
+  components: { Navbar, CameraIcon, EyeOffIcon },
   head() {
     return {
       htmlAttrs: {
@@ -135,6 +137,14 @@ export default {
     },
   },
   computed: {
+    stats: function() {
+      let prices =  this.products.map(el=>parseInt(el.price));
+      console.log(prices)
+      return {
+         mean: mean(prices),
+         mode: mode(prices),
+      }
+    },
     filteredProducts: function() {
       var vm = this,
           products = vm.products,
