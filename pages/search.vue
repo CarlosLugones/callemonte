@@ -80,7 +80,6 @@ export default {
       }
     }
   },
-  loading: false,
   data(){
     return {
       q: '',
