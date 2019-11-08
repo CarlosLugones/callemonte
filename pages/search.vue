@@ -8,7 +8,7 @@
 
     <div class="container">
       <div class="row justify-content-center">
-         <div class="col-xs-10 col">      
+         <div class="col-sm-10 col">      
           
             <div v-if="filteredProducts.length > 0" class="content-result">
 
