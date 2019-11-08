@@ -8,7 +8,7 @@
 
     <div class="container">
       <div class="row justify-content-center">
-         <div class="col-xs-10 col-10">      
+         <div class="col-xs-10 col">      
           
             <div v-if="filteredProducts.length > 0" class="content-result">
 
@@ -29,7 +29,7 @@
                           rel="nofollow" 
                           class="title"
                           v-html="product.htmlTitle" 
-                          :href="product.url"></a>
+                          :href="product.url"></a>-
                         <span class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones">{{ product.phones }}</span>
                         <a href="#" @click.prevent="loadPhoto(product)" class="text-muted ml-1" v-if="product.photo">
                           <camera-icon size="1.2x"></camera-icon>
@@ -68,11 +68,12 @@
 import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
 import { CameraIcon, EyeOffIcon  } from 'vue-feather-icons'
+import VuePureLightbox from 'vue-pure-lightbox'
 
 var store = require('store');
 
 export default {
-  components: { Navbar, CameraIcon, EyeOffIcon  },
+  components: { Navbar, CameraIcon, EyeOffIcon, VuePureLightbox  },
   head() {
     return {
       htmlAttrs: {
