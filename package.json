@@ -13,7 +13,6 @@
     "now-build": "nuxt build --spa --no-lock"
   },
   "dependencies": {
-    "@directus/sdk-js": "^6.0.0-alpha.16",
     "@nuxtjs/axios": "^5.4.1",
     "@nuxtjs/bulma": "^1.2.1",
     "axios": "^0.18.1",
@@ -27,6 +26,7 @@
     "netlify-lambda": "^1.5.1",
     "node-fetch": "^2.6.0",
     "nuxt": "^2.8.1",
+    "perfundo": "^4.0.4",
     "request-promise": "^4.2.4",
     "simple-statistics": "^7.0.5",
     "store": "^2.0.12",
