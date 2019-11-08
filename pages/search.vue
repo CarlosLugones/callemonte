@@ -131,15 +131,7 @@ export default {
         }
     },
     completed: function(newValue, oldValue) {
-      console.log(newValue)
-      // if (newValue === 1 ) {
-      //     this.$nuxt.$loading.start()
-      // }
-      let inc = (newValue /this.sites.length) * 100
-      this.$nuxt.$loading.increase(inc)
-      if (newValue === this.sites.length ) {
-          this.$nuxt.$loading.finish()
-      }
+
     },
   },
   computed: {
@@ -206,8 +198,8 @@ export default {
               htmlTitle: el.title.replace( vm.reQuery, "<b>$&</b>" ),
               site: site
             } ));
-            this.completed ++;
             vm.products = vm.products.concat( products );
+            this.completed ++;
 
           })
           .catch( error => {
