@@ -14,8 +14,8 @@
 
               <div class="tool my-3">
                 {{filteredProducts.length}} Resultados
-                <span>Promedio {{stats.mean}}</span>
-                <span>Mas repetido {{stats.mode}}</span>
+                <!-- <span>Promedio {{stats.mean}}</span> -->
+                <!-- <span>Mas repetido {{stats.mode}}</span> -->
               </div>
 
                   <ul class="list-group list-group-flush shadow-sm">
