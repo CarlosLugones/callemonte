@@ -30,7 +30,8 @@
     "simple-statistics": "^7.0.5",
     "store": "^2.0.12",
     "vue-feather-icons": "^5.0.0",
-    "vue-gallery": "^2.0.1"
+    "vue-gallery": "^2.0.1",
+    "vue-preload": "^0.1.11"
   },
   "devDependencies": {
     "node-sass": "^4.11.0",

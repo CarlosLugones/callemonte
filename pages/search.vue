@@ -31,9 +31,10 @@
                           v-html="product.htmlTitle" 
                           :href="product.url"></a>-
                         <span class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones">{{ product.phones }}</span>
-                        <a href="#" @click.prevent="loadPhoto(product)" class="text-warning ml-1" v-if="product.photo">
+                        <a href="#" @mousedown="loadPhotos(product,index)" class="text-warning ml-1" v-if="product.photo">
                           <camera-icon size="1.2x"></camera-icon>
                         </a>
+                        <!-- <Photos v-bind:url="product.url" v-bind:photo.sync="product.photo" v-if="product.photo"></Photos> -->
                         <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
                         
                       </div>        
@@ -91,6 +92,7 @@ export default {
       p: 1,
       products: [],
       photos: [],
+      loadingPhoto: [],
       indexPhoto: null,
       hides: [],
       modalOpen: null,
@@ -222,11 +224,18 @@ export default {
 
       });
     },
-    loadPhoto:  async function(product) {
-      this.photos = await this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`);
-      if (this.photos.length > 0) {
-        this.indexPhoto = 0;
+    loadPhotos: async function(product,index) {
+      this.loadingPhoto.push(product.id);
+      if (this.loadingPhoto.includes(product.id)) {
+        product.photo = await this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`)
+        this.products.splice(index, 1, product)
       }
+      this.photos = product.photo
+      this.indexPhoto = 0
+    },
+    showPhotos(product){
+      this.photos = product.photo;
+      this.indexPhoto = 0;
     }
   }
 
