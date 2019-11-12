@@ -22,7 +22,7 @@ exports.handler =  async (event, context, callback) => {
     }            
 
     if ( /timbirichi/.test(url) ) {
-        photos = $('.myfancybox').map( (i,el) => $(el).attr('href') ).get();
+        photos = $('.anuncio-list-fotos .myfancybox').map( (i,el) => $(el).attr('href') ).get();
     }
 
     if ( /bachecubano/.test(url) ) {
