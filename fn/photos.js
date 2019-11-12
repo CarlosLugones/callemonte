@@ -18,23 +18,21 @@ exports.handler =  async (event, context, callback) => {
     }
 
     if ( /1cuc/.test(url) ) {
-        photos = $('.adHead').text().match(rePhone) || [];
+        photos = $('a[data-lightbox]').map( (i,el) => $(el).attr('href') ).get();
     }            
 
     if ( /timbirichi/.test(url) ) {
-        photos = $('a[href^="tel:"]').attr('href').match(rePhone) || [];
+        photos = $('.myfancybox').map( (i,el) => $(el).attr('href') ).get();
     }
 
     if ( /bachecubano/.test(url) ) {
-        photos = $('#pictures a[rel="image_group"]').map( (i,el) => $(el).attr('href') ).get();
+        photos = $('.item-slider > li > a').map( (i,el) => $(el).attr('href') ).get();
 
     }        
 
     if ( /merolico/.test(url) ) {
-        photos = $('a[href^="tel:"]').attr('href').match(rePhone) || [];
+        photos = $('a[data-fancybox-href]').map( (i,el) => $(el).attr('data-fancybox-href') ).get();
     }
-
-    console.log(photos)
 
     return {
         headers: { 'Content-Type':'application/json', 'Access-Control-Allow-Origin': '*' },

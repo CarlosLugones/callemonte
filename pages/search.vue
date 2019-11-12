@@ -14,8 +14,6 @@
 
               <div class="tool my-3">
                 {{filteredProducts.length}} Resultados
-                <span>Promedio {{stats.mean}}</span>
-                <span>Mas repetido {{stats.mode}}</span>
               </div>
 
                   <ul class="list-group list-group-flush shadow-sm">
@@ -33,7 +31,7 @@
                           v-html="product.htmlTitle" 
                           :href="product.url"></a>-
                         <span class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones">{{ product.phones }}</span>
-                        <a href="#" @click.prevent="loadPhoto(product)" class="text-muted ml-1" v-if="product.photo">
+                        <a href="#" @click.prevent="loadPhoto(product)" class="text-warning ml-1" v-if="product.photo">
                           <camera-icon size="1.2x"></camera-icon>
                         </a>
                         <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
@@ -63,6 +61,9 @@
          </div>
       </div>
    </div>
+
+   <Gallery :images="photos" :index="indexPhoto" @close="indexPhoto = null"></Gallery>
+
   </div>
 </template>
 
@@ -71,11 +72,12 @@ import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
 import { CameraIcon, EyeOffIcon  } from 'vue-feather-icons'
 import {mean,mode} from 'simple-statistics'
+import Gallery from '~/components/Gallery'
 
 var store = require('store');
 
 export default {
-  components: { Navbar, CameraIcon, EyeOffIcon },
+  components: { Navbar, CameraIcon, EyeOffIcon, Gallery },
   head() {
     return {
       htmlAttrs: {
@@ -88,6 +90,8 @@ export default {
       q: '',
       p: 1,
       products: [],
+      photos: [],
+      indexPhoto: null,
       hides: [],
       modalOpen: null,
       filters: { 
@@ -218,8 +222,9 @@ export default {
 
       });
     },
-    loadPhoto:  function(product) {
-      this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`).then( res => console.log(res.data));
+    loadPhoto:  async function(product) {
+      this.photos = await this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`);
+      this.indexPhoto = 0;
     }
   }
 

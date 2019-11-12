@@ -51,6 +51,7 @@ export default {
   */
   plugins: [
     // '~/plugins/axios',
+    { src: '~/plugins/vue-gallery.js', ssr: false }
   ],
 
   /*
