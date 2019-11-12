@@ -18,7 +18,7 @@ exports.handler =  async (event, context, callback) => {
     }
 
     if ( /1cuc/.test(url) ) {
-        photos = $('a[data-lightbox]').map( (i,el) => $(el).attr('href') ).get();
+        photos = $('a[data-lightbox]').map( (i,el) => 'https:' + $(el).attr('href') ).get();
     }            
 
     if ( /timbirichi/.test(url) ) {

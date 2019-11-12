@@ -224,7 +224,7 @@ export default {
     },
     loadPhoto:  async function(product) {
       this.photos = await this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`);
-      if (this.photos.length => 0) {
+      if (this.photos.length > 0) {
         this.indexPhoto = 0;
       }
     }

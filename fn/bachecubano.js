@@ -7,7 +7,7 @@ const rePhone = /(\+?53)?\s?([1-9][\s-]?){1}(\d[\s-]?){7}/g;
 exports.handler =  async (event, context, callback) => {
     const { q, p = 1 } = event.queryStringParameters;
 
-    const response = await fetch('https://www.bachecubano.com/search/ajaxRun,1/cookieAction,done/sOrder,dt_mod_date/iOrderType,desc/iExtra,1/pattern,'+q+'/sPriceMin,1/iPage,'+p);
+    const response = await fetch(`https://www.bachecubano.com/search/pattern,${q}/iPage,${p}/sPriceMin,1`);
     const body = await response.text();
     const $ = cheerio.load( body );
 
@@ -18,7 +18,7 @@ exports.handler =  async (event, context, callback) => {
         return {
             id:     "B" + $a.attr('href').match(/\d+$/)[0],
             price:  parseInt(($el.find('.price span').text() || 0).replace(/[^\d\.,]/g,'')),
-            photo:  $el.find('a.img-link').hasClass('no-img'),
+            photo:  !$el.find('a.img-link').hasClass('no-img'),
             title:  cleaner( $a.children().remove().end().text() ),
             phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
             url:    $a.attr('href'),
