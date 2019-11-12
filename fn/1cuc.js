@@ -14,11 +14,10 @@ exports.handler =  async (event, context, callback) => {
     let data = $('.sr-page__list__item tr').map( (i,el) => {
         let $el = $(el), 
             $a = $el.find('h3 a');
-
             return {
                 id: 'C' + $a.attr('href').match(/(\d+)\.html$/)[1] ,
                 price: ($el.find('.v-price strong').text() || '').replace(/\D/g,''),
-                photo: $el.find('a.thumb') ? true : false,
+                photo: $el.find('a.thumb').length > 0 ? true : false,
                 title: cleaner( $a.children().remove().end().text() ),
                 phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
                 url: $a.attr('href'),
