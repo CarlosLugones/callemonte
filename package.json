@@ -20,6 +20,7 @@
     "cheerio": "^1.0.0-rc.3",
     "cross-env": "^5.2.0",
     "encoding": "^0.1.12",
+    "hooper": "^0.3.4",
     "lodash.uniq": "^4.5.0",
     "lodash.uniqby": "^4.7.0",
     "moment": "^2.24.0",

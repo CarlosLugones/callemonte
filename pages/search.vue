@@ -33,7 +33,7 @@
                           v-html="product.htmlTitle" 
                           :href="product.url"></a>-
                         <span class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones">{{ product.phones }}</span>
-                        <a href="#" @click.prevent="loadPhoto(product)" class="text-muted ml-1" v-if="product.photo">
+                        <a href="#" @mousedown.prevent="showPhotos(product)" class="text-muted ml-1" v-if="product.photo">
                           <camera-icon size="1.2x"></camera-icon>
                         </a>
                         <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
@@ -59,23 +59,32 @@
                 
               </div>
             </div>
-
+            <div v-else class="card border-0 shadow-sm">
+              <div class="card-body p-4" >
+                  Buscando clasificados en Cuba...                
+<!--                 <p v-else>
+                  Extraño!!! Nadie está vediendo lo que quieres... prueba otro palabra.
+                </p> -->
+              </div>
+            </div>
          </div>
       </div>
    </div>
+   <ModalPhotos :photos="currentPhotos"/>
   </div>
 </template>
 
 <script>
 import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
+import ModalPhotos from '~/components/ModalPhotos';
 import { CameraIcon, EyeOffIcon  } from 'vue-feather-icons'
 import {mean,mode} from 'simple-statistics'
 
 var store = require('store');
 
 export default {
-  components: { Navbar, CameraIcon, EyeOffIcon },
+  components: { Navbar, CameraIcon, EyeOffIcon, ModalPhotos },
   head() {
     return {
       htmlAttrs: {
@@ -88,6 +97,7 @@ export default {
       q: '',
       p: 1,
       products: [],
+      currentPhotos:[],
       hides: [],
       modalOpen: null,
       filters: { 
@@ -104,7 +114,7 @@ export default {
         '1cuc', 
         'merolico', 
       ],
-      completed: 0,
+      completed: -1,
       show: 'all',
     }
   },
@@ -139,7 +149,6 @@ export default {
   computed: {
     stats: function() {
       let prices =  this.products.map(el=>parseInt(el.price));
-      console.log(prices)
       return {
          mean: mean(prices),
          mode: mode(prices),
@@ -174,6 +183,9 @@ export default {
                   .join('|');
 
       return new RegExp(re,"ig");      
+    },
+    searching: function(){
+      return this.completed > 0;
     }
   },
   methods: {
@@ -196,7 +208,7 @@ export default {
       vm.q = q;
       vm.$router.push({ path: '/search', query: { q: this.q, p: this.p } })
 
-      this.completed = 0;
+      this.completed = vm.sites.length;
       vm.sites.forEach( site => {
 
         let url = 'https://callemonte.com/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p
@@ -209,17 +221,20 @@ export default {
               site: site
             } ));
             vm.products = vm.products.concat( products );
-            this.completed ++;
+            this.completed --;
 
           })
           .catch( error => {
-            this.completed ++;
+            this.completed --;
           });
 
       });
     },
-    loadPhoto:  function(product) {
-      this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`).then( res => console.log(res.data));
+    showPhotos: async function(product) {
+      let url = `https://callemonte.com/.netlify/functions/photos?url=${product.url}`
+      let data = await this.$axios.$get(url)
+      this.currentPhotos = data
+      this.$bvModal.show('modal-photo')
     }
   }
 

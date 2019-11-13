@@ -96,12 +96,13 @@ export default {
       // 'LayoutPlugin',
       // 'TablePlugin',
       // 'NavbarPlugin',
-      'ListGroupPlugin',
+      // 'ListGroupPlugin',
       'FormPlugin',
       'FormCheckboxPlugin',
       'FormInputPlugin',
       'FormRadioPlugin',
-      'ModalPlugin'
+      'ModalPlugin',
+      'CarouselPlugin'
     ],
     directivePlugins: []  
   } 

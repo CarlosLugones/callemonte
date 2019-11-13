@@ -34,8 +34,6 @@ exports.handler =  async (event, context, callback) => {
         photos = $('a[href^="tel:"]').attr('href').match(rePhone) || [];
     }
 
-    console.log(photos)
-
     return {
         headers: { 'Content-Type':'application/json', 'Access-Control-Allow-Origin': '*' },
         statusCode: 200,
