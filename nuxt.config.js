@@ -51,7 +51,7 @@ export default {
   */
   plugins: [
     // '~/plugins/axios',
-    { src: '~/plugins/vue-gallery.js', mode: 'client' }
+    '~/plugins/vue-gallery.js',
     // { src: '~/plugins/vue-preload.js', ssr: false }
   ],
 
