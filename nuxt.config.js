@@ -51,8 +51,7 @@ export default {
   */
   plugins: [
     // '~/plugins/axios',
-    '~/plugins/vue-gallery.js',
-    // { src: '~/plugins/vue-preload.js', ssr: false }
+    { src: '~/plugins/vue-gallery.js', ssr: false }
   ],
 
   /*
@@ -70,6 +69,7 @@ export default {
   ** Build configuration
   */
   build: {
+    analyze: true,
     postcss: {
       preset: {
         features: {
@@ -104,7 +104,7 @@ export default {
       'FormInputPlugin',
       'FormRadioPlugin',
       'ModalPlugin',
-      'CarouselPlugin'
+      // 'CarouselPlugin'
     ],
     directivePlugins: []  
   } 
