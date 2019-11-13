@@ -69,7 +69,7 @@ export default {
   ** Build configuration
   */
   build: {
-    analyze: true,
+    // analyze: true,
     postcss: {
       preset: {
         features: {
