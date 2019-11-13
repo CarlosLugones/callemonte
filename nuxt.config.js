@@ -90,22 +90,17 @@ export default {
       pathRewrite: {'^/.netlify/functions': ''},
     },
   }, 
-
+  
   boostrapVue: {
-    // bootstrapCSS: false,
-    // bootstrapVueCSS: false,
+    bootstrapCSS: false,
+    bootstrapVueCSS: false,
+    components: ['BModal'],
+    directives: ['VBModal'],
     componentPlugins: [
-      // 'LayoutPlugin',
-      // 'TablePlugin',
-      // 'NavbarPlugin',
-      // 'ListGroupPlugin',
       'FormPlugin',
       'FormCheckboxPlugin',
       'FormInputPlugin',
       'FormRadioPlugin',
-      'ModalPlugin',
-      // 'CarouselPlugin'
     ],
-    directivePlugins: []  
   } 
 }

@@ -18,7 +18,7 @@
 
                   <ul class="list-group list-group-flush shadow-sm">
                     <li 
-                      class="list-group-item d-flex"  
+                      class="list-group-item d-flex px-2"  
                       v-for="(product,index) in filteredProducts" >
 
                       <div class="ads w-100" >
@@ -38,7 +38,7 @@
                         <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
                         
                       </div>        
-                      <div class="actions ml-2">
+                      <div class="actions ml-1">
                           <a 
                             href="#" 
                             v-on:click.prevent="toggleHide(product.id,index)" 
