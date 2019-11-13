@@ -18,7 +18,7 @@
 
                   <ul class="list-group list-group-flush shadow-sm">
                     <li 
-                      class="list-group-item d-flex"  
+                      class="list-group-item d-flex px-2"  
                       v-for="(product,index) in filteredProducts" >
 
                       <div class="ads w-100" >

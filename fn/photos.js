@@ -11,6 +11,7 @@ exports.handler =  async (event, context, callback) => {
 
 	if ( /revolico/.test(url) ) {
         photos = $('[data-cy="zoomAdImage"]').map( (i,el) => $(el).attr('href') ).get();
+        phone = $('data-cy="adPhone"').content;
 	}
 
     if ( /porlalivre/.test(url) ) {
