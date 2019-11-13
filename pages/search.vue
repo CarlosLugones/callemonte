@@ -14,8 +14,6 @@
 
               <div class="tool my-3">
                 {{filteredProducts.length}} Resultados
-                <!-- <span>Promedio {{stats.mean}}</span> -->
-                <!-- <span>Mas repetido {{stats.mode}}</span> -->
               </div>
 
                   <ul class="list-group list-group-flush shadow-sm">
@@ -33,9 +31,10 @@
                           v-html="product.htmlTitle" 
                           :href="product.url"></a>-
                         <span class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones">{{ product.phones }}</span>
-                        <a href="#" @mousedown.prevent="showPhotos(product)" class="text-muted ml-1" v-if="product.photo">
+                        <a href @click.prevent="loadPhotos(product,index)" class="text-warning ml-1" v-if="product.photo">
                           <camera-icon size="1.2x"></camera-icon>
                         </a>
+                        <!-- <Photos v-bind:url="product.url" v-bind:photo.sync="product.photo" v-if="product.photo"></Photos> -->
                         <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
                         
                       </div>        
@@ -70,7 +69,7 @@
          </div>
       </div>
    </div>
-   <ModalPhotos :photos="currentPhotos"/>
+  <gallery :images="photos" :index="indexPhoto" @close="indexPhoto = null"></gallery>
   </div>
 </template>
 
@@ -80,11 +79,12 @@ import Navbar from '~/components/Navbar';
 import ModalPhotos from '~/components/ModalPhotos';
 import { CameraIcon, EyeOffIcon  } from 'vue-feather-icons'
 import {mean,mode} from 'simple-statistics'
+import Gallery from '~/components/Gallery'
 
 var store = require('store');
 
 export default {
-  components: { Navbar, CameraIcon, EyeOffIcon, ModalPhotos },
+  components: { Navbar, CameraIcon, EyeOffIcon, Gallery },
   head() {
     return {
       htmlAttrs: {
@@ -98,6 +98,9 @@ export default {
       p: 1,
       products: [],
       currentPhotos:[],
+      photos: [],
+      loadingPhoto: [],
+      indexPhoto: null,
       hides: [],
       modalOpen: null,
       filters: { 
@@ -230,12 +233,15 @@ export default {
 
       });
     },
-    showPhotos: async function(product) {
-      let url = `https://callemonte.com/.netlify/functions/photos?url=${product.url}`
-      let data = await this.$axios.$get(url)
-      this.currentPhotos = data
-      this.$bvModal.show('modal-photo')
-    }
+    loadPhotos: async function(product,index) {
+      this.loadingPhoto.push(product.id);
+      if (this.loadingPhoto.includes(product.id)) {
+        product.photo = await this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`)
+        this.products.splice(index, 1, product)
+      }
+      this.photos = product.photo
+      this.indexPhoto = 0
+    },
   }
 
 }

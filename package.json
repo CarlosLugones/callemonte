@@ -27,13 +27,12 @@
     "netlify-lambda": "^1.5.1",
     "node-fetch": "^2.6.0",
     "nuxt": "^2.8.1",
-    "perfundo": "^4.0.4",
     "request-promise": "^4.2.4",
     "simple-statistics": "^7.0.5",
     "store": "^2.0.12",
     "vue-feather-icons": "^5.0.0",
-    "vue-pure-lightbox": "^3.1.0",
-    "vue2-touch-events": "^2.0.0"
+    "vue-gallery": "^2.0.1",
+    "vue-preload": "^0.1.11"
   },
   "devDependencies": {
     "node-sass": "^4.11.0",

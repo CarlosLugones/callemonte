@@ -81,3 +81,10 @@ html.padding-top{ padding-top: 64px;}
 a.x:hover{ color: red; }
 body { background-color: #EEF1F4;  }
 
+  .blueimp-gallery > .close,
+  .blueimp-gallery > .next,
+  .blueimp-gallery > .prev { 
+    color: #fff !important;  
+    border: 0;
+    background: none;
+  }
