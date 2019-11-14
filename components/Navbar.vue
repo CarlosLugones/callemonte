@@ -130,7 +130,7 @@ export default {
       if (this.q.length > 0) {
         this.$emit('search',this.q);
       } else {
-        // this.$bvModal.msgBoxOk('Escriba que quiere comprar',{ size: 'sm', footerClass: 'p-2 border-0'})
+        this.$swal('Escriba que quiere comprar');
       }
     },
     close(ref) {

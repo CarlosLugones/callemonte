@@ -80,7 +80,6 @@
 import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
 import { CameraIcon, EyeOffIcon  } from 'vue-feather-icons'
-// import Gallery from '~/components/Gallery'
 
 var store = require('store');
 
@@ -228,15 +227,16 @@ export default {
       });
     },
     loadPhotos: async function(product,index) {
-      this.loadingPhoto.push(product.id);
-      if (this.loadingPhoto.includes(product.id)) {
+      if ( typeof product.photo === 'boolean') {
+        this.$swal('Un momentico!!! Buscando las fotos.');
+
         product.photo = await this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`)
         this.products.splice(index, 1, product)
-      }
+        this.$swal().close()
+      } 
       this.photos = product.photo
       this.indexPhoto = 0
-    },
+    },      
   }
-
 }
 </script>
