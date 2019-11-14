@@ -21,7 +21,7 @@ exports.handler =  async (event, context, callback) => {
             return {
                 id: ad.id,
                 title: cleaner(ad.title),
-                phones: (ad.title.replace(/\w/g,'').match(rePhone) || []).join(),
+                phones: ad.title.replace(/\W/g,'').match(rePhone) || [],
                 price: ad.price,
                 url: 'https://www.revolico.com'  + ad.permalink,
                 photo: parseInt(ad.imagesCount) > 0,
