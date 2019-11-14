@@ -21,7 +21,7 @@ exports.handler =  async (event, context, callback) => {
             price:  $el.find('precio').first().text().replace(/\D/g,''),
             photo:  !reNoImage.test( $el.find('.media-object').attr('src') ),
             title:  cleaner( $el.find('h5.anuncio-titulo').text() ),
-            phones: ($el.find('h5.anuncio-titulo').text().replace(/\s/g,'').match(rePhone) || []).join(),
+            phones: ($el.find('h5.anuncio-titulo').text().replace(/\W/g,'').match(rePhone) || []).join(),
             url: $el.attr('href'),
             date: $el.find('li .icon-clock').parent().text().trim()
         };

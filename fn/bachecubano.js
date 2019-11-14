@@ -20,7 +20,7 @@ exports.handler =  async (event, context, callback) => {
             price:  parseInt(($el.find('.price span').text() || 0).replace(/[^\d\.,]/g,'')),
             photo:  !$el.find('a.img-link').hasClass('no-img'),
             title:  cleaner( $a.children().remove().end().text() ),
-            phones: ($a.text().replace(/\s/g,'').match(rePhone) || []).join(', '),
+            phones: ($a.text().replace(/\W/g,'').match(rePhone) || []).join(', '),
             url:    $a.attr('href'),
             date: ''
         }

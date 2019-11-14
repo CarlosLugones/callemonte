@@ -34,16 +34,15 @@
                           {{ product.phones }}
                         </span>
                         <a href @click.prevent="loadPhotos(product,index)" class="text-warning ml-1" v-if="product.photo">
-                          <camera-icon size="1.2x"></camera-icon>
+                          <camera-icon size="1.1x"></camera-icon>
                         </a>
-                        <!-- <Photos v-bind:url="product.url" v-bind:photo.sync="product.photo" v-if="product.photo"></Photos> -->
                         <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
                         
                       </div>        
-                      <div class="actions ml-1">
+                      <div class="actions ml-2">
                           <a 
                             href="#" 
-                            v-on:click.prevent="toggleHide(product.id,index)" 
+                            v-on:click.prevent="toggleHide(product.id, index)" 
                             class="text-gray text-decoration-none x" 
                             title="Ocultar este resultado">
                               <eye-off-icon size="1x"></eye-off-icon>
