@@ -30,7 +30,7 @@
                           class="title"
                           v-html="product.htmlTitle" 
                           :href="product.url"></a>-
-                        <a :href="'tel:' + phone" class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones" v-for="phone in product.phones">
+                        <a :href="'tel:' + phone" class="bg-gray px-2 py-1 ml-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
                           {{ phone }}
                         </a>
                         <a href @click.prevent="loadPhotos(product,index)" class="text-warning ml-1" v-if="product.photo">
