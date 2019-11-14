@@ -228,8 +228,7 @@ export default {
     },
     loadPhotos: async function(product,index) {
       if ( typeof product.photo === 'boolean') {
-        this.$swal('Un momentico!!! Buscando las fotos.');
-
+        this.$swal('Un momentico para buscar las fotos!!!');
         product.photo = await this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`)
         this.products.splice(index, 1, product)
         this.$swal().close()
