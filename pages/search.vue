@@ -77,12 +77,12 @@
 import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
 import { CameraIcon, EyeOffIcon  } from 'vue-feather-icons'
-import Gallery from '~/components/Gallery'
+// import Gallery from '~/components/Gallery'
 
 var store = require('store');
 
 export default {
-  components: { Navbar, CameraIcon, EyeOffIcon, Gallery },
+  components: { Navbar, CameraIcon, EyeOffIcon },
   head() {
     return {
       htmlAttrs: {
