@@ -70,8 +70,10 @@
             </div>
          </div>
       </div>
-   </div>
-  <vue-gallery :images="photos" :index="indexPhoto" @close="indexPhoto = null"></vue-gallery>
+    </div>
+    <no-ssr>
+      <vue-gallery :images="photos" :index="indexPhoto" @close="indexPhoto = null"></vue-gallery>
+    </no-ssr>
   </div>
 </template>
 
