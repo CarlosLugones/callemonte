@@ -52,7 +52,6 @@ export default {
   plugins: [
     // '~/plugins/axios',
     { src: '~/plugins/vue-gallery.js', ssr: false }
-    // { src: '~/plugins/vue-preload.js', ssr: false }
   ],
 
   /*
@@ -70,6 +69,7 @@ export default {
   ** Build configuration
   */
   build: {
+    // analyze: true,
     postcss: {
       preset: {
         features: {
@@ -90,22 +90,17 @@ export default {
       pathRewrite: {'^/.netlify/functions': ''},
     },
   }, 
-
+  
   boostrapVue: {
-    // bootstrapCSS: false,
-    // bootstrapVueCSS: false,
+    bootstrapCSS: false,
+    bootstrapVueCSS: false,
+    components: ['BModal'],
+    directives: ['VBModal'],
     componentPlugins: [
-      // 'LayoutPlugin',
-      // 'TablePlugin',
-      // 'NavbarPlugin',
-      // 'ListGroupPlugin',
       'FormPlugin',
       'FormCheckboxPlugin',
       'FormInputPlugin',
       'FormRadioPlugin',
-      'ModalPlugin',
-      'CarouselPlugin'
     ],
-    directivePlugins: []  
   } 
 }

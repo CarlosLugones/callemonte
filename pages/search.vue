@@ -38,7 +38,7 @@
                         <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
                         
                       </div>        
-                      <div class="actions ml-2">
+                      <div class="actions ml-1">
                           <a 
                             href="#" 
                             v-on:click.prevent="toggleHide(product.id,index)" 
@@ -76,9 +76,7 @@
 <script>
 import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
-import ModalPhotos from '~/components/ModalPhotos';
 import { CameraIcon, EyeOffIcon  } from 'vue-feather-icons'
-import {mean,mode} from 'simple-statistics'
 import Gallery from '~/components/Gallery'
 
 var store = require('store');
@@ -150,13 +148,6 @@ export default {
     },
   },
   computed: {
-    stats: function() {
-      let prices =  this.products.map(el=>parseInt(el.price));
-      return {
-         mean: mean(prices),
-         mode: mode(prices),
-      }
-    },
     filteredProducts: function() {
       var vm = this,
           products = vm.products,
