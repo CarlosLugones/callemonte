@@ -30,7 +30,9 @@
                           class="title"
                           v-html="product.htmlTitle" 
                           :href="product.url"></a>-
-                        <span class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones">{{ product.phones }}</span>
+                        <span class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones">
+                          {{ product.phones }}
+                        </span>
                         <a href @click.prevent="loadPhotos(product,index)" class="text-warning ml-1" v-if="product.photo">
                           <camera-icon size="1.2x"></camera-icon>
                         </a>
@@ -69,7 +71,7 @@
          </div>
       </div>
    </div>
-  <gallery :images="photos" :index="indexPhoto" @close="indexPhoto = null"></gallery>
+  <vue-gallery :images="photos" :index="indexPhoto" @close="indexPhoto = null"></vue-gallery>
   </div>
 </template>
 
