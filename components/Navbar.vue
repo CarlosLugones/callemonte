@@ -30,12 +30,9 @@
                       <img src="/logo.png" width="25" height="25">
                   </a>
                 </span>
-
               </div> 
-              
             </div>
           </div>
-
         </div>
       </nav>
 
@@ -90,13 +87,15 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
 import Download from './Download';
 import { MenuIcon, FilterIcon, DownloadIcon } from 'vue-feather-icons'
-import { BModal, VBModal, BListGroup, BFormCheckbox, BFormRadio } from 'bootstrap-vue'
+import { BListGroup, BFormCheckbox, BFormRadio } from 'bootstrap-vue'
+import { ModalPlugin } from 'bootstrap-vue'
+Vue.use(ModalPlugin)
 
 export default {
-  components: { Download, MenuIcon, FilterIcon, DownloadIcon, BModal, BListGroup, BFormCheckbox, BFormRadio },
-    directives: { 'b-modal': VBModal },
+  components: { Download, MenuIcon, FilterIcon, DownloadIcon, BListGroup, BFormCheckbox, BFormRadio },
   props: ['filters','products', 'page'],
   data(){
     return {
