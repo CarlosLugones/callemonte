@@ -36,7 +36,7 @@ exports.handler =  async (event, context, callback) => {
 
     if ( /merolico/.test(url) ) {
         photos = $('a[data-fancybox-href]').map( (i,el) => $(el).attr('data-fancybox-href') ).get();
-        phones = $('[href^="tel:"]').text().split();
+        phones = $('[href^="tel:"]').first().text().replace(/[\s\(\)]/g,'').split();
     }
 
     let data = {
