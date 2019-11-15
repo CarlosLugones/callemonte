@@ -63,6 +63,7 @@ export default {
     // 'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
+    'vue-sweetalert2/nuxt',
   ],
 
   /*
@@ -90,7 +91,7 @@ export default {
       pathRewrite: {'^/.netlify/functions': ''},
     },
   }, 
-  
+
   boostrapVue: {
     bootstrapCSS: false,
     bootstrapVueCSS: false,

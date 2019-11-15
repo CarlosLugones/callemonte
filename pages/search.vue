@@ -30,18 +30,19 @@
                           class="title"
                           v-html="product.htmlTitle" 
                           :href="product.url"></a>-
-                        <span class="ml-1 bg-gray px-2 py-1 rounded" v-if="product.phones">{{ product.phones }}</span>
-                        <a href @click.prevent="loadPhotos(product,index)" class="text-warning ml-1" v-if="product.photo">
-                          <camera-icon size="1.2x"></camera-icon>
+                        <a :href="'tel:' + phone" class="bg-gray px-2 py-1 ml-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
+                          {{ phone }}
                         </a>
-                        <!-- <Photos v-bind:url="product.url" v-bind:photo.sync="product.photo" v-if="product.photo"></Photos> -->
+                        <a href @click.prevent="loadPhotos(product,index)" class="text-warning ml-1" v-if="product.photo">
+                          <camera-icon size="1.1x"></camera-icon>
+                        </a>
                         <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
                         
                       </div>        
-                      <div class="actions ml-1">
+                      <div class="actions ml-2">
                           <a 
                             href="#" 
-                            v-on:click.prevent="toggleHide(product.id,index)" 
+                            v-on:click.prevent="toggleHide(product.id, index)" 
                             class="text-gray text-decoration-none x" 
                             title="Ocultar este resultado">
                               <eye-off-icon size="1x"></eye-off-icon>
@@ -68,8 +69,10 @@
             </div>
          </div>
       </div>
-   </div>
-  <gallery :images="photos" :index="indexPhoto" @close="indexPhoto = null"></gallery>
+    </div>
+    <no-ssr>
+      <vue-gallery :images="photos" :index="indexPhoto" @close="indexPhoto = null"></vue-gallery>
+    </no-ssr>
   </div>
 </template>
 
@@ -77,12 +80,11 @@
 import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
 import { CameraIcon, EyeOffIcon  } from 'vue-feather-icons'
-import Gallery from '~/components/Gallery'
 
 var store = require('store');
 
 export default {
-  components: { Navbar, CameraIcon, EyeOffIcon, Gallery },
+  components: { Navbar, CameraIcon, EyeOffIcon },
   head() {
     return {
       htmlAttrs: {
@@ -225,15 +227,15 @@ export default {
       });
     },
     loadPhotos: async function(product,index) {
-      this.loadingPhoto.push(product.id);
-      if (this.loadingPhoto.includes(product.id)) {
+      if ( typeof product.photo === 'boolean') {
+        this.$swal('Un momentico para buscar las fotos!!!');
         product.photo = await this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`)
         this.products.splice(index, 1, product)
-      }
+        this.$swal().close()
+      } 
       this.photos = product.photo
       this.indexPhoto = 0
-    },
+    },      
   }
-
 }
 </script>
