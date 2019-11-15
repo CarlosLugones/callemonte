@@ -116,9 +116,14 @@
 <script>
 import Download from './Download';
 import { MenuIcon, FilterIcon, DownloadIcon } from 'vue-feather-icons'
+import { BModal, VBModal } from 'bootstrap-vue'
 
 export default {
-  components: { Download, MenuIcon, FilterIcon, DownloadIcon },
+  components: { Download, MenuIcon, FilterIcon, DownloadIcon, BModal },
+  directives: {
+    // Note that Vue automatically prefixes directive names with `v-`
+    'b-modal': VBModal
+  },
   props: ['filters','products', 'page'],
   data(){
     return {

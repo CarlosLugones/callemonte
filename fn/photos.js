@@ -24,6 +24,7 @@ exports.handler =  async (event, context, callback) => {
 
     if ( /timbirichi/.test(url) ) {
         photos = $('.anuncio-list-fotos .myfancybox').map( (i,el) => $(el).attr('href') ).get();
+        phone = $('a[href^="tel:"]').attr('href').replace('\D','')
     }
 
     if ( /bachecubano/.test(url) ) {
