@@ -207,14 +207,15 @@ export default {
       this.completed = vm.sites.length;
       vm.sites.forEach( site => {
 
-        let url = 'https://callemonte.com/.netlify/functions/'+ site +'?q=' + this.q + '&p=' + this.p
+        let url = `https://callemonte.com/.netlify/functions/${site}?q=${this.q}&p=${this.p}`
 
         this.$axios.$get(url)
           .then( response => { 
 
-            let products = response.map( el => Object.assign( el, { 
+            let products = response.map( (el,index) => Object.assign( el, { 
               htmlTitle: el.title.replace( vm.reQuery, "<b>$&</b>" ),
-              site: site
+              site: site,
+              index: index
             } ));
             vm.products = vm.products.concat( products );
             this.completed --;
@@ -228,14 +229,18 @@ export default {
     },
     loadPhotos: async function(product,index) {
       if ( typeof product.photo === 'boolean') {
-        this.$swal('Un momentico para buscar las fotos!!!');
-        product.photo = await this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`)
-        this.products.splice(index, 1, product)
+        this.$swal('Buscando las fotos...');
+        let data = await this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`)
+        product.photo = data.photos
+        if ( data.phones.length > 0 ) {
+          product.phones = data.phones
+        }
+        this.products.splice(product.index, 1, product)
         this.$swal().close()
       } 
       this.photos = product.photo
       this.indexPhoto = 0
     },      
   }
-}
+};
 </script>
