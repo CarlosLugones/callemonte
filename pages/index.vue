@@ -3,12 +3,14 @@
       <div class="container ">
         <div class="row justify-content-center text-center">
           <div class="col-md-6">
-            <img src="/logo.png" width="60">
-            <h1 >
-              CALLEMONTE
+            <h1 class="d-flex justify-content-center">
+              <img src="/logo.png" width="50">
+              <span class="ml-2">CALLEMONTE</span>
             </h1>
-              <p class="`lead mb-3">Buscador de clasificados en Cuba</p>
-              <div class="form-group">
+            <h3 class="mb-5 mt-2">Buscador de clasificados en Cuba</h3>
+
+            <div class="input-group mb-3">
+              <!-- <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
                 <input 
                   autofocus
                   class="form-control form-control-lg" 
@@ -17,11 +19,13 @@
                   name="q"  
                   v-model="q" 
                   @keyup.enter="search" >
+              <div class="input-group-append">
+                <button class="btn btn-success" type="button" @click="search">
+                  <SearchIcon></SearchIcon>
+                </button>
               </div>
-
-              <div class="form-group">
-                  <button class="btn btn-outline-success btn-md" @click="search">Buscar Anuncios </button>
-              </div>                    
+            </div>
+                 
               <div class="form-group">
                 <nuxt-link to="/about" class="btn btn-link text-secondary">Nosotros</nuxt-link>
                 <nuxt-link to="/contact" class="btn btn-link text-secondary">Contacto</nuxt-link>
@@ -36,8 +40,10 @@
 </template>
 
 <script>
+import { SearchIcon } from 'vue-feather-icons'
 export default {
   layout: 'home',
+  components: { SearchIcon },
   data(){
     return {
       q: ''

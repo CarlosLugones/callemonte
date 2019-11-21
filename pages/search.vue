@@ -53,10 +53,28 @@
                   </ul>
 
               <div class="row mt-3">
-                <div class="col-12 is-centered mb-4" v-if="show === 'all'"> 
+                <div class="col-12 mb-4" v-if="show === 'all'"> 
                   <button class="btn btn-link btn-block bg-light text-dark py-3 border-0" @click="next">Vamos por más</button>
                 </div>
-                
+              </div>
+              <div class="text-center my-3">
+                <div class="mb-3"><b>Si te gustó Callemonte compártelo y corre la bola.</b></div>
+                <social-sharing url="https://callemonte.com/" title="Callemonte. Buscador de clasificados" description="Busca clasificados en los sitios de Cuba y ahorra tus datos" inline-template>  
+                  <div class="d-flex justify-content-center">
+                    <network network="twitter" class="mr-3" style="cursor: pointer;">
+                        <img height="32" width="32" src="https://unpkg.com/simple-icons@latest/icons/twitter.svg" /> Twitter
+                    </network> 
+                    <network network="facebook" class="mr-3" style="cursor: pointer;">
+                      <img height="32" width="32" src="https://unpkg.com/simple-icons@latest/icons/facebook.svg" /> Facebook
+                    </network>                        
+                    <network network="telegram" class="mr-3" style="cursor: pointer;">
+                      <img height="32" width="32" src="https://unpkg.com/simple-icons@latest/icons/telegram.svg" /> Telegram
+                    </network>     
+                    <network network="whatsapp" style="cursor: pointer;">
+                      <img height="32" width="32" src="https://unpkg.com/simple-icons@latest/icons/whatsapp.svg" /> Whatsapp
+                    </network>     
+                  </div>    
+                  </social-sharing>  
               </div>
             </div>
             <div v-else class="card border-0 shadow-sm">
@@ -79,12 +97,12 @@
 <script>
 import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
-import { CameraIcon, EyeOffIcon  } from 'vue-feather-icons'
+import { CameraIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon  } from 'vue-feather-icons'
 
 var store = require('store');
 
 export default {
-  components: { Navbar, CameraIcon, EyeOffIcon },
+  components: { Navbar, CameraIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon },
   head() {
     return {
       htmlAttrs: {
