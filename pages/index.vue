@@ -7,7 +7,7 @@
               <img src="/logo.png" width="50">
               <span class="ml-2">CALLEMONTE</span>
             </h1>
-            <h3 class="mb-5 mt-2">Buscador de clasificados en Cuba</h3>
+            <div class="lead mb-5 mt-2">Buscador de clasificados en Cuba</div>
 
             <div class="input-group mb-3">
               <!-- <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
