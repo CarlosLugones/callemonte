@@ -133,8 +133,11 @@ body {
 
   * {
     text-transform: lowercase;
-    font-weight: 300;
+    font-weight: 500;
     font-size: 15px;
+    @media(min-width: 768px) {
+      font-weight: 300;
+    }
   }
 
   .list-group-item {
