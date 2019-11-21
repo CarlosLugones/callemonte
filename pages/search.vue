@@ -57,7 +57,7 @@
                   <button class="btn btn-link btn-block bg-light text-dark py-3 border-0" @click="next">Vamos por más</button>
                 </div>
               </div>
-              <div class="text-center my-3">
+              <div class="text-center mt-3 mb-5">
                 <div class="mb-3"><b>Si te gustó Callemonte compártelo y corre la bola.</b></div>
                 <social-sharing url="https://callemonte.com/" title="Callemonte. Buscador de clasificados" description="Busca clasificados en los sitios de Cuba y ahorra tus datos" inline-template>  
                   <div class="d-flex justify-content-center">
