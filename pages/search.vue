@@ -22,14 +22,14 @@
                       v-for="(product,index) in filteredProducts" >
 
                       <div class="ads w-100" >
-                        <span class="text-secondary small">$</span><span class="font-weight-bold">{{ product.price }}</span>
-                        <span>&rarr;</span>
+                        <div class="font-weight-bold price"><span class="text-secondary small">$</span>{{ product.price }}</div>
+<!--                        <span class="separator">&lt;!&ndash;&rarr;&ndash;&gt; - </span>-->
                         <a 
                           target="_blank" 
                           rel="nofollow" 
                           class="title"
                           v-html="product.htmlTitle" 
-                          :href="product.url"></a>-
+                          :href="product.url"></a>
                         <a :href="'tel:' + phone" class="bg-gray px-2 py-1 ml-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
                           {{ phone }}
                         </a>

@@ -1,4 +1,4 @@
-<template>
+¸<template>
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-10"> 
@@ -18,7 +18,7 @@
         </div>
 
         <div class="mb-5">
-          <p class="lead text-justify"><b>Callemonte.com</b> <i>(anteriormente unclic.pro)</i> es un buscador de clasificados de productos en sitios de Cuba: <a href="https://www.revolico.com" rel="nofollow" target="_blank">revolico</a>, <a href="https://www.bachecubano.com"  rel="nofollow" target="_blank">bachecubano</a>, <a href="https://1cuc.com" rel="nofollow" target="_blank">1cuc</a>, <a href="https://www.timbirichi.com" rel="nofollow" target="_blank">timbirichi</a> y <a href="https://porlalivre.com" rel="nofollow" target="_blank">porlalivre</a>,  <a href="https://merolico.app" rel="nofollow" target="_blank">merolico</a>, <a href="https://riquera.com" rel="nofollow" target="_blank">riquera</a> y seguiremos incrementando la lista. Si tienes algún sitio que agregar <a href="/contact">contáctenos</a></p>
+          <p class="lead text-justify"><b>Callemonte.com</b> <i>(anteriormente unclic.pro)</i> es un buscador de anuncios de productos en sitios de Cuba: <a href="https://www.revolico.com" rel="nofollow" target="_blank">revolico</a>, <a href="https://www.bachecubano.com"  rel="nofollow" target="_blank">bachecubano</a>, <a href="https://1cuc.com" rel="nofollow" target="_blank">1cuc</a>, <a href="https://www.timbirichi.com" rel="nofollow" target="_blank">timbirichi</a> y <a href="https://porlalivre.com" rel="nofollow" target="_blank">porlalivre</a>,  <a href="https://merolico.app" rel="nofollow" target="_blank">merolico</a>, <a href="https://riquera.com" rel="nofollow" target="_blank">riquera</a> y seguiremos incrementando la lista. Si tienes algún sitio que agregar <a href="/contact">contáctenos</a></p>
           <p class="lead">El objetivo de Callemonte es facilitar la búsqueda de lo que necesites comprar.</p>
           
         </div>
@@ -26,7 +26,7 @@
 
           <div class="col-sm-6 mt-5">      
             <h3 class="">Cuida tus Datos.</h3> 
-            <p class="lead text-justify">Ahorra tu paquete de datos utilizando solo la información necesaria </p>
+            <p class="lead text-justify">Ahorra tu paquete de datos utilizando solo la información necesaria.</p>
           </div>  
 
           <div class="col-sm-6 mt-5">      
@@ -49,12 +49,12 @@
 
           <div class="col-sm-6 mt-5">      
             <h3>Sin publicidad.</h3>
-            <p class="lead text-justify">No se muestra ninguna publicidad solo los anuncios de su interés. </p>
+            <p class="lead text-justify">No se muestra ninguna publicidad, solo los anuncios de su interés.</p>
           </div>
 
         </div>
         <p class="lead my-5">
-          Callemonte está en desarrollo y puede que tenga algún problema no dudes en <a href="/contact">escribirnos</a> para hacerlo mejor.
+          Callemonte está en desarrollo y puede que tenga algún problema, no dudes en <a href="/contact">escribirnos</a> para hacerlo mejor.
         </p>
 
 

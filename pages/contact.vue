@@ -15,13 +15,13 @@
           <div class="card border-0 shadow-sm">
             <div class="card-body">
               
-            <p class="lead">Escribeme si tienes alguna sugerecia, ecuentras algún error o solo para felicitarme que también me gusta. Te responde en cuanto me conecte. </p>
+            <p class="lead">Escríbeme si tienes alguna sugerencia, si encuentras algún error o solo para felicitarme por esta herramienta que el reconocimiento también me gusta. Te responderé en la mayor brevedad posible. </p>
             <form name="contact0" method="POST" action="/success" netlify-honeypot="bot-field" data-netlify="true" >
               <p class="d-none">
                 <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
               </p>            
               <div class="form-group">
-                <label class="label">Correo Electronico</label>
+                <label class="label">Correo Electrónico</label>
                 <input class="form-control" type="email" 
                   name="email" 
                   v-model="email" required>              

@@ -1,8 +1,6 @@
 // $box-padding: 1rem;
-
 // @import "~bootstrap/scss/bootstrap.scss";
 // @import "~bootstrap-vue/src/index.scss"; 
-
 // $dropdown-content-radius: 0;
 @import 'bootstrap.scss';
 @import 'bootstrap-vue.scss';
@@ -11,15 +9,21 @@
 html {
   font-size: 0.9rem;
 }
-a:visited{
+
+a:visited {
   color: #343a40;
 }
 
 @include media-breakpoint-up(xs) {
   #modal-menu {
-    .modal-sm { max-width: 250px; }
-    .modal-dialog { margin: 1.75rem auto; }
-  } 
+    .modal-sm {
+      max-width: 250px;
+    }
+
+    .modal-dialog {
+      margin: 1.75rem auto;
+    }
+  }
   html {
     font-size: 1.06rem;
   }
@@ -39,30 +43,41 @@ a:visited{
 
 
 * {
-	font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .vertical-center {
-  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100%; /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */
 
   display: flex;
   align-items: center;
 }
-// tr .is-phone, tr .is-price { font-weight: 500; }
-html.padding-top{ padding-top: 64px;}
 
-.custom-switch .custom-control-label::after {background-color: #fff;}
-.custom-control-label::before{ background-color: #adb5bd;}
+// tr .is-phone, tr .is-price { font-weight: 500; }
+html.padding-top {
+  padding-top: 64px;
+}
+
+.custom-switch .custom-control-label::after {
+  background-color: #fff;
+}
+
+.custom-control-label::before {
+  background-color: #adb5bd;
+}
+
 .icon {
-	font-size: 1.5rem;
-	line-height: 1;
-	font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1;
+  font-weight: 700;
 }
-.title{ 
- word-wrap: anywhere; 
- overflow-wrap: anywhere; 
+
+.title {
+  word-wrap: anywhere;
+  overflow-wrap: anywhere;
 }
+
 #modal-menu {
   font-weight: 510;
   // a:visited{ color: #0056b3; }
@@ -76,16 +91,77 @@ html.padding-top{ padding-top: 64px;}
 // }
 // td .x { visibility: hidden; font-size: 1.3rem; line-height: 1}
 // tr:hover td .x { visibility: visible;}
-.bg-gray{ background-color: #EEF1F4; }
-.text-gray{ color: #C7CACD; }
-.actions a:visited{ color: #C7CACD; }
-a.x:hover{ color: red; }
-body { background-color: #EEF1F4;  }
+.bg-gray {
+  background-color: #EEF1F4;
+}
 
-  .blueimp-gallery > .close,
-  .blueimp-gallery > .next,
-  .blueimp-gallery > .prev { 
-    color: #fff !important;  
-    border: 0;
-    background: none;
+.text-gray {
+  color: #C7CACD;
+}
+
+.actions a:visited {
+  color: #C7CACD;
+}
+
+a.x:hover {
+  color: red;
+}
+
+body {
+  background-color: #EEF1F4;
+}
+
+.blueimp-gallery > .close,
+.blueimp-gallery > .next,
+.blueimp-gallery > .prev {
+  color: #fff !important;
+  border: 0;
+  background: none;
+}
+
+.price {
+  min-width: 40px;
+  display: inline-block;
+  text-align: right;
+  margin-right: 10px;
+}
+
+
+.list-group-flush {
+  padding: 10px 0;
+  background: #FFFFFF;
+
+  * {
+    text-transform: lowercase;
+    font-weight: 300;
+    font-size: 15px;
   }
+
+  .list-group-item {
+    border: none;
+    padding: 0.45rem 1.25rem;
+
+    a {
+      b, strong {
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+    }
+
+    &:hover {
+      background: #efefef;
+    }
+  }
+}
+
+.btn.btn-link.btn-block {
+  background: #00AA00 !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+
+  &:hover {
+    background: #007700 !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+  }
+}
