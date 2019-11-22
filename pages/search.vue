@@ -22,7 +22,9 @@
                       v-for="(product,index) in filteredProducts" >
 
                       <div class="ads w-100" >
-                        <div class="font-weight-bold price"><span class="text-secondary small">$</span>{{ product.price }}</div>
+                        <div class="font-weight-bold price">
+                          <span class="text-secondary">$</span>{{ product.price }}
+                        </div>
 <!--                        <span class="separator">&lt;!&ndash;&rarr;&ndash;&gt; - </span>-->
                         <a 
                           target="_blank" 
@@ -54,7 +56,7 @@
 
               <div class="row mt-3">
                 <div class="col-12 mb-4" v-if="show === 'all'"> 
-                  <button class="btn btn-link btn-block bg-light text-dark py-3 border-0" @click="next">Vamos por más</button>
+                  <button class="btn btn-success btn-block  py-3 border-0" @click="next">Vamos por más</button>
                 </div>
               </div>
               <div class="text-center mt-3 mb-5">
