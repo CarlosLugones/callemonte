@@ -16,9 +16,9 @@
                 {{filteredProducts.length}} Resultados
               </div>
 
-                  <ul class="list-group list-group-flush shadow-sm">
+                  <ul class="list-group list-group-flush shadow-sm" id="products">
                     <li 
-                      class="list-group-item d-flex px-2"  
+                      class="list-group-item d-flex p-2 border-0 product"  
                       v-for="(product,index) in filteredProducts" >
 
                       <div class="ads w-100" >

@@ -37,7 +37,7 @@
       </nav>
 
       <b-modal centered hide-header hide-footer id="modal-filter" ref="modal-filter" title="Opciones" size="sm" body-class="p-0" footer-class="mt-0 border-0 bg-light" >
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush p-0">
           <li class="list-group-item">
             <label class="form-group d-flex">
               <span class="flex-grow-1">Con el texto en el Título</span> 
@@ -67,20 +67,12 @@
 
       <b-modal centered hide-footer hide-header id="modal-menu" size="sm" body-class="p-0" footer-class="mt-0 border-0">
 
-        <ul class="list-group list-group-flush text-center">
-          <li class="list-group-item">
-            <nuxt-link to="/">Inicio</nuxt-link>
-          </li>
-          <li class="list-group-item">
-            <nuxt-link to="/about">Nosotros</nuxt-link>
-          </li>
-          <li class="list-group-item">
-            <nuxt-link to="/contact">Contacto</nuxt-link>
-          </li>
-          <li class="list-group-item">
-            <a href="https://medium.com/callemonte" target="_blank">Blog</a>
-          </li>
-        </ul>
+        <div class="list-group list-group-flush text-center">
+            <nuxt-link to="/" class="list-group-item list-group-item-action">Inicio</nuxt-link>
+            <nuxt-link to="/about" class="list-group-item list-group-item-action">Nosotros</nuxt-link>
+            <nuxt-link to="/contact" class="list-group-item list-group-item-action">Contacto</nuxt-link>
+            <a href="https://medium.com/callemonte" target="_blank" class="list-group-item list-group-item-action">Blog</a>
+        </div>
 
       </b-modal>   
 

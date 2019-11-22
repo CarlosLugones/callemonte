@@ -83,14 +83,6 @@ html.padding-top {
   // a:visited{ color: #0056b3; }
 }
 
-// table tr td:first-child { padding-right: 0; }
-// table tr td:last-child { padding-left: 0; }
-// table tr td.title{ 
-// 	word-wrap: anywhere; 
-// 	overflow-wrap: anywhere; 
-// }
-// td .x { visibility: hidden; font-size: 1.3rem; line-height: 1}
-// tr:hover td .x { visibility: visible;}
 .bg-gray {
   background-color: #EEF1F4;
 }
@@ -127,7 +119,7 @@ body {
 }
 
 
-.list-group-flush {
+#products {
   padding: 10px 0;
   background: #FFFFFF;
 
@@ -140,9 +132,9 @@ body {
     }
   }
 
-  .list-group-item {
-    border: none;
-    padding: 0.45rem 1.25rem;
+  .product {
+    // border: none;
+    // padding: 0.45rem 1.25rem;
 
     a {
       b, strong {
