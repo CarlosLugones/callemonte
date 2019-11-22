@@ -26,21 +26,23 @@
                           <span class="text-secondary">$</span>{{ product.price }}
                         </div>
 <!--                        <span class="separator">&lt;!&ndash;&rarr;&ndash;&gt; - </span>-->
-                        <a 
-                          target="_blank" 
-                          rel="nofollow" 
-                          class="title"
-                          v-html="product.htmlTitle" 
-                          :href="product.url"></a>
-                        <a :href="'tel:' + phone" class="bg-gray px-2 py-1 ml-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
-                          {{ phone }}
-                        </a>
-                        <a href @click.prevent="loadPhotos(product,index)" class="text-warning ml-1" v-if="product.photo">
-                          <camera-icon size="1.1x"></camera-icon>
-                        </a>
-                        <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
-                        
-                      </div>        
+                        <div class="ads-info">
+                          <a
+                            target="_blank"
+                            rel="nofollow"
+                            class="title"
+                            v-html="product.htmlTitle"
+                            :href="product.url"></a>
+                          <a :href="'tel:' + phone" class="bg-gray px-2 py-1 ml-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
+                            {{ phone }}
+                          </a>
+                          <a href @click.prevent="loadPhotos(product,index)" class="text-warning ml-1" v-if="product.photo">
+                            <camera-icon size="1.1x"></camera-icon>
+                          </a>
+                          <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
+
+                        </div>
+                      </div>
                       <div class="actions ml-2">
                           <a 
                             href="#" 
