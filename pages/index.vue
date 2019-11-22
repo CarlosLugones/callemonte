@@ -1,5 +1,5 @@
 <template>
-  <section class="jumbotron jumbotron-fluid vertical-center m-0 bg-white">
+  <section class="vertical-center m-0 bg-white">
       <div class="container ">
         <div class="row justify-content-center text-center">
           <div class="col-md-6">

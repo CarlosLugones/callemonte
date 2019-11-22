@@ -18,7 +18,7 @@
 
                   <ul class="list-group list-group-flush shadow-sm" id="products">
                     <li 
-                      class="list-group-item d-flex p-2 border-0 product"  
+                      class="list-group-item d-flex border-0 product"  
                       v-for="(product,index) in filteredProducts" >
 
                       <div class="ads w-100" >
@@ -30,13 +30,14 @@
                           <a
                             target="_blank"
                             rel="nofollow"
-                            class="title"
+                            class="title mr-1"
                             v-html="product.htmlTitle"
                             :href="product.url"></a>
-                          <a :href="'tel:' + phone" class="bg-gray px-2 py-1 ml-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
+
+                          <a :href="'tel:' + phone" class="bg-gray px-2 rounded d-inline-block mr-1" v-if="product.phones" v-for="phone in product.phones">
                             {{ phone }}
                           </a>
-                          <a href @click.prevent="loadPhotos(product,index)" class="text-warning ml-1" v-if="product.photo">
+                          <a href @click.prevent="loadPhotos(product,index)" class="text-warning" v-if="product.photo">
                             <camera-icon size="1.1x"></camera-icon>
                           </a>
                           <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
