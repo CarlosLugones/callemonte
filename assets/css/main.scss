@@ -138,9 +138,9 @@ body {
   .product {
     // border: none;
     // padding: 0.45rem 1.25rem;
-    &:nth-child(2n+1) {
-      background: #efefef;
-    }
+    // &:nth-child(2n+1) {
+    //   background: #efefef;
+    // }
     .ads {
       display: flex;
       direction: rtl;
