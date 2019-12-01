@@ -18,15 +18,15 @@
 
                   <ul class="list-group" id="products">
                     <li 
-                      class="list-group-item d-flex align-items-center border-0 bg-white mb-1"  
+                      class="product list-group-item d-flex align-items-center border-0 bg-white mb-1"  
                       v-for="(product,index) in filteredProducts" >
 
-                      <div class="ads w-100 mr-2" >
+                      <div class="w-100 mr-2" >
 <!--                        <span class="separator">&lt;!&ndash;&rarr;&ndash;&gt; - </span>-->
                         <a 
                           target="_blank" 
                           rel="nofollow" 
-                          class="title ml-1"
+                          class="title mr-1"
                           v-html="product.htmlTitle" 
                           :href="product.url"></a>
                         <a :href="'tel:' + phone" class="bg-gray px-2 ml-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
@@ -40,6 +40,7 @@
                       </div>        
                       <div class="font-weight-bold price mr-3">
                         <span class="text-secondary">$</span>{{ product.price }}
+
                       </div>
                       <div class="actions ml-2">
                           <a 
@@ -63,17 +64,17 @@
                 <div class="mb-3"><b>Si te gustó Callemonte compártelo y corre la bola.</b></div>
                 <social-sharing url="https://callemonte.com/" title="Callemonte. Buscador de clasificados" description="Busca clasificados en los sitios de Cuba y ahorra tus datos" inline-template>  
                   <div class="d-flex justify-content-center">
-                    <network network="twitter" class="mr-3" style="cursor: pointer;">
-                        <img height="32" width="32" src="https://unpkg.com/simple-icons@latest/icons/twitter.svg" /> Twitter
+                    <network network="twitter" class="mr-4" style="cursor: pointer;">
+                        <img width="32" src="https://unpkg.com/simple-icons@latest/icons/twitter.svg" title="Twitter" att="Twitter"/> 
                     </network> 
-                    <network network="facebook" class="mr-3" style="cursor: pointer;">
-                      <img height="32" width="32" src="https://unpkg.com/simple-icons@latest/icons/facebook.svg" /> Facebook
+                    <network network="facebook" class="mr-4" style="cursor: pointer;">
+                      <img width="32" src="https://unpkg.com/simple-icons@latest/icons/facebook.svg" title="Facebook" att="Twitter"/> 
                     </network>                        
-                    <network network="telegram" class="mr-3" style="cursor: pointer;">
-                      <img height="32" width="32" src="https://unpkg.com/simple-icons@latest/icons/telegram.svg" /> Telegram
+                    <network network="telegram" class="mr-4" style="cursor: pointer;">
+                      <img width="32" src="https://unpkg.com/simple-icons@latest/icons/telegram.svg" title="Telegram" att="Twitter"/> 
                     </network>     
                     <network network="whatsapp" style="cursor: pointer;">
-                      <img height="32" width="32" src="https://unpkg.com/simple-icons@latest/icons/whatsapp.svg" /> Whatsapp
+                      <img width="32" src="https://unpkg.com/simple-icons@latest/icons/whatsapp.svg" title="Whatsapp" att="Twitter"/> 
                     </network>     
                   </div>    
                   </social-sharing>  

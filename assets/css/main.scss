@@ -83,14 +83,6 @@ html.padding-top {
   // a:visited{ color: #0056b3; }
 }
 
-// table tr td:first-child { padding-right: 0; }
-// table tr td:last-child { padding-left: 0; }
-// table tr td.title{ 
-// 	word-wrap: anywhere; 
-// 	overflow-wrap: anywhere; 
-// }
-// td .x { visibility: hidden; font-size: 1.3rem; line-height: 1}
-// tr:hover td .x { visibility: visible;}
 .bg-gray {
   background-color: #EEF1F4;
 }
@@ -123,24 +115,41 @@ body {
   // min-width: 40px;
   display: inline-block;
   text-align: right;
-  // margin-right: 10px;
+  margin-right: 0;
+  @media(min-width: 768px) {
+    margin-right: 10px;
+  }
 }
 
 
-ul#products {
-   * {
-    // text-transform: lowercase;
+#products {
+  // background: #FFFFFF;
+
+  * {
+    text-transform: lowercase;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 13px;
     @media(min-width: 768px) {
       font-weight: 300;
+      font-size: 15px;
     }
   }
 
-  li {
-    // border: 3px solid #EEF1F4;
+  .product {
+    // border: none;
     // padding: 0.45rem 1.25rem;
-
+    // &:nth-child(2n+1) {
+    //   background: #efefef;
+    // }
+    .ads {
+      display: flex;
+      direction: rtl;
+      justify-content: space-between;
+      @media (min-width: 768px) {
+        direction: ltr;
+        justify-content: normal;
+      }
+    }
     a {
       b, strong {
         text-transform: uppercase;
@@ -149,7 +158,7 @@ ul#products {
     }
 
     &:hover {
-      background: #efefef;
+      background: #efffef;
     }
   }
 }
