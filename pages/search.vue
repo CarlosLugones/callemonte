@@ -8,7 +8,7 @@
 
     <div class="container">
       <div class="row justify-content-center">
-         <div class="col-sm-10 col">      
+         <div class="col-sm-8 col">      
           
             <div v-if="filteredProducts.length > 0" class="content-result">
 
@@ -16,23 +16,20 @@
                 {{filteredProducts.length}} Resultados
               </div>
 
-                  <ul class="list-group list-group-flush shadow-sm">
+                  <ul class="list-group" id="products">
                     <li 
-                      class="list-group-item d-flex px-2"  
+                      class="list-group-item d-flex align-items-center border-0 bg-white mb-1"  
                       v-for="(product,index) in filteredProducts" >
 
-                      <div class="ads w-100" >
-                        <div class="font-weight-bold price">
-                          <span class="text-secondary">$</span>{{ product.price }}
-                        </div>
+                      <div class="ads w-100 mr-2" >
 <!--                        <span class="separator">&lt;!&ndash;&rarr;&ndash;&gt; - </span>-->
                         <a 
                           target="_blank" 
                           rel="nofollow" 
-                          class="title"
+                          class="title ml-1"
                           v-html="product.htmlTitle" 
                           :href="product.url"></a>
-                        <a :href="'tel:' + phone" class="bg-gray px-2 py-1 ml-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
+                        <a :href="'tel:' + phone" class="bg-gray px-2 ml-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
                           {{ phone }}
                         </a>
                         <a href @click.prevent="loadPhotos(product,index)" class="text-warning ml-1" v-if="product.photo">
@@ -41,6 +38,9 @@
                         <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
                         
                       </div>        
+                      <div class="font-weight-bold price mr-3">
+                        <span class="text-secondary">$</span>{{ product.price }}
+                      </div>
                       <div class="actions ml-2">
                           <a 
                             href="#" 

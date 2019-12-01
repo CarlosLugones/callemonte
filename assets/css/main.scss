@@ -25,7 +25,7 @@ a:visited {
     }
   }
   html {
-    font-size: 1.06rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -120,19 +120,16 @@ body {
 }
 
 .price {
-  min-width: 40px;
+  // min-width: 40px;
   display: inline-block;
   text-align: right;
-  margin-right: 10px;
+  // margin-right: 10px;
 }
 
 
-.list-group-flush {
-  padding: 10px 0;
-  background: #FFFFFF;
-
-  * {
-    text-transform: lowercase;
+ul#products {
+   * {
+    // text-transform: lowercase;
     font-weight: 500;
     font-size: 15px;
     @media(min-width: 768px) {
@@ -140,9 +137,9 @@ body {
     }
   }
 
-  .list-group-item {
-    border: none;
-    padding: 0.45rem 1.25rem;
+  li {
+    // border: 3px solid #EEF1F4;
+    // padding: 0.45rem 1.25rem;
 
     a {
       b, strong {

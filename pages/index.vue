@@ -1,12 +1,14 @@
 <template>
-  <section class="jumbotron jumbotron-fluid vertical-center m-0 bg-white">
+  <section class="vertical-center m-0 bg-white">
       <div class="container ">
         <div class="row justify-content-center text-center">
           <div class="col-md-6">
-            <h1 class="d-flex justify-content-center">
-              <img src="/logo.png" width="50">
-              <span class="ml-2">CALLEMONTE</span>
-            </h1>
+            <div class="d-flex justify-content-center align-items-center">
+              <span>
+                <img src="/logo.png" width="40">
+              </span>
+              <h1 class="ml-2">CALLEMONTE</h1>
+            </div>
             <div class="lead mb-5 mt-2">Buscador de clasificados en Cuba</div>
 
             <div class="input-group mb-3">
