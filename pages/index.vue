@@ -3,10 +3,12 @@
       <div class="container ">
         <div class="row justify-content-center text-center">
           <div class="col-md-6">
-            <h1 class="d-flex justify-content-center">
-              <img src="/logo.png" width="50">
-              <span class="ml-2">CALLEMONTE</span>
-            </h1>
+            <div class="d-flex justify-content-center align-items-center">
+              <span>
+                <img src="/logo.png" width="40">
+              </span>
+              <h1 class="ml-2">CALLEMONTE</h1>
+            </div>
             <div class="lead mb-5 mt-2">Buscador de clasificados en Cuba</div>
 
             <div class="input-group mb-3">
@@ -27,6 +29,7 @@
             </div>
                  
               <div class="form-group">
+                <a href="https://alertas.callemonte.com" class="btn btn-link text-dark" target="_blank" ><b>Alertas</b></a>
                 <nuxt-link to="/about" class="btn btn-link text-secondary">Nosotros</nuxt-link>
                 <nuxt-link to="/contact" class="btn btn-link text-secondary">Contacto</nuxt-link>
                 <a href="https://medium.com/callemonte" target="_blank" class="btn btn-link text-secondary">Blog</a>

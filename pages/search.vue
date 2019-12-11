@@ -8,41 +8,40 @@
 
     <div class="container">
       <div class="row justify-content-center">
-         <div class="col-sm-10 col">      
+         <div class="col-sm-8 col">      
           
             <div v-if="filteredProducts.length > 0" class="content-result">
 
-              <div class="tool my-3">
-                {{filteredProducts.length}} Resultados
+              <div class="d-flex tool my-3">
+                <span>{{filteredProducts.length}} Resultados</span>
+                <a href="https://alertas.callemonte.com" target="_blank" class="ml-auto"><b>Crea una alerta</b></a>                
               </div>
 
-                  <ul class="list-group list-group-flush shadow-sm" id="products">
+                  <ul class="list-group" id="products">
                     <li 
-                      class="list-group-item d-flex border-0 product"  
+                      class="product list-group-item d-flex align-items-center border-0 bg-white mb-1"  
                       v-for="(product,index) in filteredProducts" >
 
-                      <div class="ads w-100" >
-                        <div class="font-weight-bold price">
-                          <span class="text-secondary">$</span>{{ product.price }}
-                        </div>
+                      <div class="w-100 mr-2" >
 <!--                        <span class="separator">&lt;!&ndash;&rarr;&ndash;&gt; - </span>-->
-                        <div class="ads-info">
-                          <a
-                            target="_blank"
-                            rel="nofollow"
-                            class="title mr-1"
-                            v-html="product.htmlTitle"
-                            :href="product.url"></a>
+                        <a 
+                          target="_blank" 
+                          rel="nofollow" 
+                          class="title mr-1"
+                          v-html="product.htmlTitle" 
+                          :href="product.url"></a>
+                        <a :href="'tel:' + phone" class="bg-gray px-2 ml-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
+                          {{ phone }}
+                        </a>
+                        <a href @click.prevent="loadPhotos(product,index)" class="text-warning ml-1" v-if="product.photo">
+                          <camera-icon size="1.1x"></camera-icon>
+                        </a>
+                        <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
+                        
+                      </div>        
+                      <div class="font-weight-bold price mr-3">
+                        <span class="text-secondary">$</span>{{ product.price }}
 
-                          <a :href="'tel:' + phone" class="bg-gray px-2 rounded d-inline-block mr-1" v-if="product.phones" v-for="phone in product.phones">
-                            {{ phone }}
-                          </a>
-                          <a href @click.prevent="loadPhotos(product,index)" class="text-warning" v-if="product.photo">
-                            <camera-icon size="1.1x"></camera-icon>
-                          </a>
-                          <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
-
-                        </div>
                       </div>
                       <div class="actions ml-2">
                           <a 

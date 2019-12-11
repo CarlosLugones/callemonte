@@ -3,7 +3,7 @@
       <nav class="bg-gray fixed-top py-3"> 
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-sm-10">
+            <div class="col-sm-8">
               <div class="d-flex">
                 <div class="form-group w-100 m-0" >
                   <input class="form-control mr-sm-2 border-0"
