@@ -107,16 +107,16 @@ export default {
     this.q = this.$route.query.q;
     this.onSearch();
   },
-  computed: {
-    p: function(){
-      return this.page
-    }
-  },
-  watch: {
-    p: function() {
-      this.onSearch();
-    }
-  },
+  // computed: {
+  //   p: function(){
+  //     return this.page
+  //   }
+  // },
+  // watch: {
+  //   p: function() {
+  //     this.onSearch();
+  //   }
+  // },
   methods: {
     onSearch() {
       if (this.q.length > 0) {
