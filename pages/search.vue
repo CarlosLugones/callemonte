@@ -30,20 +30,20 @@
                           class="title mr-1"
                           v-html="product.htmlTitle" 
                           :href="product.url"></a>
-                        <a :href="'tel:' + phone" class="bg-gray px-2 ml-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
+                        <a :href="'tel:' + phone" class="bg-gray px-2 mr-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
                           {{ phone }}
                         </a>
-                        <a href @click.prevent="loadPhotos(product,index)" class="text-warning ml-1" v-if="product.photo">
+                        <a href @click.prevent="loadPhotos(product,index)" class="text-warning mr-1" v-if="product.photo">
                           <camera-icon size="1.1x"></camera-icon>
                         </a>
-                        <span class="product-site ml-1 text-secondary small">{{ product.site }}</span>
+                        <span class="product-site mr-1 text-secondary small">{{ product.site }}</span>
                         
                       </div>        
-                      <div class="font-weight-bold price mr-3">
+                      <div class="font-weight-bold price mr-2">
                         <span class="text-secondary">$</span>{{ product.price }}
 
                       </div>
-                      <div class="actions ml-2">
+                      <div class="actions d-none d-sm-block">
                           <a 
                             href="#" 
                             v-on:click.prevent="toggleHide(product.id, index)" 
@@ -209,6 +209,7 @@ export default {
   methods: {
     next() {
       this.p ++;
+      this.search(this.q);
     },
     toggleHide(id,index) {
         if ( ! this.hides.includes(id) ) {

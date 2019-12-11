@@ -2,6 +2,9 @@
 // @import "~bootstrap/scss/bootstrap.scss";
 // @import "~bootstrap-vue/src/index.scss"; 
 // $dropdown-content-radius: 0;
+$grid-gutter-width: 20px !default;
+$list-group-item-padding-x: .75rem !default;
+
 @import 'bootstrap.scss';
 @import 'bootstrap-vue.scss';
 @import '~sweetalert2/src/sweetalert2';
@@ -25,13 +28,13 @@ a:visited {
     }
   }
   html {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 }
 
 @include media-breakpoint-up(md) {
   html {
-    font-size: 1rem;
+    font-size: 1.02rem;
   }
 }
 
@@ -128,7 +131,7 @@ body {
   * {
     text-transform: lowercase;
     font-weight: 500;
-    font-size: 13px;
+    // font-size: 13px;
     @media(min-width: 768px) {
       font-weight: 300;
       font-size: 15px;

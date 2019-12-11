@@ -59,6 +59,20 @@
               />              
             </label>
           </li>
+<!--           <li class="list-group-item">
+            <div class="form-group row">
+              <label for="staticEmail2" class="col-form-label col">Precio Mínimo</label>
+              <div class="col"> 
+              <input type="text" class="form-control" id="staticEmail2" >
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputPassword2" class="col-form-label col">Precio Máximo</label>
+              <div class="col"> 
+                <input type="password" class="form-control" id="inputPassword2" >
+              </div>
+            </div>
+          </li> -->
         </ul>
 
         <button class="btn btn-link btn-block p-3" @click="close('modal-filter')">Cerrar</button>
