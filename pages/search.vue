@@ -20,6 +20,7 @@
                   <ul class="list-group" id="products">
                     <li 
                       class="product list-group-item d-flex align-items-center border-0 bg-white mb-1"  
+                      :class="product.viewed ? 'viewed' : ''"
                       v-for="(product,index) in filteredProducts" >
 
                       <div class="w-100 mr-2" >
@@ -33,9 +34,10 @@
                         <a :href="'tel:' + phone" class="bg-gray px-2 mr-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
                           {{ phone }}
                         </a>
-                        <a href @click.prevent="loadPhotos(product,index)" class="text-warning mr-1" v-if="product.photo">
+                        <a href @click.prevent="loadPhotos(product,index)" class="text-primary mr-1" v-if="product.photo">
                           <camera-icon size="1.1x"></camera-icon>
                         </a>
+                        <!-- <LoadPhotos :product="product"></LoadPhotos> -->
                         <span class="product-site mr-1 text-secondary small">{{ product.site }}</span>
                         
                       </div>        
@@ -43,13 +45,14 @@
                         <span class="text-secondary">$</span>{{ product.price }}
 
                       </div>
-                      <div class="actions d-none d-sm-block">
+                      <div class="actions">
                           <a 
                             href="#" 
-                            v-on:click.prevent="toggleHide(product.id, index)" 
+                            v-on:click.prevent="toggleHide(product.id)" 
                             class="text-gray text-decoration-none x" 
                             title="Ocultar este resultado">
-                              <eye-off-icon size="1x"></eye-off-icon>
+                              <eye-icon size="1x" v-if="product.viewed"></eye-icon>
+                              <eye-off-icon size="1x" v-else></eye-off-icon>
                           </a>                    
                       </div>
                   
@@ -92,6 +95,7 @@
          </div>
       </div>
     </div>
+    <LoadingOverlay :active.sync="loadingPhotos"></LoadingOverlay>
     <no-ssr>
       <vue-gallery :images="photos" :index="indexPhoto" @close="indexPhoto = null"></vue-gallery>
     </no-ssr>
@@ -101,12 +105,14 @@
 <script>
 import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
-import { CameraIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon  } from 'vue-feather-icons'
+import LoadingOverlay from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';  
+import { CameraIcon, EyeIcon,EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon  } from 'vue-feather-icons'
 
 var store = require('store');
 
 export default {
-  components: { Navbar, CameraIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon },
+  components: { Navbar, LoadingOverlay, CameraIcon, EyeIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon },
   head() {
     return {
       htmlAttrs: {
@@ -121,7 +127,7 @@ export default {
       products: [],
       currentPhotos:[],
       photos: [],
-      loadingPhoto: [],
+      loadingPhotos: false,
       indexPhoto: null,
       hides: [],
       modalOpen: null,
@@ -181,17 +187,22 @@ export default {
         return p.price + p.title.replace(/[^a-zA-Z0-9]/,'') + p.phones;
       })
 
-      return products.filter( p => {
-            let isHide = vm.hides.includes( p.id ),
-                price = parseFloat(p.price);
-
-      // console.log( p.price + '->' + ( parseFloat(p.price) >= priceMin && p.price <= priceMax ))
-            return  (vm.filters.byTitle ? vm.reQuery.test(p.title) : true) && 
-                    ( price >= priceMin && price <= priceMax ) && 
-                    ( vm.filters.byPhoto ? p.photo : true ) && 
-                    ( vm.filters.byPhone ? p.phones : true ) && 
-                    ( vm.show==='hidden' ? isHide : ! isHide );
-        });
+      return products
+                .map( p => {
+                    p.viewed = vm.hides.includes( p.id );
+                    p.price = parseFloat( p.price );
+                    p.posq = p.title.toLowerCase().indexOf( vm.q.toLowerCase() ) ;
+                    p.posq = p.posq == -1 ? 999 : p.posq ;
+                    return p;
+                })
+                .sort( (a,b) => a.posq - b.posq )
+                .filter( p => {
+                    return  (vm.filters.byTitle ? vm.reQuery.test(p.title) : true) && 
+                            ( p.price >= priceMin && p.price <= priceMax ) && 
+                            ( vm.filters.byPhoto ? p.photo : true ) && 
+                            ( vm.filters.byPhone ? p.phones : true ) 
+                            // ( vm.show==='hidden' ? isHide : ! isHide );
+                });
     },
     reQuery: function(){
       let re = this.q
@@ -211,10 +222,11 @@ export default {
       this.p ++;
       this.search(this.q);
     },
-    toggleHide(id,index) {
+    toggleHide(id) {
         if ( ! this.hides.includes(id) ) {
             this.hides.push(id);
         } else {
+            let index = this.hides.indexOf(id)
             this.hides.splice(index, 1);
         }
     },
@@ -227,7 +239,6 @@ export default {
       vm.q = q;
       vm.$router.push({ path: '/search', query: { q: this.q } })
 
-      this.completed = vm.sites.length;
       vm.sites.forEach( site => {
 
         let url = `https://callemonte.com/.netlify/functions/${site}?q=${this.q}&p=${this.p}`
@@ -241,25 +252,23 @@ export default {
               index: index
             } ));
             vm.products = vm.products.concat( products );
-            this.completed --;
 
           })
           .catch( error => {
-            this.completed --;
           });
 
       });
     },
     loadPhotos: async function(product,index) {
       if ( typeof product.photo === 'boolean') {
-        this.$swal('Buscando las fotos...');
+        this.loadingPhotos = true
         let data = await this.$axios.$get(`https://callemonte.com/.netlify/functions/photos?url=${product.url}`)
         product.photo = data.photos
         if ( data.phones.length > 0 ) {
           product.phones = data.phones
         }
         this.products.splice(product.index, 1, product)
-        this.$swal().close()
+        this.loadingPhotos = false;
       } 
       this.photos = product.photo
       this.indexPhoto = 0

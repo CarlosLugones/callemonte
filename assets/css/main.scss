@@ -123,7 +123,7 @@ body {
     margin-right: 10px;
   }
 }
-
+.viewed { opacity: 0.5; }
 
 #products {
   // background: #FFFFFF;
@@ -166,14 +166,3 @@ body {
   }
 }
 
-// .btn.btn-link.btn-block {
-//   background: #00AA00 !important;
-//   color: #FFFFFF !important;
-//   font-weight: 700;
-
-//   &:hover {
-//     background: #007700 !important;
-//     color: #FFFFFF !important;
-//     text-decoration: none !important;
-//   }
-// }

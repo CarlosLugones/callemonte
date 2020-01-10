@@ -31,6 +31,7 @@
     "store": "^2.0.12",
     "vue-feather-icons": "^5.0.0",
     "vue-gallery": "^2.0.1",
+    "vue-loading-overlay": "^3.2.0",
     "vue-social-sharing": "^2.4.6",
     "vue-sweetalert2": "^2.1.5"
   },
