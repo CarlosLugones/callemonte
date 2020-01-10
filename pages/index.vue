@@ -29,7 +29,7 @@
             </div>
                  
               <div class="form-group">
-                <a href="https://alertas.callemonte.com" class="btn btn-link text-dark" target="_blank" ><b>Alertas</b></a>
+                <a href="https://notificon.com" class="btn btn-link text-dark" target="_blank" ><b>Alertas</b></a>
                 <nuxt-link to="/about" class="btn btn-link text-secondary">Nosotros</nuxt-link>
                 <nuxt-link to="/contact" class="btn btn-link text-secondary">Contacto</nuxt-link>
                 <a href="https://medium.com/callemonte" target="_blank" class="btn btn-link text-secondary">Blog</a>

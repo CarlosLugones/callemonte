@@ -14,7 +14,7 @@
 
               <div class="d-flex tool my-3">
                 <span>{{filteredProducts.length}} Resultados</span>
-                <a href="https://alertas.callemonte.com" target="_blank" class="ml-auto"><b>Crea una alerta</b></a>                
+                <a href="https://notificon.com" target="_blank" class="ml-auto"><b>Crea una alerta</b></a>                
               </div>
 
                   <ul class="list-group" id="products">
