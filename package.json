@@ -13,31 +13,31 @@
     "now-build": "nuxt build --spa --no-lock"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.4.1",
-    "@nuxtjs/bulma": "^1.2.1",
+    "@nuxtjs/axios": "^5.9.2",
+    "@nuxtjs/bulma": "^1.2.6",
     "axios": "^0.18.1",
-    "bootstrap-vue": "^2.0.0-rc.27",
+    "bootstrap-vue": "^2.2.0",
     "cheerio": "^1.0.0-rc.3",
-    "cross-env": "^5.2.0",
+    "cross-env": "^5.2.1",
     "encoding": "^0.1.12",
     "lodash.uniq": "^4.5.0",
     "lodash.uniqby": "^4.7.0",
     "moment": "^2.24.0",
     "netlify-lambda": "^1.5.1",
     "node-fetch": "^2.6.0",
-    "nuxt": "^2.8.1",
+    "nuxt": "^2.11.0",
     "request-promise": "^4.2.4",
-    "simple-statistics": "^7.0.5",
+    "simple-statistics": "^7.0.7",
     "store": "^2.0.12",
     "vue-feather-icons": "^5.0.0",
     "vue-gallery": "^2.0.1",
     "vue-loading-overlay": "^3.2.0",
-    "vue-social-sharing": "^2.4.6",
+    "vue-social-sharing": "^2.4.7",
     "vue-sweetalert2": "^2.1.5"
   },
   "devDependencies": {
-    "node-sass": "^4.11.0",
-    "nodemon": "^1.18.9",
-    "sass-loader": "^7.1.0"
+    "node-sass": "^4.13.0",
+    "nodemon": "^1.19.4",
+    "sass-loader": "^7.3.1"
   }
 }
