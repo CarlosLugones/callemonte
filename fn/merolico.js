@@ -18,7 +18,7 @@ exports.handler =  async (event, context, callback) => {
         return {
             id: $a.attr('href'),
             price: $el.find('h2.item-price').text().replace(/\D/g,'') || 0 ,    
-            photo: !/default\.jpg$/.test( $el.find('div.add-image img').attr('src') ),
+            photo: $el.find('[data-fancybox-href]').attr('data-fancybox-href') ,
             title: cleaner( $a.text() ),
             phones: $a.attr('href').match(/\d{8}/g) || [],
             url: $a.attr('href'),

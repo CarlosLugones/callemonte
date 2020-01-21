@@ -18,6 +18,7 @@ exports.handler =  async (event, context, callback) => {
         .filter( k => /^AdType/.test(k) )
         .map( k => {
             let ad = json.props.apolloState[k]
+
             return {
                 id: ad.id,
                 title: cleaner(ad.title),

@@ -31,7 +31,7 @@ exports.handler =  async (event, context, callback) => {
 
     if ( /bachecubano/.test(url) ) {
         photos = $('.item-slider > li > a').map( (i,el) => $(el).attr('href') ).get();
-        phones = ($('.item-desc').text().match(/\d{8}/g) || []).filter((value, index, el) => el.indexOf(value) === index);
+        phones = $('[href^="tel:"]').first().text().replace(/\D/g,'');
     }        
 
     if ( /merolico/.test(url) ) {

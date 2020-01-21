@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-10"> 
+        <div class="col-sm-8"> 
         <div class="text-center mt-5">
           <a href="/" class="">
           <img src="/logo.png" width="60">

@@ -17,7 +17,7 @@ exports.handler =  async (event, context, callback) => {
             return {
                 id: 'C' + $a.attr('href').match(/(\d+)\.html$/)[1] ,
                 price: ($el.find('.v-price strong').text() || '').replace(/\D/g,''),
-                photo: $el.find('a.thumb').length > 0 ? true : false,
+                photo: $el.find('img').hasClass('im_blank') ? '' : 'https:' + $el.find('a.thumb img').attr('src'),
                 title: cleaner( $a.children().remove().end().text() ),
                 phones: $a.text().replace(/\W/g,'').match(rePhone) || [],
                 url: $a.attr('href'),

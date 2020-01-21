@@ -34,10 +34,9 @@
                         <a :href="'tel:' + phone" class="bg-gray px-2 mr-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
                           {{ phone }}
                         </a>
-                        <a href @click.prevent="loadPhotos(product,index)" class="text-primary mr-1" v-if="product.photo">
+                        <a href @click.prevent="loadPhotos(product,index)" class="text-primary mr-1" v-if="product.photo != ''">
                           <camera-icon size="1.1x"></camera-icon>
                         </a>
-                        <!-- <LoadPhotos :product="product"></LoadPhotos> -->
                         <span class="product-site mr-1 text-secondary small">{{ product.site }}</span>
                         
                       </div>        
@@ -107,12 +106,12 @@ import uniqBy from 'lodash.uniqby';
 import Navbar from '~/components/Navbar';
 import LoadingOverlay from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';  
-import { CameraIcon, EyeIcon,EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon  } from 'vue-feather-icons'
+import { CameraIcon, EyeIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon } from 'vue-feather-icons'
 
 var store = require('store');
 
 export default {
-  components: { Navbar, LoadingOverlay, CameraIcon, EyeIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon },
+  components: { Navbar, CameraIcon, EyeIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon, LoadingOverlay  },
   head() {
     return {
       htmlAttrs: {
@@ -242,6 +241,7 @@ export default {
       vm.sites.forEach( site => {
 
         let url = `https://callemonte.com/.netlify/functions/${site}?q=${this.q}&p=${this.p}`
+        // let url = `http://localhost:9000/.netlify/functions/${site}?q=${this.q}&p=${this.p}`
 
         this.$axios.$get(url)
           .then( response => { 
@@ -270,7 +270,7 @@ export default {
         this.products.splice(product.index, 1, product)
         this.loadingPhotos = false;
       } 
-      this.photos = product.photo
+      this.photos = typeof product.photo === 'string' ? [product.photo] : product.photo;
       this.indexPhoto = 0
     },      
   }

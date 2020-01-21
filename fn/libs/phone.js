@@ -41,10 +41,7 @@ module.exports = async (url) => {
         }
 
         if ( /bachecubano/.test(url) ) {
-            phones = $('script')
-                        .filter( (i,el) => rePhone.test( $(el).text() ) )
-                        .text()
-                        .match(rePhone) || [];
+            phones = $('a[href^="tel:"]').attr('href').match(rePhone) || [];
         }        
 
         if ( /merolico/.test(url) ) {
