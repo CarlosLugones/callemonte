@@ -75,7 +75,16 @@
               <p class="lead text-justify">No se muestra ninguna publicidad, solo los anuncios de su interés.</p>
             </div>
           </div>
+          </div>
 
+        <div class="card-deck mb-4"> 
+
+          <div class="card border-0 shadow-sm">      
+            <div class="card-body">
+              <h3 class="card-title"><a href="https://github.com/sotoplatero/callemonte" target="_blank" >Código abierto</a></h3>
+              <p class="lead text-justify">Si quieres mejorarlo solo clona, codifica y pull request para el github.</p>
+            </div>
+          </div>
         </div>
         <p class="lead my-5">
           Callemonte está en desarrollo y puede que tenga algún problema, no dudes en <a href="/contact">escribirnos</a> para hacerlo mejor.

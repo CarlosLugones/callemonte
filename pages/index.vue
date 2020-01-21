@@ -33,7 +33,6 @@
                 <nuxt-link to="/about" class="btn btn-link text-secondary">Nosotros</nuxt-link>
                 <nuxt-link to="/contact" class="btn btn-link text-secondary">Contacto</nuxt-link>
                 <a href="https://medium.com/callemonte" target="_blank" class="btn btn-link text-secondary">Blog</a>
-                <a href="https://github.com/sotoplatero/callemonte" target="_blank" class="btn btn-link text-secondary">Código</a>
               </div>                    
             
           </div>
