@@ -2,12 +2,11 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-sm-8"> 
-        <div class="text-center mt-5">
-          <a href="/" class="text-decoration-none">
-          <img src="/logo.png" width="60">
-          <h1>CALLEMONTE</h1>        
-            
-          </a>
+        <div class="d-flex justify-content-center align-items-center mt-5">
+          <span>
+            <img src="/logo.png" width="40">
+          </span>
+          <h1 class="ml-2">CALLEMONTE</h1>
         </div>
         <h2 class="title mt-5">
           Nosotros

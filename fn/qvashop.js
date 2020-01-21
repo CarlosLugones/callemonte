@@ -8,6 +8,7 @@ exports.handler =  async (event, context, callback) => {
     const { q, p = 1 } = event.queryStringParameters;
 
     const response = await fetch('https://www.timbirichi.com/buscar/pagina/'+ p +'?q=' + q + '&min=1');
+    const response = await fetch(`https://www.qvashop.com/?s=${p}&submit=Buscar`);
     const body = await response.text();
     const $ = cheerio.load( body );
 
