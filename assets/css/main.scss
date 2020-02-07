@@ -10,7 +10,7 @@ $list-group-item-padding-x: .75rem !default;
 @import '~sweetalert2/src/sweetalert2';
 
 html {
-  font-size: 0.9rem;
+  font-size: 0.93rem;
 }
 
 a:visited {
@@ -27,15 +27,15 @@ a:visited {
       margin: 1.75rem auto;
     }
   }
-  html {
-    font-size: 1rem;
-  }
+  // html {
+  //   font-size: 0.9rem;
+  // }
 }
 
 @include media-breakpoint-up(md) {
-  html {
-    font-size: 1.02rem;
-  }
+  // html {
+  //   font-size: 1.02rem;
+  // }
 }
 
 // @include media-breakpoint-up(lg) {
@@ -94,10 +94,6 @@ html.padding-top {
   color: #C7CACD;
 }
 
-.actions a:visited {
-  color: #C7CACD;
-}
-
 a.x:hover {
   color: red;
 }
@@ -116,12 +112,12 @@ body {
 
 .price {
   // min-width: 40px;
-  display: inline-block;
+  // display: inline-block;
   text-align: right;
   margin-right: 0;
-  @media(min-width: 768px) {
-    margin-right: 10px;
-  }
+  // @media(min-width: 768px) {
+  //   margin-right: 10px;
+  // }
 }
 .viewed { opacity: 0.4; }
 
@@ -129,12 +125,12 @@ body {
   // background: #FFFFFF;
 
   * {
-    text-transform: lowercase;
-    font-weight: 500;
+    // text-transform: lowercase;
+    // font-weight: 500;
     // font-size: 13px;
     @media(min-width: 768px) {
-      font-weight: 300;
-      font-size: 15px;
+      // font-weight: 300;
+      // font-size: 15px;
     }
   }
 

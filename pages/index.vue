@@ -18,8 +18,8 @@
                   class="form-control form-control-lg" 
                   type="text" 
                   placeholder="¿Que quieres comprar?" 
-                  name="q"  
-                  v-model="q" 
+                  name="input"  
+                  v-model="input" 
                   @keyup.enter="search" >
               <div class="input-group-append">
                 <button class="btn btn-success" type="button" @click="search">
@@ -49,13 +49,21 @@ export default {
   components: { SearchIcon },
   data(){
     return {
-      q: ''
+      input: ''
     }
   },  
   methods: {
     search() {
-      if ( this.q.length > 0 ) {
-        this.$router.push("/search?q="+this.q);
+      let reMaxPrice = /<\s*(\d+)/;
+      let reMinPrice = />\s*(\d+)/;
+      let input = this.input;
+
+      let pmax = reMaxPrice.test(input) ? input.match(reMaxPrice)[1] : '';
+      let pmin = reMinPrice.test(input) ? input.match(reMinPrice)[1] : '';    
+      let q = input.replace(reMinPrice,'').replace(reMaxPrice,'').trim();   
+
+      if ( this.input.length > 0 ) {
+        this.$router.push({ path: '/search', query: { q: q, pmin: pmin, pmax: pmax } });
       }
     }            
   }  

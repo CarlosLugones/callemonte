@@ -5,9 +5,9 @@ var cleaner = require('./libs/cleaner');
 const rePhone = /(\+?53)?\s?([1-9][\s-]?){1}(\d[\s-]?){7}/g;
 
 exports.handler =  async (event, context, callback) => {
-    const { q, p = 1 } = event.queryStringParameters;
+    const { q, p = 1, pmin = 1, pmax = '' } = event.queryStringParameters;
 
-    const response = await fetch(`https://porlalivre.com/search/?q=${q}&page=${p}&price_min=1`);
+    const response = await fetch(`https://porlalivre.com/search/?q=${q}&page=${p}&price_min=${pmin}&price_max=${pmax}`);
     const body = await response.text();
     const $ = cheerio.load( body );
 

@@ -5,11 +5,13 @@ var cleaner = require('./libs/cleaner');
 const rePhone = /((5|7)\d{7})|((24|32|33|45)\d{6})/g;
 
 exports.handler =  async (event, context, callback) => {
-    const { q, p = 1 } = event.queryStringParameters;
+    var { q, p = 1, pmin = 1, pmax = '' } = event.queryStringParameters;
 
-    const response = await fetch('https://1cuc.com/cuba/search/?ct=0&lt=0&sort=&page=1&q=' + q + '&page=' + p );
+    const response = await fetch(`https://1cuc.com/cuba/search/?ct=0&lt=0&sort=&q=${q}&page=${p}` );
     const body = await response.text();
     const $ = cheerio.load( body );
+
+    pmax = (pmax == '') ? 999999999999999 : pmax;
 
     let data = $('.sr-page__list__item tr').map( (i,el) => {
         let $el = $(el), 
@@ -24,7 +26,7 @@ exports.handler =  async (event, context, callback) => {
                 date: $el.find('.publicated-date').text().trim(),
             }
 
-    }).get().filter( el => parseFloat(el.price)>0 );
+    }).get().filter( el => parseFloat(el.price) > pmin && parseFloat(el.price) < pmax );
 
     return {
         headers: { 'Content-Type':'application/json', 'Access-Control-Allow-Origin': '*' },

@@ -6,9 +6,7 @@
       :page="p"
       v-on:search="search"/>
 
-    <div class="container">
-      <div class="row justify-content-center">
-         <div class="col-sm-8 col">      
+  
           
             <div v-if="filteredProducts.length > 0" class="content-result">
 
@@ -19,32 +17,68 @@
 
                   <ul class="list-group" id="products">
                     <li 
-                      class="product list-group-item d-flex align-items-center border-0 bg-white mb-1"  
+                      class="product list-group-item align-items-center border-0 bg-white py-3 mb-1"  
                       :class="product.viewed ? 'viewed' : ''"
                       v-for="(product,index) in filteredProducts" >
+
+                      <div class="d-flex mb-1"> 
+                        <div class="mr-auto">
+
+                          <span class="font-weight-bold">
+                            <span class="text-secondary">$</span>{{ product.price }}
+                          </span>
+
+                          <span v-if="product.phones.length">·</span>
+
+                          <a :href="'tel:' + phone" class="font-weight-bold text-dark" v-if="product.phones.length" v-for="phone in product.phones">
+                            {{ phone }}
+                          </a>
+
+                          <span v-if="product.photo != ''">·</span>
+                          <a href @click.prevent="loadPhotos(product,index)" class="text-success font-weight-bold" v-if="product.photo != ''">
+                            foto
+                            <!-- <camera-icon size="1.2x"></camera-icon> -->
+                          </a>
+
+                          <span>·</span>
+
+                          <span class="text-gray">{{ product.site }}</span>
+
+                        </div>
+                        <div class="actions">
+                          <a 
+                            href="#" 
+                            v-on:click.prevent="toggleHide(product.id)" 
+                            class="text-decoration-none text-secondary ml-2" 
+                            title="Ocultar este resultado">
+                              <eye-icon size="1.2x" v-if="product.viewed"></eye-icon>
+                              <eye-off-icon size="1.2x" v-else></eye-off-icon>
+                          </a>                    
+                        </div>
+                      </div>
 
                       <div class="w-100 mr-2" >
 <!--                        <span class="separator">&lt;!&ndash;&rarr;&ndash;&gt; - </span>-->
                         <a 
                           target="_blank" 
                           rel="nofollow" 
-                          class="title mr-1"
+                          class="title"
                           v-html="product.htmlTitle" 
                           :href="product.url"></a>
+<!-- 
                         <a :href="'tel:' + phone" class="bg-gray px-2 mr-1 rounded d-inline-block" v-if="product.phones" v-for="phone in product.phones">
                           {{ phone }}
                         </a>
                         <a href @click.prevent="loadPhotos(product,index)" class="text-primary mr-1" v-if="product.photo != ''">
                           <camera-icon size="1.1x"></camera-icon>
                         </a>
-                        <span class="product-site mr-1 text-secondary small">{{ product.site }}</span>
+                        <span class="product-site mr-1 text-secondary small">{{ product.site }}</span> -->
                         
                       </div>        
-                      <div class="font-weight-bold price mr-2">
+<!--                       <div class="font-weight-bold price mr-2">
                         <span class="text-secondary">$</span>{{ product.price }}
-
-                      </div>
-                      <div class="actions">
+                      </div> -->
+<!--                       <div class="actions">
                           <a 
                             href="#" 
                             v-on:click.prevent="toggleHide(product.id)" 
@@ -53,7 +87,7 @@
                               <eye-icon size="1x" v-if="product.viewed"></eye-icon>
                               <eye-off-icon size="1x" v-else></eye-off-icon>
                           </a>                    
-                      </div>
+                      </div> -->
                   
                     </li>
                   </ul>
@@ -91,9 +125,7 @@
                 </p> -->
               </div>
             </div>
-         </div>
-      </div>
-    </div>
+
     <LoadingOverlay :active.sync="loadingPhotos"></LoadingOverlay>
     <no-ssr>
       <vue-gallery :images="photos" :index="indexPhoto" @close="indexPhoto = null"></vue-gallery>
@@ -123,6 +155,8 @@ export default {
     return {
       q: '',
       p: 1,
+      pmin: '',
+      pmax: '',
       products: [],
       currentPhotos:[],
       photos: [],
@@ -194,7 +228,7 @@ export default {
                     p.posq = p.posq == -1 ? 999 : p.posq ;
                     return p;
                 })
-                .sort( (a,b) => a.posq - b.posq )
+                .sort( (a,b) => a.price - b.price )
                 .filter( p => {
                     return  (vm.filters.byTitle ? vm.reQuery.test(p.title) : true) && 
                             ( p.price >= priceMin && p.price <= priceMax ) && 
@@ -219,7 +253,7 @@ export default {
   methods: {
     next() {
       this.p ++;
-      this.search(this.q);
+      this.search(this.q, this.pmin, this.pmax);
     },
     toggleHide(id) {
         if ( ! this.hides.includes(id) ) {
@@ -232,15 +266,17 @@ export default {
     isHidden(id) { 
         return this.hides.includes(id);
     },
-    search: function(q) {
+    search: function(q, pmin, pmax) {
       let vm = this;
-
       vm.q = q;
-      vm.$router.push({ path: '/search', query: { q: this.q } })
+      vm.pmin = pmin;
+      vm.pmax = pmax;
+
+      vm.$router.push({ path: '/search', query: { q: q, pmin: pmin, pmax: pmax } })
 
       vm.sites.forEach( site => {
 
-        let url = `https://callemonte.com/.netlify/functions/${site}?q=${this.q}&p=${this.p}`
+        let url = `https://callemonte.com/.netlify/functions/${site}?q=${q}&pmin=${pmin}&pmax=${pmax}&p=${this.p}`
         // let url = `http://localhost:9000/.netlify/functions/${site}?q=${this.q}&p=${this.p}`
 
         this.$axios.$get(url)
