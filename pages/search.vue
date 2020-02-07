@@ -194,15 +194,13 @@ export default {
       this.modalOpen = null
     })    
   },
-  watch: {
-    // whenever question changes, this function will run
-    q: function (newQ, oldQ) {
-      if (newQ != oldQ) {
+  watchQuery (newQuery, oldQuery) {
+      if (newQuery != oldQuery) {
         this.products = [];
         this.p = 1;
       }
-      // this.search();
-    },
+  }, 
+  watch: {
     hides: function( newValue, oldValue ) {
         store.set( 'hides', newValue );
         if (newValue.length == 0) {
@@ -214,7 +212,8 @@ export default {
     filteredProducts: function() {
       var vm = this,
           products = vm.products,
-          [priceMin, priceMax = 99999] = vm.filters.byPrice.split('-');
+          priceMin = vm.pmin,
+          priceMax = vm.pmax !== '' ? vm.pmax : 9999999;
 
       products = uniqBy(products, (p) => {
         return p.price + p.title.replace(/[^a-zA-Z0-9]/,'') + p.phones;

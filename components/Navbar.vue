@@ -48,7 +48,7 @@
               <b-form-checkbox id="chk2" v-model="filters.byPhoto" name="photos" value="accepted" switch />
             </label>
           </li>
-          <li class="list-group-item">
+<!--           <li class="list-group-item">
             <label class="form-group d-flex" v-for="(range, label ,index) in pricesRanges">
               <span class="flex-grow-1">{{label}}</span> 
               <b-form-radio
@@ -58,7 +58,7 @@
                 :value="range"
               />              
             </label>
-          </li>
+          </li> -->
 <!--           <li class="list-group-item">
             <div class="form-group row">
               <label for="staticEmail2" class="col-form-label col">Precio Mínimo</label>

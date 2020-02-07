@@ -1,7 +1,5 @@
 ¸<template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-sm-8"> 
+  <div >
         <div class="d-flex justify-content-center align-items-center mt-5">
           <span>
             <img src="/logo.png" width="40">
@@ -89,16 +87,13 @@
           Callemonte está en desarrollo y puede que tenga algún problema, no dudes en <a href="/contact">escribirnos</a> para hacerlo mejor.
         </p>
 
-
-      </div>
-    </div>
-    
   </div>
 
 </template>
 
 <script>
 export default {
+  layout: 'pages',
   data(){
     return {
       prevPath: '',
