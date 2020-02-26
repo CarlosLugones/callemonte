@@ -28,19 +28,19 @@
                             <span class="text-secondary">$</span>{{ product.price }}
                           </span>
 
-                          <span v-if="product.phones.length">·</span>
+                          <span v-if="product.phones.length">&bull;</span>
 
-                          <a :href="'tel:' + phone" class="font-weight-bold text-dark" v-if="product.phones.length" v-for="phone in product.phones">
+                          <a :href="'tel:' + phone" class="text-dark" v-if="product.phones.length" v-for="phone in product.phones">
                             {{ phone }}
                           </a>
 
-                          <span v-if="product.photo != ''">·</span>
-                          <a href @click.prevent="loadPhotos(product,index)" class="text-success font-weight-bold" v-if="product.photo != ''">
+                          <span v-if="product.photo != ''">&bull;</span>
+                          <a href @click.prevent="loadPhotos(product,index)" class="" v-if="product.photo != ''">
                             foto
                             <!-- <camera-icon size="1.2x"></camera-icon> -->
                           </a>
 
-                          <span>·</span>
+                          <span>&bull;</span>
 
                           <span class="text-gray">{{ product.site }}</span>
 

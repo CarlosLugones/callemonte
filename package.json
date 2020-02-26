@@ -20,12 +20,14 @@
     "cheerio": "^1.0.0-rc.3",
     "cross-env": "^5.2.1",
     "encoding": "^0.1.12",
+    "lightbox2": "^2.11.1",
     "lodash.uniq": "^4.5.0",
     "lodash.uniqby": "^4.7.0",
     "moment": "^2.24.0",
     "netlify-lambda": "^1.5.1",
     "node-fetch": "^2.6.0",
     "nuxt": "^2.11.0",
+    "perfundo": "^4.0.4",
     "request-promise": "^4.2.4",
     "simple-statistics": "^7.0.7",
     "store": "^2.0.12",
@@ -36,7 +38,7 @@
     "vue-sweetalert2": "^2.1.5"
   },
   "devDependencies": {
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "nodemon": "^1.19.4",
     "sass-loader": "^7.3.1"
   }

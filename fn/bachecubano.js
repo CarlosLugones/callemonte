@@ -16,8 +16,8 @@ exports.handler =  async (event, context, callback) => {
             $a = $el.find('.product-title a');
 
         return {
-            id:     "B" + $a.attr('href').match(/\d+$/)[0],
-            price:  parseInt(($el.find('.price').text() || 0).replace(/[^\d\.,]/g,'')),
+            id:     $a.attr('href'),
+            price:  parseFloat($el.find('.price').text().replace(/[^\d\.,]/g,'')),
             photo:  $el.find('.lazyload').attr('data-src'),
             title:  cleaner( $a.text() ),
             phones: $a.text().replace(/\W/g,'').match(rePhone) || [],
