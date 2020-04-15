@@ -60,21 +60,17 @@ export default {
 	},
 	methods: {
 	    ...mapActions({ updateProduct: 'products/update' }),  		
-		update(){
+		async update(){
 			let product = this.ad
 		    // let url = `https://callemonte.com/.netlify/functions/details?url=${product.url}`
 		    let url = `https://callemonte.com/.netlify/functions/details?url=${product.url}`
 
 		    if ( !product.updated ) {
 		    	this.loading = true
-				this.$axios.$get(url).then( response => {
-					product = { ...product, ...response };
-					this.updateProduct(product)
-					this.loading = false
-				})
-				.catch( err => { 
-					this.loading = false 
-				})
+				let response = await this.$axios.$get(url)
+				product = { ...product, ...response };
+				this.updateProduct(product)
+				this.loading = false
 
 		    }			
 		},

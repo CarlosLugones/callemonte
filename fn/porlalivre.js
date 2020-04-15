@@ -6,7 +6,7 @@ const moment = require('moment')
 const rePhone = /(\+?53)?\s?([1-9][\s-]?){1}(\d[\s-]?){7}/g;
 
 exports.handler =  async (event, context, callback) => {
-    const { q, p = 1, pmin = 1, pmax = '', province = 'www' } = event.queryStringParameters;
+    var { q, p = 1, pmin = 1, pmax = '', province = 'www' } = event.queryStringParameters;
     province = province==='' ? 'cuba' : province
 
     const response = await fetch(`https://${province}.porlalivre.com/search/?q=${q}&page=${p}&price_min=${pmin}&price_max=${pmax}`);

@@ -68,18 +68,16 @@ export const actions = {
 
   update( {commit, state}, product ) {
     // let url = `http://localhost:9000/.netlify/functions/photos?url=${product.url}`
-    // let url = `https://callemonte.com/.netlify/functions/photos?url=${product.url}`
+    let url = `https://callemonte.com/.netlify/functions/photos?url=${product.url}`
 
-    // if ( !product.updated ) {
-      let indexOfProduct = state.items.map((_, i) => i).find(e => state.items[e].url == product.url)
-      // this.$axios.$get(url).then( res => {
-        commit('update', {
-          index: indexOfProduct,
-          product: product
-        })
-      // })
+    let indexOfProduct = state.items.map((_, i) => i).find(e => state.items[e].url == product.url)
+    // this.$axios.$get(url).then( res => {
+      commit('update', {
+        index: indexOfProduct,
+        product: product
+      })
+    // })
 
-    // }
 
   }
 
