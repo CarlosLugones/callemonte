@@ -33,11 +33,42 @@
         </li>
       </ul>
 
-      <Details 
-        :ad="currentProduct" 
-        v-if="currentProduct"
-        @hide="$store.commit('products/toggleHide',product)">
-      </Details>
+      <b-modal centered hide-header hide-footer 
+        id="modal-show" 
+        ref="modal-show" 
+        content-class="border-0"
+        v-if="selectedProduct"
+        body-class="p-0" 
+        @show="updateProduct(currentProduct)"
+        >
+        <b-overlay :show="$store.state.products.updating" rounded="sm" spinner-type="grow" spinner-variant="success">
+        <div class="card border-0" style="" >
+          <div class="card-img-top aspect-ratio-box" v-if="currentProduct.photo">
+            <a href="#" class="aspect-ratio-box-inside">
+              <img :src="currentProduct.photo === true ? placeholderImage : currentProduct.photo" :alt="currentProduct.title" >
+            </a>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title"><a :href="currentProduct.url">{{currentProduct.title}}</a></h4>
+            <h5 class="card-title text-secondary">
+              $<b>{{currentProduct.price}}</b>
+              <a :href="'tel:' + phone" v-if="currentProduct.phones.length"  v-for="phone in currentProduct.phones">
+              {{ phone }}
+              </a>
+            </h5>
+            <p class="card-text">
+            </p>
+          </div>
+              <div class="card-footer border-0 d-flex justify-content-around ">
+            <a :href="'tel:' + currentProduct.phones[0]" v-if="currentProduct.phones && currentProduct.phones.length" class="btn btn-link text-success">
+              <b>Llamar</b>
+            </a>            
+              <button class="btn" @click.prevent="hide">Eliminar</button>
+              <button class="btn" @click.prevent="$bvModal.hide('modal-show')">Cerrar</button>
+              </div>
+        </div>
+        </b-overlay>
+      </b-modal>
 
       <div class="row mt-3">
         <div class="col-12 mb-4" > 
@@ -65,20 +96,19 @@
           </social-sharing>  
       </div>
 
-
     </div>
     <div v-else class="card border-0">
       <div class="card-body p-4" >
           Buscando clasificados en Cuba...                
       </div>
     </div>
-    <!-- <Footbar></Footbar> -->
+
   </div>
 
 </template>
 
 <script>
-import Details from '~/components/Details';
+// import Details from '~/components/Details';
 import Footbar from '~/components/Footbar';
 import {  CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon } from 'vue-feather-icons'
 import { mapActions } from 'vuex'
@@ -86,7 +116,7 @@ import { mapGetters } from 'vuex'
 import { mapMutations } from 'vuex'
 
 export default {
-  components: { Footbar,CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon, Details  },
+  components: { Footbar,CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon  },
   watchQuery: true, 
   head() {
     return {
@@ -98,12 +128,12 @@ export default {
   data(){
     return {
       p: 1,
-      currentProduct: null,
+      selectedProduct: null,
+      placeholderImage: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFElEQVQIW2MMDQ39z8DAwMAIYwAAKgMD/9AXrvgAAAAASUVORK5CYII='      
     }
   },
   created() {
     this.newSearch(this.$route.query)
-    this.currentProduct = this.filteredProducts[0]
   },
   watchQuery (newQuery, oldQuery) {
     this.newSearch(newQuery)
@@ -113,9 +143,9 @@ export default {
     // ...mapGetters({ filteredProducts: 'products/filtered' }),
     ...mapGetters({ productsCount: 'products/productsCount' }),
     ...mapGetters({ hidesCount: 'products/hidesCount' }),
-    products () {
-      return this.$store.state.products.items
-    },
+    currentProduct: function() {
+      return this.$store.state.products.items.find( el => el.url === this.selectedProduct.url )
+    },   
     filteredProducts(){
       let products = this.$store.state.products.items
       return products
@@ -135,7 +165,7 @@ export default {
       this.searchProducts( {...this.$route.query, p: this.p} )
     },
     openDetails( product ) {
-      this.currentProduct = product,
+      this.selectedProduct = product,
       this.$bvModal.show('modal-show')
       // this.$refs['modal-show'].show()
     },  
@@ -143,3 +173,25 @@ export default {
 
 };
 </script>
+<style>
+.aspect-ratio-box {
+  height: 0;
+  overflow: hidden;
+  padding-top: 75%;
+  background: white;
+  position: relative;
+}
+.aspect-ratio-box-inside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.aspect-ratio-box-inside img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /*magic*/
+}
+
+</style>
