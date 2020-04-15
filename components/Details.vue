@@ -6,7 +6,7 @@
 		body-class="p-0" 
 		@show="updateProduct(product)"
 		>
-		<b-overlay :show="this.$store.state.products.updating" rounded="sm" spinner-type="grow">
+		<b-overlay :show="this.$store.state.products.updating" rounded="sm" spinner-type="grow" spinner-variant="success">
 		<div class="card border-0" style="" v-if="ad">
 			<div class="card-img-top aspect-ratio-box" v-if="product.photo">
 				<a href="#" class="aspect-ratio-box-inside">
@@ -22,14 +22,13 @@
 					</a>
 				</h5>
 				<p class="card-text">
-					<b-spinner type="grow" label="Loading..."></b-spinner>
 				</p>
 			</div>
 	        <div class="card-footer border-0 d-flex justify-content-around ">
 				<a :href="'tel:' + product.phones[0]" v-if="product.phones && product.phones.length" class="btn btn-link text-success">
 					<b>Llamar</b>
 				</a>	        	
-			    <button class="btn" @click.prevent="hide">Ocultar</button>
+			    <button class="btn" @click.prevent="hide">Eliminar</button>
 			    <button class="btn" @click.prevent="$bvModal.hide('modal-show')">Cerrar</button>
 	        </div>
 		</div>
@@ -38,15 +37,12 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import { BSpinner } from 'bootstrap-vue'
 import { BOverlay  } from 'bootstrap-vue'
-// Vue.use(SpinnerPlugin)
 import { mapActions } from 'vuex'
 
 export default {
 	props: [ 'ad' ],
-	components: {  BSpinner, BOverlay },
+	components: {  BOverlay },
 	data(){
 		return {
 			loading: false,
