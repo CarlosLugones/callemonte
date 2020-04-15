@@ -136,7 +136,6 @@ export default {
     },
     openDetails( product ) {
       this.currentProduct = product,
-      console.log(this.currentProduct)
       this.$bvModal.show('modal-show')
       // this.$refs['modal-show'].show()
     },  

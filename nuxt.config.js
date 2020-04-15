@@ -63,6 +63,7 @@ export default {
     // Doc:https://github.com/nuxt-community/modules/tree/master/packages/bulma
     // '@nuxtjs/bulma',
     'bootstrap-vue/nuxt',
+    '@nuxtjs/pwa',
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
   ],
@@ -93,10 +94,18 @@ export default {
   boostrapVue: {
     bootstrapCSS: false,
     bootstrapVueCSS: false,
-    // components: ['BModal'],
+    components: ['BModal','BOverlay'],
     // directives: ['VBModal'],
     // componentPlugins: [
 
     // ],
-  } 
+  },
+
+  pwa: {
+    manifest: {
+      name: 'Callemonte',
+      lang: 'es'
+    }
+  }
+
 }

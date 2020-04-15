@@ -37,12 +37,11 @@
 </template>
 
 <script>
-import { BOverlay  } from 'bootstrap-vue'
 import { mapActions } from 'vuex'
 
 export default {
 	props: [ 'ad' ],
-	components: {  BOverlay },
+	components: { },
 	data(){
 		return {
 			loading: false,

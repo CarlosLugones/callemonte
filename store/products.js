@@ -80,6 +80,7 @@ export const actions = {
 
       let indexOfProduct = state.items.map((_, i) => i).find(e => state.items[e].url == product.url)
       this.$axios.$get(url).then( response => {
+        console.log(response)
         commit('update', {
           index: indexOfProduct,
           product: {...product, ...response}
