@@ -20,18 +20,24 @@ exports.handler =  async (event, context, callback) => {
     }
 
     if ( /1cuc/.test(url) ) {
-        photos = $('a[data-lightbox]').map( (i,el) => 'https:' + $(el).attr('href') ).get();
+        photos = $('a[data-lightbox] img').map( (i,el) => $(el).attr('src') ).get();
         phones = ($('[itemprop="description"]').text().match(/\d{8}/g) || []).filter((value, index, el) => el.indexOf(value) === index);
     }            
 
     if ( /timbirichi/.test(url) ) {
         photos = $('.anuncio-list-fotos .myfancybox').map( (i,el) => $(el).attr('href') ).get();
-        phones = $('[href^="tel:"]').first().text().replace(/\s/g,'').split();
+        phones = $('[href^="tel:"]').first().text().replace(/\D/g,'').match(/\d{8}/g);
     }
 
     if ( /bachecubano/.test(url) ) {
         photos = $('.item-slider > li > a').map( (i,el) => $(el).attr('href') ).get();
         phones = $('[href^="tel:"]').first().text().replace(/\D/g,'');
+        if (phones === "") {
+            phones = $('#content').text().replace(/\W/g,'').match(/\d{8}/g)
+        }
+        if (photos.length === 0) {
+            photos = $('.img-fluid').map( (i,el) => $(el).attr('src') ).get();
+        }
     }        
 
     if ( /merolico/.test(url) ) {
@@ -40,7 +46,8 @@ exports.handler =  async (event, context, callback) => {
     }
 
     let data = {
-        photos: photos.map( el => `https://callemonte.com/.netlify/functions/image?url=${el}`),
+        // photos: photos.map( el => `https://callemonte.com/.netlify/functions/image?url=${el}`),
+        photos: photos,
         phones: phones
     }
     return {

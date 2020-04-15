@@ -52,7 +52,7 @@ export default {
   */
   plugins: [
     // '~/plugins/axios',
-    { src: '~/plugins/vue-gallery.js', ssr: false },
+    // { src: '~/plugins/vue-gallery.js', ssr: false },
     { src: '~/plugins/vue-social.js', ssr: false }
   ],
 
@@ -87,22 +87,16 @@ export default {
   },
 
   proxy: {
-    '/.netlify': {
-      target: 'http://localhost:9000',
-      pathRewrite: {'^/.netlify/functions': ''},
-    },
+    '/.netlify': 'http://localhost:9000' 
   }, 
 
   boostrapVue: {
     bootstrapCSS: false,
     bootstrapVueCSS: false,
-    components: ['BModal'],
-    directives: ['VBModal'],
-    componentPlugins: [
-      'FormPlugin',
-      'FormCheckboxPlugin',
-      'FormInputPlugin',
-      'FormRadioPlugin',
-    ],
+    // components: ['BModal'],
+    // directives: ['VBModal'],
+    // componentPlugins: [
+
+    // ],
   } 
 }

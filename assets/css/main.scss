@@ -2,19 +2,27 @@
 // @import "~bootstrap/scss/bootstrap.scss";
 // @import "~bootstrap-vue/src/index.scss"; 
 // $dropdown-content-radius: 0;
-$grid-gutter-width: 20px !default;
+$grid-gutter-width: 10px !default;
 $list-group-item-padding-x: .75rem !default;
 
 @import 'bootstrap.scss';
 @import 'bootstrap-vue.scss';
-@import '~sweetalert2/src/sweetalert2';
 
+label { 
+  margin: 0;
+  font-size: 0.9rem
+}
 html {
   font-size: 0.93rem;
 }
 
 a:visited {
   color: #343a40;
+}
+
+.blackandwhite {
+    filter: gray;
+    filter: grayscale(100%);
 }
 
 @include media-breakpoint-up(xs) {
@@ -101,15 +109,6 @@ a.x:hover {
 body {
   background-color: #EEF1F4;
 }
-
-.blueimp-gallery > .close,
-.blueimp-gallery > .next,
-.blueimp-gallery > .prev {
-  color: #fff !important;
-  border: 0;
-  background: none;
-}
-
 .price {
   // min-width: 40px;
   // display: inline-block;
@@ -157,7 +156,7 @@ body {
     }
 
     &:hover {
-      background: #efffef;
+      // background: #efffef;
     }
   }
 }

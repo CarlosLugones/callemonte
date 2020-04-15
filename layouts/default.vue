@@ -1,28 +1,29 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6 ">    
-        <nuxt/>
+  <div>
+    <Navbar />  
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">    
+          <nuxt/>
+          <footer class="text-center">
+            <nuxt-link to="/" class="">Inicio</nuxt-link>
+            <span class="text-secondary mx-2">&bull;</span>
+            <nuxt-link to="/about" class="">Nosotros</nuxt-link>
+            <span class="text-secondary mx-2">&bull;</span>
+            <nuxt-link to="/contact" class="">Contacto</nuxt-link>
+            <span class="text-secondary mx-2">&bull;</span>
+            <a href="https://medium.com/callemonte" target="_blank" class="">Blog</a>            
+          </footer>          
+        </div>
       </div>
     </div>
+    
   </div>
 </template>
 <script>
+import Navbar from '~/components/Navbar';
 export default {
-  data(){
-    return {
-      q: null,
-    }
-  },
-	created() {
-    this.q = this.$route.query.q;
-  },
-  methods: {
-    search(evt) {
-        evt.preventDefault();
-        this.$router.push("/search?q="+this.q);
-    }          
-  }    
+  components: { Navbar },
 }
 </script>
 

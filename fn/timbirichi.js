@@ -2,10 +2,15 @@ import fetch from "node-fetch"
 var cheerio = require('cheerio');
 var cleaner = require('./libs/cleaner');
 
+var Sugar = require('sugar');
+require('sugar/locales/es.js');
+Sugar.Date.setLocale('es');
+
+
 const rePhone = /((5|7)\d{7})|((24|32|33|45)\d{6})/g;
 
 exports.handler =  async (event, context, callback) => {
-    const { q, p = 1, pmin = 1, pmax = '' } = event.queryStringParameters;
+    const { q, p = 1, pmin = 1, pmax = '', province = '' } = event.queryStringParameters;
 
     const response = await fetch(`https://www.timbirichi.com/buscar/pagina/${p}?q=${q}&min=${pmin}&max=${pmax}`);
     const body = await response.text();
@@ -17,13 +22,13 @@ exports.handler =  async (event, context, callback) => {
             reNoImage = /default/g;
 
         return {
-            id:  'T' + $el.attr('href').match(reId)[0],
             price:  $el.find('precio').first().text().replace(/\D/g,''),
-            photo:  $el.find('.thumbnail').attr('data-src-mobile'),
             title:  cleaner( $el.find('h5.anuncio-titulo').text() ),
-            phones: $el.find('h5.anuncio-titulo').text().replace(/\W/g,'').match(rePhone) || [],
             url: $el.attr('href'),
-            date: $el.find('li .icon-clock').parent().text().trim()
+            // photo:  $el.find('.thumbnail').attr('data-src-mobile'),
+            // description:  $el.find('.info-anuncio small').text(),
+            // phones: $el.find('h5.anuncio-titulo').text().replace(/\W/g,'').match(rePhone) || [],
+            // date: Sugar.Date.create( $el.find('li .icon-clock').parent().text().trim() )
         };
 
     }).get();
