@@ -4,10 +4,10 @@
 		ref="modal-show" 
 		content-class="border-0"
 		body-class="p-0" 
-		@show="update"
+		@show="updateProduct(product)"
 		>
-		<b-overlay :show="loading" rounded="sm" spinner-type="grow">
-		<div class="card border-0" style="">
+		<b-overlay :show="this.$store.state.products.updating" rounded="sm" spinner-type="grow">
+		<div class="card border-0" style="" v-if="ad">
 			<div class="card-img-top aspect-ratio-box" v-if="product.photo">
 				<a href="#" class="aspect-ratio-box-inside">
 					<img :src="product.photo === true ? placeholderImage : product.photo" :alt="product.title" >
@@ -26,7 +26,7 @@
 				</p>
 			</div>
 	        <div class="card-footer border-0 d-flex justify-content-around ">
-				<a :href="'tel:' + product.phones[0]" v-if="product.phones" class="btn btn-link text-success">
+				<a :href="'tel:' + product.phones[0]" v-if="product.phones && product.phones.length" class="btn btn-link text-success">
 					<b>Llamar</b>
 				</a>	        	
 			    <button class="btn" @click.prevent="hide">Ocultar</button>
@@ -55,25 +55,11 @@ export default {
 	},
 	computed: {
 		product: function() {
-			return this.$store.getters['products/current'](this.ad.url)
+			return this.$store.state.products.items.find( el => el.url === this.ad.url )
 		}
 	},
 	methods: {
 	    ...mapActions({ updateProduct: 'products/update' }),  		
-		async update(){
-			let product = this.ad
-		    // let url = `https://callemonte.com/.netlify/functions/details?url=${product.url}`
-		    let url = `https://callemonte.com/.netlify/functions/details?url=${product.url}`
-
-		    if ( !product.updated ) {
-		    	this.loading = true
-				let response = await this.$axios.$get(url)
-				product = { ...product, ...response };
-				this.updateProduct(product)
-				this.loading = false
-
-		    }			
-		},
 		hide(){
 			this.$bvModal.hide('modal-show')
 			this.$store.commit('products/toggleHide',this.product)

@@ -26,7 +26,7 @@ exports.handler =  async (event, context, callback) => {
                 // photo: $el.find('img').hasClass('im_blank') ? '' : 'https:' + $el.find('a.thumb img').attr('src'),
             }
 
-    }).get()//.filter( el => parseFloat(el.price) > pmin && parseFloat(el.price) < pmax );
+    }).get().filter( el => el.price >= pmin && el.price <= pmax );
 
     return {
         headers: { 

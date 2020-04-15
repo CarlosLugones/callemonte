@@ -33,6 +33,12 @@
         </li>
       </ul>
 
+      <Details 
+        :ad="currentProduct" 
+        v-if="currentProduct"
+        @hide="$store.commit('products/toggleHide',product)">
+      </Details>
+
       <div class="row mt-3">
         <div class="col-12 mb-4" > 
           <button class="btn btn-success btn-block  py-3 border-0" @click="next"><b>Vamos por más</b></button>
@@ -59,7 +65,6 @@
           </social-sharing>  
       </div>
 
-      <Details :ad="currentProduct" v-if="currentProduct" @hide="$store.commit('products/toggleHide',product)"></Details>
 
     </div>
     <div v-else class="card border-0">
@@ -98,6 +103,7 @@ export default {
   },
   created() {
     this.newSearch(this.$route.query)
+    this.currentProduct = this.filteredProducts[0]
   },
   watchQuery (newQuery, oldQuery) {
     this.newSearch(newQuery)
@@ -130,7 +136,9 @@ export default {
     },
     openDetails( product ) {
       this.currentProduct = product,
+      console.log(this.currentProduct)
       this.$bvModal.show('modal-show')
+      // this.$refs['modal-show'].show()
     },  
   }
 
