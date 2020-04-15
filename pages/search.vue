@@ -4,7 +4,7 @@
 
       <div class="d-flex tool my-3 align-items-center ">
         <span>{{ productsCount }} Resultados</span>
-        <a href >{{ hidesCount }} <TrashIcon size="1.1x" ></TrashIcon></a>
+        <!-- <a href >{{ hidesCount }} <TrashIcon size="1.1x" ></TrashIcon></a> -->
         <a href="https://notificon.com" target="_blank" class="ml-auto"><b>Crea una alerta</b></a>                
       </div>
 

@@ -63,7 +63,7 @@ export default {
 		update(){
 			let product = this.ad
 		    // let url = `https://callemonte.com/.netlify/functions/details?url=${product.url}`
-		    let url = `http://callemonte.com/.netlify/functions/details?url=${product.url}`
+		    let url = `https://callemonte.com/.netlify/functions/details?url=${product.url}`
 
 		    if ( !product.updated ) {
 		    	this.loading = true
