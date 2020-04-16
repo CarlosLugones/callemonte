@@ -19,7 +19,7 @@
               </span>
               <span class="title text-primary " v-html="product.htmlTitle"></span>
             </a>
-            <div class="actions">
+            <div class="actions d-none d-sm-block">
               <a href @click.prevent="$store.commit('products/toggleHide',product)" 
                 class="text-decoration-none text-secondary ml-2" 
                 title="Ocultar este resultado">
@@ -53,6 +53,11 @@
                 <img :src="'/fav/'+currentProduct.site+'.png'">
               </span>
               <div class="ml-3">
+                <div class="small text-secondary">
+                  <span class="">{{currentProduct.location}}</span>
+                  &bull;
+                  <span class="">{{currentProduct.date}}</span>
+                </div>
                 <div class=""><a :href="currentProduct.url" target="_black"><b>{{currentProduct.title}}</b></a></div>
                 <div class="text-secondary">
                   $<b>{{currentProduct.price}}</b>
@@ -105,8 +110,11 @@
 
     </div>
     <div v-else class="card border-0">
-      <div class="card-body p-4" >
-          Buscando clasificados en Cuba...                
+      <div class="card-body p-4 text-center" v-if="$store.state.products.searching">
+        <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>               
+      </div>
+      <div class="card-body p-4 text-center" v-else>
+        Vaya!!! No hay resultados.
       </div>
     </div>
 

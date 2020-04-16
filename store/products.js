@@ -4,6 +4,7 @@ import Vue from 'vue'
 export const state = () => ({
   items: [],
   updating: false,
+  searching: false,
 })
 
 export const mutations = {
@@ -26,12 +27,15 @@ export const mutations = {
     product.hide = !product.hide 
   },  
 
-  toggleUpdating( state, value ) { 
-    state.updating = value
-  },
 
   toggleFavorite( state, product ) {
     product.favorite = !product.favorite 
+  },
+  toggleUpdating( state, value ) { 
+    state.updating = value
+  },
+  setSearching( state, value ) { 
+    state.searching = value
   },
 
   clear(state) { 
@@ -43,7 +47,9 @@ export const actions = {
   search ( { commit, state }, payload ) {
     const sites = [ 'bachecubano','revolico','porlalivre','timbirichi','1cuc','merolico' ];
     let { q, pmin=1, pmax, p = 1, province='' } = payload
-    
+
+    commit('setSearching',true)
+
     if ( p === 1) commit('clear')
 
     // if (pmin=='') pmin=1
@@ -65,9 +71,11 @@ export const actions = {
             }
 
           });
+          commit('setSearching',false)
         })
 
     })
+    
 
   },
 
