@@ -41,6 +41,9 @@
         @show="updateProduct(currentProduct)"
         >
         <b-overlay :show="$store.state.products.updating" rounded="sm" spinner-type="grow" spinner-variant="success">
+        <button type="button" class="btn back" aria-label="Close" @click.prevent="$bvModal.hide('modal-show')">
+          <x-icon size="2x" class="custom-class"></x-icon>
+        </button>
         <div class="card border-0" style="" >
           <div class="card-img-top aspect-ratio-box" v-if="currentProduct.photo">
             <a href="#" class="aspect-ratio-box-inside">
@@ -74,7 +77,6 @@
               <b>Llamar</b>
             </a>            
               <button class="btn" @click.prevent="hide">Eliminar</button>
-              <button class="btn" @click.prevent="$bvModal.hide('modal-show')">Cerrar</button>
               </div>
         </div>
         </b-overlay>
@@ -123,13 +125,13 @@
 <script>
 // import Details from '~/components/Details';
 import Footbar from '~/components/Footbar';
-import {  CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon } from 'vue-feather-icons'
+import {  CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon, XIcon }  from 'vue-feather-icons'
 import { mapActions } from 'vuex'
 import { mapGetters } from 'vuex'
 import { mapMutations } from 'vuex'
 
 export default {
-  components: { Footbar,CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon  },
+  components: { Footbar,CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon, XIcon },
   watchQuery: true, 
   head() {
     return {
