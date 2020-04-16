@@ -1,6 +1,6 @@
 <template>
     <div >
-      <button class="btn btn-link text-dark border-0" type="button"  @click.prevent="modalShow = true">
+      <button class="btn btn-link text-dark border-0 p-2" type="button"  @click.prevent="modalShow = true">
         <FilterIcon></FilterIcon>
       </button>
 
@@ -74,7 +74,7 @@ export default {
 			this.filters = { ...this.filters, ...this.$route.query }
 		},
 		apply() {
-			if (this.filters.pmin<=0) {
+			if (this.filters.pmin<=	0) {
 				this.filters.pmin=1
 			}
 	        this.$router.push({ 

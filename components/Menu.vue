@@ -1,6 +1,8 @@
 <template>
 	<div class="">
-	    <button class="btn btn-link text-dark border-0" type="button" v-b-modal.menu-modal ><MoreVerticalIcon></MoreVerticalIcon ></button>
+	    <button class="btn btn-link text-dark border-0 p-0" type="button" v-b-modal.menu-modal >
+	    	<MoreVerticalIcon></MoreVerticalIcon >
+	    </button>
 
 		<b-modal centered hide-footer hide-header id="menu-modal" size="sm" body-class="p-0" content-class="mt-0 border-0">
 
