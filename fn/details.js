@@ -59,7 +59,7 @@ exports.handler =  async (event, context, callback) => {
         if ( /merolico/.test(url) ) {
             photos = $('a[data-fancybox-href]').map( (i,el) => $(el).attr('data-fancybox-href') ).get();
             phones = $('[href^="tel:"]').first().text().replace(/[\s\(\)]/g,'').split();
-            date = $('span.date').text().trim()
+            date = $('span[date-time]').attr('date-time')
             location = $('span.item-location').text().trim()
         }
 

@@ -31,12 +31,6 @@
       
         </li>
       </ul>
-      <b-spinner 
-        v-if="$store.state.products.searching"
-        variant="success" 
-        type="grow" 
-        label="Spinning"></b-spinner>          
-      <!-- <Details :ad="selected"></Details> -->
       <b-modal centered hide-header hide-footer 
         id="modal-show" 
         ref="modal-show" 
@@ -89,7 +83,10 @@
 
       <div class="row mt-3">
         <div class="col-12 mb-4" > 
-          <button class="btn btn-success btn-block  py-3 border-0" @click="next"><b>Vamos por más</b></button>
+          <button class="btn btn-success btn-block  py-3 border-0" @click="next" :disabled="$store.state.products.searching">
+            <b-spinner type="grow" small v-if="$store.state.products.searching"></b-spinner>   
+            <b>Vamos por más</b>
+          </button>
         </div>
       </div>
 
@@ -141,13 +138,16 @@ import { mapMutations } from 'vuex'
 export default {
   components: { Footbar,CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon, XIcon },
   watchQuery: true, 
+  asyncData ({ store,query }) {
+    store.dispatch('products/search', query );
+  },  
   head() {
     return {
       htmlAttrs: {
           class: 'padding-top',
       }
     }
-  },
+  },  
   data(){
     return {
       p: 1,
@@ -155,15 +155,7 @@ export default {
       placeholderImage: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFElEQVQIW2MMDQ39z8DAwMAIYwAAKgMD/9AXrvgAAAAASUVORK5CYII='      
     }
   },
-  created() {
-    this.newSearch(this.$route.query)
-  },
-  watchQuery (newQuery, oldQuery) {
-    this.newSearch(newQuery)
-    return false
-  },
   computed: {
-    // ...mapGetters({ filteredProducts: 'products/filtered' }),
     ...mapGetters({ productsCount: 'products/productsCount' }),
     ...mapGetters({ hidesCount: 'products/hidesCount' }),
     currentProduct: function() {
