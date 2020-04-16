@@ -47,15 +47,15 @@
               <img :src="currentProduct.photo === true ? placeholderImage : currentProduct.photo" :alt="currentProduct.title" >
             </a>
           </div>
-          <div class="card-body">
-            <div class="d-flex">
+          <div class="card-body p-3">
+            <div class="d-flex align-items-center">
               <span>
                 <img :src="'/fav/'+currentProduct.site+'.png'">
               </span>
               <div class="ml-3">
                 <div class="small text-secondary">
                   <span class="">{{currentProduct.location}}</span>
-                  &bull;
+                  <span v-if="currentProduct.date">&bull;</span>
                   <span class="">{{currentProduct.date}}</span>
                 </div>
                 <div class=""><a :href="currentProduct.url" target="_black"><b>{{currentProduct.title}}</b></a></div>
@@ -68,10 +68,8 @@
               </div>
               
             </div>
-            <p class="card-text">
-            </p>
           </div>
-              <div class="card-footer border-0 d-flex justify-content-around ">
+          <div class="card-footer border-0 d-flex justify-content-around p-1">
             <a :href="'tel:' + currentProduct.phones[0]" v-if="currentProduct.phones && currentProduct.phones.length" class="btn btn-link text-success">
               <b>Llamar</b>
             </a>            
@@ -184,6 +182,10 @@ export default {
       this.$bvModal.show('modal-show')
       // this.$refs['modal-show'].show()
     },  
+    hide(){
+      this.$bvModal.hide('modal-show')
+      this.$store.commit('products/toggleHide',this.currentProduct)
+    }    
   }
 
 };
