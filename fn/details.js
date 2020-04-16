@@ -17,7 +17,7 @@ exports.handler =  async (event, context, callback) => {
 
         if ( /revolico/.test(url) ) {
             photos = $('[data-cy="zoomAdImage"]').map( (i,el) => $(el).attr('href') ).get();
-            phones = $('[data-cy="adPhone"]').text().replace(/\s/g,'').split(',');
+            phones = $('[data-cy="adPhone"]').text().replace(/\s/g,'').match(/\d{8}/g);
             location = $('[data-cy="adLocation"]').text();
             date = moment( parseInt( $('time').attr('datetime') ) ).format('D MMM, hA')
         }

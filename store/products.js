@@ -47,7 +47,8 @@ export const actions = {
   search ( { commit, state }, payload ) {
     const sites = [ 'bachecubano','revolico','porlalivre','timbirichi','1cuc','merolico' ];
     let { q, pmin=1, pmax, p = 1, province='' } = payload
-
+    let counter = 0
+    
     commit('setSearching',true)
 
     if ( p === 1) commit('clear')
@@ -71,11 +72,21 @@ export const actions = {
             }
 
           });
-          commit('setSearching',false)
+          counter++
+          if (counter === sites.length) {
+            commit('setSearching',false)
+          }
+        })
+        .catch(e=>{
+          counter++
+          if (counter === sites.length) {
+            commit('setSearching',false)
+          }
+
         })
 
     })
-    
+
 
   },
 

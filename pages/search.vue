@@ -31,6 +31,11 @@
       
         </li>
       </ul>
+      <b-spinner 
+        v-if="$store.state.products.searching"
+        variant="success" 
+        type="grow" 
+        label="Spinning"></b-spinner>          
       <!-- <Details :ad="selected"></Details> -->
       <b-modal centered hide-header hide-footer 
         id="modal-show" 
@@ -42,7 +47,7 @@
         >
         <b-overlay :show="$store.state.products.updating" rounded="sm" spinner-type="grow" spinner-variant="success">
         <button type="button" class="btn back" aria-label="Close" @click.prevent="$bvModal.hide('modal-show')">
-          <x-icon size="2x" class="custom-class"></x-icon>
+          <x-icon size="1.5x" class="custom-class"></x-icon>
         </button>
         <div class="card border-0" style="" >
           <div class="card-img-top aspect-ratio-box" v-if="currentProduct.photo">
@@ -51,23 +56,23 @@
             </a>
           </div>
           <div class="card-body p-3">
-            <div class="d-flex align-items-center">
-              <span>
-                <img :src="'/fav/'+currentProduct.site+'.png'">
-              </span>
-              <div class="ml-3">
-                <div class="small text-secondary">
-                  <span class="">{{currentProduct.location}}</span>
-                  <span v-if="currentProduct.date">&bull;</span>
-                  <span class="">{{currentProduct.date}}</span>
-                </div>
-                <div class=""><a :href="currentProduct.url" target="_black"><b>{{currentProduct.title}}</b></a></div>
-                <div class="text-secondary">
-                  $<b>{{currentProduct.price}}</b>
-                  <a :href="'tel:' + phone" v-if="currentProduct.phones.length"  v-for="phone in currentProduct.phones">
-                  {{ phone }}
-                  </a>
-                </div>
+            <div class="">
+              <div class="small text-secondary">
+                <span class="">{{currentProduct.location}}</span>
+                <span v-if="currentProduct.date">&bull;</span>
+                <span class="">{{currentProduct.date}}</span>
+              </div>
+              <div class="">
+                <a :href="currentProduct.url" target="_black" rel="noopener noreferrer">
+                  <b>{{currentProduct.title}}</b>
+                </a>
+                <img :src="'/fav/'+currentProduct.site+'.png'" width="16" class="">
+              </div>
+              <div class="text-secondary">
+                $<b>{{currentProduct.price}}</b>
+                <a :href="'tel:' + phone" v-if="currentProduct.phones.length"  v-for="phone in currentProduct.phones">
+                {{ phone }}
+                </a>
               </div>
               
             </div>
@@ -108,12 +113,10 @@
           </social-sharing>  
       </div>
 
+           
     </div>
     <div v-else class="card border-0">
-      <div class="card-body p-4 text-center" v-if="$store.state.products.searching">
-        <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>               
-      </div>
-      <div class="card-body p-4 text-center" v-else>
+      <div class="card-body p-4 text-center">
         Vaya!!! No hay resultados.
       </div>
     </div>
@@ -129,6 +132,11 @@ import {  CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon
 import { mapActions } from 'vuex'
 import { mapGetters } from 'vuex'
 import { mapMutations } from 'vuex'
+
+// import Vue from 'vue'
+// import VueProgressiveImage from 'vue-progressive-image'
+
+// Vue.use(VueProgressiveImage)
 
 export default {
   components: { Footbar,CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon, XIcon },

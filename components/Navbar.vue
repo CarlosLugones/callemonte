@@ -1,6 +1,6 @@
 <template>
   <div>
-      <nav class="bg-gray fixed-top py-3"> 
+      <nav class="bg-gray fixed-top py-1 "> 
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-md-8">
@@ -10,7 +10,7 @@
                     id="searchInput"
                     placeholder="¿Que quieres comprar?" 
                     v-model="q"
-                    v-on:keypress.enter="search" 
+                    @keypress.enter.prevent="search" 
                     ></input>
                 </div>
                 <Filters/>
@@ -98,6 +98,7 @@ export default {
           query: { ...this.$route.query, q: this.q } 
         })
       } else {
+        this.q = this.$route.query.q
         this.$bvModal.msgBoxOk('Escriba que quiere comprar',{
           size: 'sm',
           contentClass: 'text-center',
