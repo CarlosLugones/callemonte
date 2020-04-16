@@ -8,8 +8,8 @@ export const state = () => ({
 
 export const mutations = {
 
-  add( state, products ){
-    state.items.push( ...products )
+  add( state, product ){
+    state.items.push( product )
   },
 
   update(state, payload) {
@@ -40,7 +40,7 @@ export const mutations = {
 }
 
 export const actions = {
-  search ( { commit }, payload ) {
+  search ( { commit, state }, payload ) {
     const sites = [ 'bachecubano','revolico','porlalivre','timbirichi','1cuc','merolico' ];
     let { q, pmin=1, pmax, p = 1, province='' } = payload
     
@@ -48,24 +48,23 @@ export const actions = {
 
     // if (pmin=='') pmin=1
     sites.forEach( site => {
-      // let url = `https://localhost:9000/.netlify/functions/${site}?q=${q}&pmin=${pmin}&pmax=${pmax}&p=${p}&province=${province}`
       let url = `https://callemonte.com/.netlify/functions/${site}?q=${q}&pmin=${pmin}&pmax=${pmax}&p=${p}&province=${province}`
 
       this.$axios.$get(url)
         .then( response => { 
-          let products = response.map( (el,index) => { 
+          let products = response.forEach( (el,index) => { 
             // htmlTitle: el.title.replace( vm.reQuery, "<b>$&</b>" ),
             el.htmlTitle = el.title
             el.score = el.title.toLowerCase().score( q.toLowerCase() )
-            el.price = parseInt(el.price),
             el.hide = false
             el.favorite = false
             el.site = site
 
-            return el
+            if (!state.items.some( i => (i.site+i.price+i.title) === (el.site+el.price+el.title) )) {
+              commit('add', el);
+            }
 
           });
-          commit('add', products);
         })
 
     })
@@ -79,14 +78,16 @@ export const actions = {
       let url = `https://callemonte.com/.netlify/functions/details?url=${product.url}`
 
       let indexOfProduct = state.items.map((_, i) => i).find(e => state.items[e].url == product.url)
-      this.$axios.$get(url).then( response => {
-        console.log(response)
-        commit('update', {
-          index: indexOfProduct,
-          product: {...product, ...response}
+      this.$axios.$get(url)
+        .then( response => {
+          console.log(response)
+          commit('update', {
+            index: indexOfProduct,
+            product: {...product, ...response}
+          })
+          commit('toggleUpdating',false)
         })
-        commit('toggleUpdating',false)
-      })
+        .catch( e => commit('toggleUpdating',false) )
     }
 
   }

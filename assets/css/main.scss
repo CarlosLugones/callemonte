@@ -4,6 +4,7 @@
 // $dropdown-content-radius: 0;
 $grid-gutter-width: 10px !default;
 $list-group-item-padding-x: .75rem !default;
+$enable-responsive-font-sizes: true;
 
 @import 'bootstrap.scss';
 @import 'bootstrap-vue.scss';

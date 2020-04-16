@@ -18,7 +18,6 @@
                 <span class="text-secondary">$</span>{{ product.price }}
               </span>
               <span class="title text-primary " v-html="product.htmlTitle"></span>
-              <!-- <img :src="'/fav/'+product.site+'.png'" width="16"> -->
             </a>
             <div class="actions">
               <a href @click.prevent="$store.commit('products/toggleHide',product)" 
@@ -32,7 +31,7 @@
       
         </li>
       </ul>
-
+      <!-- <Details :ad="selected"></Details> -->
       <b-modal centered hide-header hide-footer 
         id="modal-show" 
         ref="modal-show" 
@@ -49,13 +48,21 @@
             </a>
           </div>
           <div class="card-body">
-            <h4 class="card-title"><a :href="currentProduct.url">{{currentProduct.title}}</a></h4>
-            <h5 class="card-title text-secondary">
-              $<b>{{currentProduct.price}}</b>
-              <a :href="'tel:' + phone" v-if="currentProduct.phones.length"  v-for="phone in currentProduct.phones">
-              {{ phone }}
-              </a>
-            </h5>
+            <div class="d-flex">
+              <span>
+                <img :src="'/fav/'+currentProduct.site+'.png'">
+              </span>
+              <div class="ml-3">
+                <div class=""><a :href="currentProduct.url" target="_black"><b>{{currentProduct.title}}</b></a></div>
+                <div class="text-secondary">
+                  $<b>{{currentProduct.price}}</b>
+                  <a :href="'tel:' + phone" v-if="currentProduct.phones.length"  v-for="phone in currentProduct.phones">
+                  {{ phone }}
+                  </a>
+                </div>
+              </div>
+              
+            </div>
             <p class="card-text">
             </p>
           </div>
