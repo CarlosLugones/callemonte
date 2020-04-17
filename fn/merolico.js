@@ -8,10 +8,32 @@ Sugar.Date.setLocale('es');
 
 const rePhone = /((5|7)\d{7})|((24|32|33|45)\d{6})/g;
 
-exports.handler =  async (event, context, callback) => {
-    const { q, p = 1, pmin = 1, pmax = '' }= event.queryStringParameters;
+const provinces = { 
+    'pinar-del-rio': 1,
+    'artemisa': 2,
+    'mayabeque': 3,
+    'la-habana': 4,
+    'matanzas': 5,
+    'cienfuegos': 6,
+    'villa-clara': 7,
+    'sancti-spiritus': 8,
+    'ciego-de-avila': 9,
+    'camaguey': 10,
+    'las-tunas': 11,
+    'holguin': 12,
+    'granma': 13,
+    'santiago-de-cuba': 14,
+    'guantánamo': 15,
+    'isla-de-la-juventud': 16,
+}
 
-    const response = await fetch(`https://merolico.app/search/page/${p}?q=${q}&minPrice=${pmin}&maxPrice=${pmax}`);
+exports.handler =  async (event, context, callback) => {
+    const { q, p = 1, pmin = 1, pmax = '', province = '' }= event.queryStringParameters;
+
+    let location = provinces[province] || ''
+    console.log(province)
+    
+    const response = await fetch(`https://merolico.app/search/page/${p}?q=${q}&minPrice=${pmin}&maxPrice=${pmax}&location=${location}`);
     const body = await response.text();
     const $ = cheerio.load( body );
 

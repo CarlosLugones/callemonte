@@ -74,11 +74,11 @@
                 
               </div>
             </div>
-            <div class="card-footer border-0 d-flex justify-content-around p-1">
-              <a :href="'tel:' + currentProduct.phones[0]" v-if="currentProduct.phones && currentProduct.phones.length" class="btn btn-link text-success">
+            <div class="d-flex justify-content-end text-uppercase p-1">
+              <a :href="'tel:' + currentProduct.phones[0]" v-if="currentProduct.phones && currentProduct.phones.length" class="btn btn-light">
                 <b>Llamar</b>
               </a>            
-                <button class="btn" @click.prevent="hide">Eliminar</button>
+                <button class="btn btn-light text-uppercase ml-2" @click.prevent="hide">Eliminar</button>
                 </div>
           </div>
           </b-overlay>
