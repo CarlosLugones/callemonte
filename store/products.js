@@ -48,15 +48,14 @@ export const actions = {
     const sites = [ 'bachecubano','revolico','porlalivre','timbirichi','1cuc','merolico' ];
     let { q, pmin=1, pmax, p = 1, province='' } = payload
     let counter = 0
-    
     commit('setSearching',true)
 
     if ( p === 1) commit('clear')
 
-    // if (pmin=='') pmin=1
+    if (pmin=='') pmin=1
+
     sites.forEach( site => {
       let url = `https://callemonte.com/.netlify/functions/${site}?q=${q}&pmin=${pmin}&pmax=${pmax}&p=${p}&province=${province}`
-
       this.$axios.$get(url)
         .then( response => { 
           let products = response.forEach( (el,index) => { 
@@ -76,6 +75,7 @@ export const actions = {
           if (counter === sites.length) {
             commit('setSearching',false)
           }
+          console.log('response')
         })
         .catch(e=>{
           counter++
