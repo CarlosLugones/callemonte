@@ -8,8 +8,8 @@ export const state = () => ({
 
 export const mutations = {
 
-  add( state, products ){
-    state.items.push( ...products )
+  add( state, product ){
+    state.items.push( product )
   },
 
   update(state, payload) {
@@ -40,7 +40,7 @@ export const mutations = {
 }
 
 export const actions = {
-  search ( { commit }, payload ) {
+  search ( { commit, state }, payload ) {
     const sites = [ 'bachecubano','revolico','porlalivre','timbirichi','1cuc','merolico' ];
     let { q, pmin=1, pmax, p = 1, province='' } = payload
     
@@ -53,7 +53,7 @@ export const actions = {
 
       this.$axios.$get(url)
         .then( response => { 
-          let products = response.map( (el,index) => { 
+          let products = response.forEach( (el,index) => { 
             // htmlTitle: el.title.replace( vm.reQuery, "<b>$&</b>" ),
             el.htmlTitle = el.title
             el.score = el.title.toLowerCase().score( q.toLowerCase() )
@@ -62,10 +62,11 @@ export const actions = {
             el.favorite = false
             el.site = site
 
-            return el
-
+            if ( !state.items.some(i => (i.price + i.title) == (el.price+el.title) ) ) {
+              commit('add', el);
+            }
           });
-          commit('add', products);
+
         })
 
     })
