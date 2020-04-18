@@ -2,6 +2,7 @@
 	<b-modal centered hide-header hide-footer 
 		id="modal-show" 
 		ref="modal-show" 
+		:lazy="true"
 		content-class="border-0"
 		body-class="p-0" 
 		@show="updateProduct(product)"

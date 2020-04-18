@@ -10,19 +10,22 @@
 
       <ul class="list-unstyled" id="products">
         <li 
-          class="product card border-0 mb-1"  
+          class="product border-0 card mb-1 "  
+          :class="product.updated ? 'bg-secondary text-white' : ''"
           v-for="(product,index) in filteredProducts" >
-          <div class="card-body d-flex align-items-center p-3">
-            <a class="flex-grow-1" href @click.prevent="openDetails(product)">
-              <span class="font-weight-bold mr-2">
-                <span class="text-secondary">$</span>{{ product.price }}
+
+          <div class="card-body d-flex align-items-center px-2 py-3">
+            <a class="flex-grow-1" href @click.prevent="openDetails(product)" :class="product.updated ? 'text-white' : ''">
+              <span class="font-weight-bold">
+                <span class="">$</span>{{ product.price }}
               </span>
-              <span class="title text-primary " v-html="product.htmlTitle"></span>
-              <!-- <img :src="'/fav/'+product.site+'.png'" width="16"> -->
+              <span class="title" v-html="product.htmlTitle"></span>
+              <img :src="'/fav/'+product.site+'.png'" width="15" class="ml-2 align-baseline">
             </a>
-            <div class="actions">
+            <div class="actions d-none d-sm-block">
               <a href @click.prevent="$store.commit('products/toggleHide',product)" 
-                class="text-decoration-none text-secondary ml-2" 
+                class="text-decoration-none ml-2" 
+                :class="product.updated ? 'text-white' : 'text-secondary'"
                 title="Ocultar este resultado">
                   <TrashIcon size="1.1x" ></TrashIcon>
               </a>                    
@@ -32,47 +35,70 @@
       
         </li>
       </ul>
+        <b-modal centered 
+          hide-header 
+          id="modal-show" 
+          ref="modal-show" 
+          v-if="selectedProduct"
+          content-class="border-0"
+          body-class="position-static p-0" 
+          footer-class="p-2"
+          @show="updateProduct(currentProduct)">
 
-      <b-modal centered hide-header hide-footer 
-        id="modal-show" 
-        ref="modal-show" 
-        content-class="border-0"
-        v-if="selectedProduct"
-        body-class="p-0" 
-        @show="updateProduct(currentProduct)"
-        >
-        <b-overlay :show="$store.state.products.updating" rounded="sm" spinner-type="grow" spinner-variant="success">
-        <div class="card border-0" style="" >
-          <div class="card-img-top aspect-ratio-box" v-if="currentProduct.photo">
-            <a href="#" class="aspect-ratio-box-inside">
-              <img :src="currentProduct.photo === true ? placeholderImage : currentProduct.photo" :alt="currentProduct.title" >
-            </a>
-          </div>
-          <div class="card-body">
-            <h4 class="card-title"><a :href="currentProduct.url">{{currentProduct.title}}</a></h4>
-            <h5 class="card-title text-secondary">
-              $<b>{{currentProduct.price}}</b>
-              <a :href="'tel:' + phone" v-if="currentProduct.phones.length"  v-for="phone in currentProduct.phones">
-              {{ phone }}
+
+          <button type="button" class="btn back" aria-label="Close" @click.prevent="$bvModal.hide('modal-show')">
+            <x-icon size="1.5x" class="custom-class"></x-icon>
+          </button>
+          <div class="card border-0" style="" >
+            <div class="card-img-top aspect-ratio-box" v-if="currentProduct.photo">
+              <a href="#" class="aspect-ratio-box-inside">
+                <img :src="currentProduct.photo === true ? placeholderImage : currentProduct.photo" :alt="currentProduct.title" >
               </a>
-            </h5>
-            <p class="card-text">
-            </p>
-          </div>
-              <div class="card-footer border-0 d-flex justify-content-around ">
-            <a :href="'tel:' + currentProduct.phones[0]" v-if="currentProduct.phones && currentProduct.phones.length" class="btn btn-link text-success">
-              <b>Llamar</b>
-            </a>            
-              <button class="btn" @click.prevent="hide">Eliminar</button>
-              <button class="btn" @click.prevent="$bvModal.hide('modal-show')">Cerrar</button>
+            </div>
+            <div class="card-body p-3">
+              <div class="">
+                <div class="small text-secondary">
+                  <span class="">{{currentProduct.location}}</span>
+                  <span v-if="currentProduct.date">&bull;</span>
+                  <span class="">{{currentProduct.date}}</span>
+                </div>
+                <div class="">
+                  <a :href="currentProduct.url" target="_black" rel="noopener noreferrer">
+                    <b>{{currentProduct.title}}</b>
+                  </a>
+                  <img :src="'/fav/'+currentProduct.site+'.png'" width="16" class="ml-2">
+                </div>
+                <div class="text-secondary">
+                  $<b>{{currentProduct.price}}</b>
+                  <a :href="'tel:' + phone" v-if="currentProduct.phones.length"  v-for="phone in currentProduct.phones">
+                  {{ phone }}
+                  </a>
+                </div>
+                
               </div>
-        </div>
+            </div>
+            <div class="d-flex justify-content-end text-uppercase p-1">
+                </div>
+          </div>
+            <template v-slot:modal-footer>
+              <button class="btn btn-light text-uppercase ml-2" @click.prevent="hide">Eliminar</button>
+              <a 
+                :href="'tel:' + currentProduct.phones[0]" 
+                v-if="currentProduct.phones && currentProduct.phones.length" 
+                class="btn btn-success">
+                <b>Llamar</b>
+              </a>            
+            </template>          
+        <b-overlay :show="$store.state.products.updating" no-wrap rounded spinner-type="grow" spinner-variant="success">
         </b-overlay>
-      </b-modal>
-
+        </b-modal>
+        
       <div class="row mt-3">
         <div class="col-12 mb-4" > 
-          <button class="btn btn-success btn-block  py-3 border-0" @click="next"><b>Vamos por más</b></button>
+          <button class="btn btn-success btn-block  py-3 border-0" @click="next" :disabled="$store.state.products.searching">
+            <b-spinner type="grow" small v-if="$store.state.products.searching"></b-spinner>   
+            <b>Vamos por más</b>
+          </button>
         </div>
       </div>
 
@@ -96,10 +122,11 @@
           </social-sharing>  
       </div>
 
+           
     </div>
-    <div v-else class="card border-0">
-      <div class="card-body p-4" >
-          Buscando clasificados en Cuba...                
+    <div v-else class="mt-3 card border-0">
+      <div class="card-body p-4 text-center">
+        Vaya!!! No hay resultados.
       </div>
     </div>
 
@@ -110,21 +137,22 @@
 <script>
 // import Details from '~/components/Details';
 import Footbar from '~/components/Footbar';
-import {  CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon } from 'vue-feather-icons'
+import {  CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon, XIcon }  from 'vue-feather-icons'
 import { mapActions } from 'vuex'
 import { mapGetters } from 'vuex'
 import { mapMutations } from 'vuex'
 
 export default {
-  components: { Footbar,CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon  },
-  watchQuery: true, 
+  components: { Footbar,CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon, XIcon },
+  // watchQuery: true, 
+  fetch() {
+    this.$nuxt.context.store.dispatch('products/search', this.$nuxt.context.query );
+  },  
   head() {
     return {
-      htmlAttrs: {
-          class: 'padding-top',
-      }
+      htmlAttrs: { class: 'padding-top' }
     }
-  },
+  },  
   data(){
     return {
       p: 1,
@@ -132,15 +160,13 @@ export default {
       placeholderImage: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFElEQVQIW2MMDQ39z8DAwMAIYwAAKgMD/9AXrvgAAAAASUVORK5CYII='      
     }
   },
-  created() {
-    this.newSearch(this.$route.query)
+  created(){
+    this.searchProducts( this.$route.query );
   },
-  watchQuery (newQuery, oldQuery) {
-    this.newSearch(newQuery)
-    return false
-  },
+  watch: {
+    '$route.query': '$fetch'
+  },  
   computed: {
-    // ...mapGetters({ filteredProducts: 'products/filtered' }),
     ...mapGetters({ productsCount: 'products/productsCount' }),
     ...mapGetters({ hidesCount: 'products/hidesCount' }),
     currentProduct: function() {
@@ -156,10 +182,6 @@ export default {
   methods: {
     ...mapActions({ searchProducts: 'products/search' }),  
     ...mapActions({ updateProduct: 'products/update' }),  
-    newSearch( params ) {
-      this.$store.commit('products/clear')
-      this.searchProducts( params )
-    },
     next() {
       this.p ++;
       this.searchProducts( {...this.$route.query, p: this.p} )
@@ -167,8 +189,11 @@ export default {
     openDetails( product ) {
       this.selectedProduct = product,
       this.$bvModal.show('modal-show')
-      // this.$refs['modal-show'].show()
     },  
+    hide(){
+      this.$bvModal.hide('modal-show')
+      this.$store.commit('products/toggleHide',this.currentProduct)
+    }    
   }
 
 };

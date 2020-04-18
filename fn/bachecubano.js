@@ -6,7 +6,7 @@ const rePhone = /(\+?53)?\s?([1-9][\s-]?){1}(\d[\s-]?){7}/g;
 
 exports.handler =  async (event, context, callback) => {
     var { q, p = 1, pmin = 1, pmax = '', province = 'www' }= event.queryStringParameters;
-    province = province==='' ? 'www' : province
+    province = province ==='' ? 'www' : province
 
     const response = await fetch(`https://${province}.bachecubano.com/search?s=${q}&min_price=${pmin}&max_price=${pmax}&page=${p}`);
     const body = await response.text();

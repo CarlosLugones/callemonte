@@ -4,6 +4,7 @@
 // $dropdown-content-radius: 0;
 $grid-gutter-width: 10px !default;
 $list-group-item-padding-x: .75rem !default;
+$enable-responsive-font-sizes: true;
 
 @import 'bootstrap.scss';
 @import 'bootstrap-vue.scss';
@@ -19,7 +20,12 @@ html {
 a:visited {
   color: #343a40;
 }
-
+.back {
+  position: absolute;
+  right: 0;
+  z-index: 99;
+  background-color: rgba(255,255,255,0.4)
+}
 .blackandwhite {
     filter: gray;
     filter: grayscale(100%);
@@ -67,7 +73,7 @@ a:visited {
 
 // tr .is-phone, tr .is-price { font-weight: 500; }
 html.padding-top {
-  padding-top: 64px;
+  padding-top: 42px;
 }
 
 .custom-switch .custom-control-label::after {

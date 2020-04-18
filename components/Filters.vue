@@ -1,15 +1,14 @@
 <template>
     <div >
-      <button class="btn btn-link text-dark border-0" type="button"  @click.prevent="modalShow = true">
+      <button class="btn btn-link text-white border-0" type="button"  @click.prevent="modalShow = true">
         <FilterIcon></FilterIcon>
       </button>
 
       <b-modal 
-      	hide-footer 
       	hide-header 
       	id="filters-modal" 
       	size="sm" 
-      	content-class="mt-0 border-0"
+      	content-class="border-0"
       	v-model="modalShow"
       	@show="open">
 
@@ -30,12 +29,13 @@
 	            	<option v-for="[key,name] in Object.entries(provinces)" :value="key">{{name}}</option>
 	            </select>
 			</div>        	
-			<div class="row">
-				<button class="btn btn-link btn-block col text-secondary" @click.prevent="modalShow=false">Cancelar</button>
-				<button class="btn btn-link btn-block col" @click.prevent="apply"><b>Aplicar</b></button>
-			</div>
         </div>
-
+        <template v-slot:modal-footer class="p-1">
+			<button class="btn btn-light mr-2"  @click.prevent="modalShow=false">Cancelar</button>
+			<button class="btn btn-success" click.prevent="apply">
+				<b>Aplicar</b>
+			</button>
+        </template>
       </b-modal>  
 
     </div>     	
@@ -74,7 +74,7 @@ export default {
 			this.filters = { ...this.filters, ...this.$route.query }
 		},
 		apply() {
-			if (this.filters.pmin<=0) {
+			if (this.filters.pmin<=	0) {
 				this.filters.pmin=1
 			}
 	        this.$router.push({ 
@@ -85,5 +85,5 @@ export default {
 		}
 	}
 
-}
+};
 </script>
