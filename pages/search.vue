@@ -15,6 +15,12 @@
           v-for="(product,index) in filteredProducts" >
 
           <div class="card-body d-flex align-items-center px-2 py-3">
+<!--             <a href 
+              @click.prevent="$store.commit('products/toggleFavorite',product)" 
+              class="align-baseline mr-2" 
+              :class="product.favorite ? 'text-warning' : ''">
+              <StarIcon size="1.2x"></StarIcon>
+            </a> -->
             <a class="flex-grow-1" href @click.prevent="openDetails(product)" :class="product.updated ? 'text-white' : ''">
               <span class="font-weight-bold">
                 <span class="">$</span>{{ product.price }}
@@ -23,12 +29,12 @@
               <img :src="'/fav/'+product.site+'.png'" width="15" class="ml-1 align-middle">
             </a>
             
-            <div class="actions d-none d-sm-block">
+            <div class="actions d-none d-sm-block ml-3">
               <a href @click.prevent="$store.commit('products/toggleHide',product)" 
-                class="text-decoration-none ml-2" 
+                class="text-decoration-none " 
                 :class="product.updated ? 'text-white' : 'text-secondary'"
                 title="Ocultar este resultado">
-                  <TrashIcon size="1.1x" ></TrashIcon>
+                  <TrashIcon size="1.2x" ></TrashIcon>
               </a>                    
             </div>
           </div>
@@ -49,10 +55,15 @@
       <Social/>
            
     </div>
-    <div v-else class="mt-3 card border-0">
-      <div class="card-body p-4 text-center">
-        Vaya!!! No hay resultados.
+    <div v-else class="mt-3 text-center">
+
+      <b-spinner type="grow" variant="success" v-if="$store.state.products.searching"></b-spinner>   
+      <div class="card border-0" v-else>
+        <div class="card-body p-4 text-center" >
+          Vaya!!! No hay resultados.
+        </div>
       </div>
+
     </div>
 
   </div>
@@ -63,13 +74,13 @@
 import Details from '~/components/Details';
 import Footbar from '~/components/Footbar';
 import Social from '~/components/Social';
-import { TrashIcon }  from 'vue-feather-icons'
+import { TrashIcon, StarIcon }  from 'vue-feather-icons'
 import { mapActions } from 'vuex'
 import { mapGetters } from 'vuex'
 import { mapMutations } from 'vuex'
 
 export default {
-  components: { Footbar, TrashIcon, Social, Details },
+  components: { Footbar, TrashIcon, Social, Details, StarIcon },
   fetch() {
     this.$nuxt.context.store.dispatch('products/search', this.$nuxt.context.query );
   },  

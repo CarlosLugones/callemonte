@@ -64,14 +64,13 @@ export const actions = {
           this.$axios.$get(url)
               .then( response => { 
                 let products = response.forEach( (el,index) => { 
-                  // htmlTitle: el.title.replace( vm.reQuery, "<b>$&</b>" ),
                   el.htmlTitle = el.title
                   el.score = el.title.toLowerCase().score( q.toLowerCase() )
                   el.hide = false
                   el.favorite = false
                   el.site = site
 
-                  if (!state.items.some( i => (i.site+i.price+i.title) === (el.site+el.price+el.title) )) {
+                  if (!state.items.some( i => (i.price+i.title) === (el.price+el.title) )) {
                     commit('add', el);
                   }
 
@@ -80,13 +79,10 @@ export const actions = {
         );
     }
 
-    axios.all(promises).then(()=>{
-      counter++
-      if (counter === sites.length) {
-        commit('setSearching',false)
-      }
+    axios.all(promises).then( () => {
+      commit('setSearching',false)
     });
-    
+
   },
 
   update( {commit, state}, product ) {

@@ -32,7 +32,7 @@
         </div>
         <template v-slot:modal-footer class="p-1">
 			<button class="btn btn-light mr-2"  @click.prevent="modalShow=false">Cancelar</button>
-			<button class="btn btn-success" click.prevent="apply">
+			<button class="btn btn-success" @click.prevent="apply">
 				<b>Aplicar</b>
 			</button>
         </template>
