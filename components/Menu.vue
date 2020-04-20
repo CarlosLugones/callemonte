@@ -1,6 +1,6 @@
 <template>
 	<div class="">
-	    <button class="btn btn-link text-dark border-0 p-0" type="button" v-b-modal.menu-modal >
+	    <button class="btn btn-link text-white border-0" type="button" v-b-modal.menu-modal >
 	    	<MenuIcon></MenuIcon >
 	    </button>
 

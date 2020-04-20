@@ -1,48 +1,78 @@
 <template>
-	<b-modal centered hide-header hide-footer 
+	<b-modal centered 
+		hide-header 
 		id="modal-show" 
-		ref="modal-show" 
-		:lazy="true"
+		ref="modal-show"
+		:lazy="true" 
 		content-class="border-0"
-		body-class="p-0" 
-		@show="updateProduct(product)"
-		>
-		<b-overlay :show="this.$store.state.products.updating" rounded="sm" spinner-type="grow" spinner-variant="success">
-		<div class="card border-0" style="" v-if="ad">
-			<div class="card-img-top aspect-ratio-box" v-if="product.photo">
-				<a href="#" class="aspect-ratio-box-inside">
-					<img :src="product.photo === true ? placeholderImage : product.photo" :alt="product.title" >
-				</a>
-			</div>
-			<div class="card-body">
-				<h4 class="card-title"><a :href="product.url">{{product.title}}</a></h4>
-				<h5 class="card-title text-secondary">
+		body-class="position-static p-0" 
+		footer-class="p-2"
+		@shown="updateProduct(product)">
+
+	  	<button type="button" class="btn back" aria-label="Close" @click.prevent="$bvModal.hide('modal-show')">
+		    <x-icon size="1.5x" class="custom-class"></x-icon>
+	  	</button>
+	  	<div class="card border-0" >
+
+		    <div class="card-img-top aspect-ratio-box" v-if="product.photo">
+		      <a href="#" class="aspect-ratio-box-inside">
+		        <img :src="product.photo === true ? placeholderImage : product.photo" :alt="product.title">
+		      </a>
+		    </div>
+
+		    <div class="card-body p-3">
+
+		        <div class="small text-secondary">
+					<span class="">{{product.location}}</span>
+					<span v-if="product.date">&bull;</span>
+					<span class="">{{product.date}}</span>
+		        </div>
+
+		        <div class="">
+					<a :href="product.url" target="_black" rel="noopener noreferrer">
+						<b>{{product.title}}</b>
+					</a>
+					<img :src="'/fav/'+product.site+'.png'" width="16" class="ml-2">
+		        </div>
+
+		        <div class="text-secondary">
 					$<b>{{product.price}}</b>
 					<a :href="'tel:' + phone" v-if="product.phones.length"  v-for="phone in product.phones">
 					{{ phone }}
 					</a>
-				</h5>
-				<p class="card-text">
-				</p>
-			</div>
-	        <div class="card-footer border-0 d-flex justify-content-around ">
-				<a :href="'tel:' + product.phones[0]" v-if="product.phones && product.phones.length" class="btn btn-link text-success">
-					<b>Llamar</b>
-				</a>	        	
-			    <button class="btn" @click.prevent="hide">Eliminar</button>
-			    <button class="btn" @click.prevent="$bvModal.hide('modal-show')">Cerrar</button>
-	        </div>
+		        </div>
+
+		    </div>
 		</div>
-		</b-overlay>
+
+		<template v-slot:modal-footer>
+			<button class="btn btn-light text-uppercase ml-2" @click.prevent="hide">Eliminar</button>
+			<a 
+			  :href="'tel:' + product.phones[0]" 
+			  v-if="product.phones && product.phones.length" 
+			  class="btn btn-success">
+			  <b>Llamar</b>
+			</a>            
+		</template> 
+
+		 <b-overlay 
+		    :show="$store.state.products.updating" 
+		    no-wrap 
+		    rounded 
+		    spinner-type="grow" 
+		    spinner-variant="success">
+	  	</b-overlay>
+
 	</b-modal>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import { TrashIcon, XIcon }  from 'vue-feather-icons'
 
 export default {
-	props: [ 'ad' ],
-	components: { },
+	props: [ 'selectedProduct' ],
+	components: { TrashIcon, XIcon },
 	data(){
 		return {
 			loading: false,
@@ -50,9 +80,11 @@ export default {
 		}
 	},
 	computed: {
-		product: function() {
-			return this.$store.state.products.items.find( el => el.url === this.ad.url )
-		}
+	    product: function() {
+	      return this.selectedProduct ?
+	                this.$store.state.products.items.find( el => el.url === this.selectedProduct.url ) :
+	                this.$store.state.products.items[0]
+	    }, 
 	},
 	methods: {
 	    ...mapActions({ updateProduct: 'products/update' }),  		

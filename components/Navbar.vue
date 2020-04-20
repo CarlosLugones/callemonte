@@ -1,12 +1,12 @@
 <template>
   <div>
-      <nav class="bg-gray fixed-top py-1 "> 
+      <nav class="bg-secondary fixed-top py-1 "> 
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-md-8">
               <div class="d-flex align-items-center">
                 <div class="form-group w-100 m-0" >
-                  <input class="form-control mr-sm-2 border-0"
+                  <input class="form-control mr-sm-2 border-0 bg-gray"
                     id="searchInput"
                     placeholder="¿Que quieres comprar?" 
                     v-model="q"
