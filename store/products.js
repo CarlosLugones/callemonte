@@ -1,5 +1,6 @@
 require("string_score")
 import Vue from 'vue'
+import axios from 'axios'
 
 export const state = () => ({
   items: [],
@@ -54,40 +55,38 @@ export const actions = {
 
     if (pmin=='') pmin=1
 
-    sites.forEach( site => {
-      let url = `https://callemonte.com/.netlify/functions/${site}?q=${q}&pmin=${pmin}&pmax=${pmax}&p=${p}&province=${province}`
-      this.$axios.$get(url)
-        .then( response => { 
-          let products = response.forEach( (el,index) => { 
-            // htmlTitle: el.title.replace( vm.reQuery, "<b>$&</b>" ),
-            el.htmlTitle = el.title
-            el.score = el.title.toLowerCase().score( q.toLowerCase() )
-            el.hide = false
-            el.favorite = false
-            el.site = site
+    let promises = []; // array to hold all requests promises with their then
 
-            if (!state.items.some( i => (i.site+i.price+i.title) === (el.site+el.price+el.title) )) {
-              commit('add', el);
-            }
+    for (let i = 0; i < sites.length; i++) {
+        let site = sites[i];
+        let url = `https://callemonte.com/.netlify/functions/${site}?q=${q}&pmin=${pmin}&pmax=${pmax}&p=${p}&province=${province}`;
+        promises.push(
+          this.$axios.$get(url)
+              .then( response => { 
+                let products = response.forEach( (el,index) => { 
+                  // htmlTitle: el.title.replace( vm.reQuery, "<b>$&</b>" ),
+                  el.htmlTitle = el.title
+                  el.score = el.title.toLowerCase().score( q.toLowerCase() )
+                  el.hide = false
+                  el.favorite = false
+                  el.site = site
 
-          });
-          counter++
-          if (counter === sites.length) {
-            commit('setSearching',false)
-          }
-          console.log('response')
-        })
-        .catch(e=>{
-          counter++
-          if (counter === sites.length) {
-            commit('setSearching',false)
-          }
+                  if (!state.items.some( i => (i.site+i.price+i.title) === (el.site+el.price+el.title) )) {
+                    commit('add', el);
+                  }
 
-        })
+                })
+              })
+        );
+    }
 
-    })
-
-
+    axios.all(promises).then(()=>{
+      counter++
+      if (counter === sites.length) {
+        commit('setSearching',false)
+      }
+    });
+    
   },
 
   update( {commit, state}, product ) {
