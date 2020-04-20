@@ -49,7 +49,7 @@
           <div class="card border-0" style="" >
             <div class="card-img-top aspect-ratio-box" v-if="currentProduct.photo">
               <a href="#" class="aspect-ratio-box-inside">
-                <img :src="currentProduct.photo === true ? placeholderImage : currentProduct.photo" :alt="currentProduct.title" >
+                <img :src="currentProduct.photo === true ? placeholderImage : currentProduct.photo" :alt="currentProduct.title" @load="onLoadImage">
               </a>
             </div>
             <div class="card-body p-3">
@@ -115,7 +115,7 @@
 
            
     </div>
-    <div v-else class="card border-0">
+    <div v-else class="card border-0" >
       <div class="card-body p-4 text-center">
         Vaya!!! No hay resultados.
       </div>
@@ -135,10 +135,10 @@ import { mapMutations } from 'vuex'
 
 export default {
   components: { Footbar,CameraIcon, TrashIcon, EyeOffIcon, FacebookIcon, TwitterIcon, MailIcon, XIcon },
-  // watchQuery: true, 
-  fetch() {
-    let query = this.$nuxt.context.query
-    this.$nuxt.context.store.dispatch('products/search', query );
+  watchQuery: true, 
+  asyncData({store, query}) {
+    // let query = this.$nuxt.context.query
+    return store.dispatch('products/search', query );
   },  
   head() {
     return {
@@ -152,9 +152,7 @@ export default {
       placeholderImage: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFElEQVQIW2MMDQ39z8DAwMAIYwAAKgMD/9AXrvgAAAAASUVORK5CYII='      
     }
   },
-  watch: {
-    '$route.query': '$fetch'
-  },  
+
   computed: {
     ...mapGetters({ productsCount: 'products/productsCount' }),
     ...mapGetters({ hidesCount: 'products/hidesCount' }),
@@ -186,7 +184,10 @@ export default {
     hide(){
       this.$bvModal.hide('modal-show')
       this.$store.commit('products/toggleHide',this.currentProduct)
-    }    
+    },
+    onLoadImage(){
+      console.log('image loaded')
+    }
   }
 
 };

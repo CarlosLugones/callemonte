@@ -8,6 +8,8 @@ const rePhone = /((5|7)\d{7})|((24|32|33|45)\d{6})/g;
 exports.handler =  async (event, context, callback) => {
     var { q, p = 1, pmin = 1, pmax = '', province = 'cuba' } = event.queryStringParameters;
 
+    province = (province === '') ? 'cuba' : 'prv-' + province;
+
     const response = await fetch(`https://1cuc.com/${province}/search/?ct=0&lt=0&sort=&q=${q}&page=${p}` );
     const body = await response.text();
     const $ = cheerio.load( body );

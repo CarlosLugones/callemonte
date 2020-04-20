@@ -1,7 +1,7 @@
 import pkg from './package'
 
 export default {
-  // mode: 'universal',
+  mode: 'universal',
 
   router: {
     linkActiveClass: 'is-active'
