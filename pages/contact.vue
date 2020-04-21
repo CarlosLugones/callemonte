@@ -1,11 +1,5 @@
 <template>
     <div class="">
-          <div class="d-flex justify-content-center align-items-center mt-5">
-            <span>
-              <img src="/logo.png" width="40">
-            </span>
-            <h1 class="ml-2">CALLEMONTE</h1>
-          </div>         
           <h2 class="title mt-5">Contacto</h2>
           <div class="mb-3">
             <a :href="prevPath" title="Regresar a la búsqueda">&larr; Regresar</a>
