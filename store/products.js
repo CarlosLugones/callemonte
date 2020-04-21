@@ -98,6 +98,7 @@ export const actions = {
             index: indexOfProduct,
             product: {...product}
           })
+          commit('toggleUpdating',false)
       } else {
         let url = `https://callemonte.com/.netlify/functions/details?url=${product.url}`
 
