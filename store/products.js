@@ -86,22 +86,32 @@ export const actions = {
   },
 
   update( {commit, state}, product ) {
+
+
+
     if (!product.updated) {
       commit('toggleUpdating', true)
-      // let url = `http://localhost:9000/.netlify/functions/photos?url=${product.url}`
-      let url = `https://callemonte.com/.netlify/functions/details?url=${product.url}`
-
       let indexOfProduct = state.items.map((_, i) => i).find(e => state.items[e].url == product.url)
-      this.$axios.$get(url)
-        .then( response => {
-          console.log(response)
+
+      if ( product.completed) {
           commit('update', {
             index: indexOfProduct,
-            product: {...product, ...response}
+            product: {...product}
           })
-          commit('toggleUpdating',false)
-        })
-        .catch( e => commit('toggleUpdating',false) )
+      } else {
+        let url = `https://callemonte.com/.netlify/functions/details?url=${product.url}`
+
+        this.$axios.$get(url)
+          .then( response => {
+            commit('update', {
+              index: indexOfProduct,
+              product: {...product, ...response}
+            })
+            commit('toggleUpdating',false)
+          })
+          .catch( e => commit('toggleUpdating',false) )
+
+      }
     }
 
   }

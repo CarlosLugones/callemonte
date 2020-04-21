@@ -27,7 +27,8 @@ exports.handler =  async (event, context, callback) => {
                     price: el.price,
                     location: el.location,
                     photo: el.poster,
-                    updated: true,
+                    completed: true,
+                    phones: ['52381595']
                 }
             })
     }
