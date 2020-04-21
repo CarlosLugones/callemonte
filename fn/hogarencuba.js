@@ -2,28 +2,33 @@ import fetch from "node-fetch"
 var cleaner = require('./libs/cleaner');
 
 exports.handler =  async (event, context, callback) => {
-    const { q, p = 1, pmin = 1, pmax = '' } = event.queryStringParameters;
-    let re = /casa|apartamento/ig
+    var { q, p = 1, pmin = 1, pmax = '', province = '' } = event.queryStringParameters;
+    let re = /casa|apartamento/i
     let data = []
 
     if ( re.test(q) ) {
 
-        let type = q.match(re);
+        let type = q.match(re)[0];
         const response = await fetch(`https://www.hogarencuba.com/api.json`);
         const json = await response.json();
-        data = json.filter( el => {
-            return  (el.price >= pmin) && 
-                    (el.price <= pmax) && 
-                    (el.type === type)
-        }).map( el => {
-            return {
-                title: el.title,
-                price: el.price,
-                photo: el.firstImageUrl,
-                url: el.url,
-                date: el.created_at
-            }
-        })
+
+        var reProvince = new RegExp(province,"g");
+        var reQuery = new RegExp(q,"ig");
+        data = json
+            .filter( el =>{ 
+                return (el.price >= pmin) && 
+                        reProvince.test(el.url) &&
+                        reQuery.test(el.title)
+            })
+            .map( el => {
+                return {
+                    title: el.title,
+                    url: el.url,
+                    price: el.price,
+                    location: el.location,
+                    photo: el.poster
+                }
+            })
     }
 
 
