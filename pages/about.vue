@@ -3,10 +3,6 @@
       <h2 class="title mt-5">
         Nosotros
       </h2>
-      <div class="mb-3">
-        <a :href="prevPath" title="Regresar a la búsqueda">&larr; Regresar</a>
-      </div>
-
       <div class="mb-5">
         <p class="lead text-justify"><b>Callemonte.com</b> <i>(anteriormente unclic.pro)</i> es un buscador de anuncios de productos en sitios de Cuba: <a href="https://www.revolico.com" rel="nofollow" target="_blank">Revolico</a>, <a href="https://www.bachecubano.com"  rel="nofollow" target="_blank">Bachecubano</a>, <a href="https://1cuc.com" rel="nofollow" target="_blank">1cuc</a>, <a href="https://www.timbirichi.com" rel="nofollow" target="_blank">Timbirichi</a> y <a href="https://porlalivre.com" rel="nofollow" target="_blank">Porlalivre</a>,  <a href="https://merolico.app" rel="nofollow" target="_blank">Merolico</a>, <a href="https://hogarencuba.com" rel="nofollow" target="_blank">Hogarencuba</a> y seguiremos incrementando la lista. Si tienes algún sitio que agregar <a href="/contact">contáctenos</a></p>
         <p class="lead">El objetivo de Callemonte es facilitar la búsqueda de lo que necesites comprar.</p>

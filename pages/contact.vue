@@ -1,9 +1,6 @@
 <template>
     <div class="">
           <h2 class="title mt-5">Contacto</h2>
-          <div class="mb-3">
-            <a :href="prevPath" title="Regresar a la búsqueda">&larr; Regresar</a>
-          </div>          
           <div class="card border-0 shadow-sm">
             <div class="card-body">
               
@@ -47,18 +44,10 @@ export default {
   layout: 'pages',
   data(){
     return {
-      prevPath: '',
       email: null,
       msg: null,
       errors: []
     }
   },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.prevPath = from.fullPath
-    })
-  },
-  methods: {
-  }
 }
 </script>
