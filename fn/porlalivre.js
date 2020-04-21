@@ -5,11 +5,30 @@ const moment = require('moment')
 
 const rePhone = /(\+?53)?\s?([1-9][\s-]?){1}(\d[\s-]?){7}/g;
 
+const provinces = { 
+    'pinar-del-rio': 'pinar',
+    'artemisa': 'artemisa',
+    'mayabeque': 'mayabeque',
+    'la-habana': 'habana',
+    'matanzas': 'matanzas',
+    'cienfuegos': 'cienfuegos',
+    'villa-clara': 'villaclara',
+    'sancti-spiritus': 'sanctispiritus',
+    'ciego-de-avila': 'ciego',
+    'camaguey': 'camaguey',
+    'las-tunas': 'tunas',
+    'holguin': 'holguin',
+    'granma': 'granma',
+    'santiago-de-cuba': 'santiago',
+    'guantanamo': 'guantanamo',
+    'isla-de-la-juventud': 'isla',
+}
+
 exports.handler =  async (event, context, callback) => {
     var { q, p = 1, pmin = 1, pmax = '', province = 'www' } = event.queryStringParameters;
-    province = province==='' ? 'cuba' : province
+    let location = province==='' ? 'cuba' : provinces[province]
 
-    const response = await fetch(`https://${province}.porlalivre.com/search/?q=${q}&page=${p}&price_min=${pmin}&price_max=${pmax}`);
+    const response = await fetch(`https://${location}.porlalivre.com/search/?q=${q}&page=${p}&price_min=${pmin}&price_max=${pmax}`);
     const body = await response.text();
     const $ = cheerio.load( body );
 
