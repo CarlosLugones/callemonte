@@ -1,5 +1,6 @@
 import fetch from "node-fetch"
 var cleaner = require('./libs/cleaner');
+const moment = require('moment')
 
 exports.handler =  async (event, context, callback) => {
     var { q, p = 1, pmin = 1, pmax = '', province = '' } = event.queryStringParameters;
@@ -28,7 +29,7 @@ exports.handler =  async (event, context, callback) => {
                     location: el.location,
                     photo: el.poster,
                     completed: true,
-                    phones: ['52381595']
+                    phones: ['52381595'],
                 }
             })
     }

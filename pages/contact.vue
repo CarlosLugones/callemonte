@@ -13,7 +13,7 @@
           <div class="card border-0 shadow-sm">
             <div class="card-body">
               
-            <p class="lead">Escríbeme si tienes alguna sugerencia, si encuentras algún error o solo para felicitarme por esta herramienta que el reconocimiento también me gusta. Te responderé en la mayor brevedad posible. </p>
+            <p class="lead">Escríbanos si tienes alguna sugerencia, si encuentras algún error o solo para felicitarnos que el reconocimiento también nos gusta. Respondemos en cuanto nos conectemos. </p>
             <form name="contact0" method="POST" action="/success" netlify-honeypot="bot-field" data-netlify="true" >
               <p class="d-none">
                 <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
@@ -50,6 +50,7 @@
 
 <script>
 export default {
+  layout: 'pages',
   data(){
     return {
       prevPath: '',

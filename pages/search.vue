@@ -72,7 +72,6 @@
 
 <script>
 import Details from '~/components/Details';
-import Footbar from '~/components/Footbar';
 import Social from '~/components/Social';
 import { TrashIcon, StarIcon }  from 'vue-feather-icons'
 import { mapActions } from 'vuex'
@@ -80,7 +79,7 @@ import { mapGetters } from 'vuex'
 import { mapMutations } from 'vuex'
 
 export default {
-  components: { Footbar, TrashIcon, Social, Details, StarIcon },
+  components: { TrashIcon, Social, Details, StarIcon },
   fetch() {
     this.$nuxt.context.store.dispatch('products/search', this.$nuxt.context.query );
   },  

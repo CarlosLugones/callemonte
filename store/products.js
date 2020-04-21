@@ -10,7 +10,12 @@ export const state = () => ({
 
 export const mutations = {
 
-  add( state, product ){
+  add( state, payload ){
+    let product = { 
+      ...payload, 
+      hide: false,
+      favorite: false,
+    }
     state.items.push( product )
   },
 
@@ -66,8 +71,6 @@ export const actions = {
                 let products = response.forEach( (el,index) => { 
                   el.htmlTitle = el.title
                   el.score = el.title.toLowerCase().score( q.toLowerCase() )
-                  el.hide = false
-                  el.favorite = false
                   el.site = site
 
                   if (!state.items.some( i => (i.price+i.title) === (el.price+el.title) )) {

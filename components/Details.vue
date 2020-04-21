@@ -46,7 +46,7 @@
 		</div>
 
 		<template v-slot:modal-footer>
-			<button class="btn btn-light text-uppercase ml-2" @click.prevent="hide">Eliminar</button>
+			<button class="btn btn-light ml-2" @click.prevent="hide">Eliminar</button>
 			<a 
 			  :href="'tel:' + product.phones[0]" 
 			  v-if="product.phones && product.phones.length" 
