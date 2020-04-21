@@ -7,7 +7,7 @@ Sugar.Date.setLocale('es');
 
 exports.handler =  async (event, context, callback) => {
     const { url } = event.queryStringParameters
-    var date,location,phones,photos = [];
+    var date,location,phones,photos;
     const provinces = /La Habana|Artemisa|Mayabeque|Matanza/
 
     try {
